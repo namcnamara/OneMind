@@ -1,0 +1,213 @@
+[gd_scene load_steps=20 format=3 uid="uid://dncql3pl13av8"]
+
+[ext_resource type="Texture2D" uid="uid://bc02cdphok230" path="res://Sprites/capWorkerSpriteSheet.png" id="1_8nnph"]
+[ext_resource type="Script" uid="uid://d0vbbgopkxgwi" path="res://scripts/red_cap.cs" id="1_k7rwy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k7rwy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvo8x"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nt7tv"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkbop"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8g28m"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu6yb"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5sj3"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p54pr"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyxtu"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt31e"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h085"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tprea"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gh0h"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvl8o"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg5qf"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ek0e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvo8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt7tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g28m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g28m")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5sj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p54pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyxtu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5sj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyxtu")
+}],
+"loop": true,
+"name": &"sleep_left",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt31e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h085")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tprea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt31e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tprea")
+}],
+"loop": true,
+"name": &"sleep_right",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvo8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt7tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gh0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt7tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gh0h")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g28m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvl8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xg5qf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g28m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvl8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xg5qf")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k7rwy"]
+radius = 0.157513
+height = 0.34478
+
+[node name="red_cap" type="Node3D"]
+
+[node name="red_cap_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326348, 0)
+physics_material_override = SubResource("PhysicsMaterial_k7rwy")
+script = ExtResource("1_k7rwy")
+
+[node name="red_cap_anim" type="AnimatedSprite3D" parent="red_cap_rigid"]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_6ek0e")
+animation = &"sleep_left"
+frame_progress = 0.459745
+
+[node name="red_cap_collide" type="CollisionShape3D" parent="red_cap_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.171388, 0)
+shape = SubResource("CapsuleShape3D_k7rwy")
+debug_color = Color(0.431419, 0.487355, 0.916624, 0.42)
