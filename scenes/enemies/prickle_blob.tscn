@@ -1,13 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8a2isnjqi43l"]
+[gd_scene load_steps=20 format=3 uid="uid://c8a2isnjqi43l"]
 
 [ext_resource type="Script" uid="uid://n83hv4ubkkmc" path="res://scripts/PrickleBlob.cs" id="1_ypy2t"]
 [ext_resource type="Texture2D" uid="uid://y20ylk7m444" path="res://Sprites/blobSpriteSheet.png" id="2_cb4ca"]
+[ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_cb4ca"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ypy2t"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cb4ca"]
+friction = 0.2
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ypy2t"]
-radius = 0.0713252
-height = 0.14265
+[sub_resource type="BoxShape3D" id="BoxShape3D_cb4ca"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05as6"]
 atlas = ExtResource("2_cb4ca")
@@ -224,16 +224,26 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_ypy2t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cb4ca"]
+render_priority = 0
+shader = ExtResource("3_cb4ca")
+shader_parameter/radius = 0.187
+shader_parameter/opacity = 1.0
+
 [node name="prickle_blob" type="Node3D"]
 
 [node name="prickle_blob_rigid" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.108129, 0)
-physics_material_override = SubResource("PhysicsMaterial_ypy2t")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117395, 0)
+physics_material_override = SubResource("PhysicsMaterial_cb4ca")
+can_sleep = false
+lock_rotation = true
 script = ExtResource("1_ypy2t")
 
 [node name="p_blob_collide" type="CollisionShape3D" parent="prickle_blob_rigid"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0277252, 0)
-shape = SubResource("CapsuleShape3D_ypy2t")
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, -0.0277252, 0)
+shape = SubResource("BoxShape3D_cb4ca")
 debug_color = Color(0.268539, 0.534764, 0.89554, 0.42)
 
 [node name="blob" type="AnimatedSprite3D" parent="prickle_blob_rigid"]
@@ -244,3 +254,8 @@ animation = &"rest_1"
 autoplay = "rest_1"
 frame = 3
 frame_progress = 0.737395
+
+[node name="Shadow" type="MeshInstance3D" parent="prickle_blob_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.0905924)
+mesh = SubResource("PlaneMesh_ypy2t")
+surface_material_override/0 = SubResource("ShaderMaterial_cb4ca")

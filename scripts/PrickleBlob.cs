@@ -3,12 +3,15 @@ using System;
 
 public partial class PrickleBlob : RigidBody3D
 {
-	//Physics properties
+	// Physics stuff
 	[Export] public float bumpDistance = 1.0f;
 	[Export] public float bumpStrength = 3.0f;
-	[Export] public float detectionRadius = 5f;
-	[Export] public float moveSpeed = 1f;
+	[Export] public float detectionRadius = 10f;
+	[Export] public float moveSpeed = 60f;
 	[Export] public float velocityThreshold = 0.01f;
+	[Export] public float maxSpeed = 1f; 
+	[Export] public float dampeningFactor = 0.9f;
+
 	// Flags and Placeholders
 	private Node3D player;
 	private bool chasing = false;
@@ -17,52 +20,68 @@ public partial class PrickleBlob : RigidBody3D
 	private CollisionShape3D collisionShape;
 	private Vector3 direction;
 	public float health = 100;
-	
+
+	// Wandering timer 
+	private float wanderTimer = 0f;
+	private float wanderCooldown = 2f;
 
 	public override void _Ready()
 	{
-		// Initialize the animated sprite and collision shape
 		animatedSprite = GetNode<AnimatedSprite3D>("blob");
 		collisionShape = GetNode<CollisionShape3D>("p_blob_collide");
 		collisionShape.Shape.Margin = 0.05f;
-		
-		player =  (Node3D)GetTree().Root.FindChild("hugo", true, false);
-
-		// Initial direction of the blob
+		player =  (Node3D)GetTree().Root.FindChild("hugo_char", true, false);
 		direction = new Vector3(1, 0, 0);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		AxisLockAngularY = true;
 		float distanceToPlayer = GlobalPosition.DistanceTo(player.GlobalPosition);
 		bool in_chasing_distance = distanceToPlayer < detectionRadius;
 		if (in_chasing_distance)
 		{
-			direction = (player.GlobalPosition - GlobalPosition).Normalized();
+			// Move toward the player, but apply negative direction to "chase"
+			direction = -1f * (player.GlobalPosition - GlobalPosition).Normalized();
 		}
 		else
 		{
-			random_move();
+			// If out of range, randomly wander
+			wanderTimer -= (float)delta;  
+
+			if (wanderTimer <= 0)
+			{
+				random_move();
+				wanderTimer = wanderCooldown; 
+			}
 		}
 
-		// Update position manually based on the movement speed
-		ApplyCentralForce(direction * moveSpeed);
+		// Apply movement force
+		if (direction.Length() > velocityThreshold) 
+			{ApplyCentralForce(direction * moveSpeed);}
+		else 	
+			{LinearVelocity = LinearVelocity * dampeningFactor;}
 
-		// Optionally change direction randomly
+		// Clamp velocity to max speed
+		if (LinearVelocity.Length() > maxSpeed)
+		{
+			LinearVelocity = LinearVelocity.Normalized() * maxSpeed;
+		}
+
+		// Play idle animation when not moving
 		animatedSprite.Play("rest_2");
 	}
 
 	private void random_move()
 	{
-		// Randomly change the direction vector in x and z
+		// Randomly change the direction vector in x and z (no movement in y)
 		direction = new Vector3((float)(random.NextDouble() * 2 - 1), 0, (float)(random.NextDouble() * 2 - 1)).Normalized();
 	}
 	
-	
 	private void blob_attack()
 	{
-		//Decide which side hugo is on
-		// use left or right attack depending
-		//move away
+		// Decide which side hugo is on
+		// Use left or right attack depending
+		// Move away
 	}
 }

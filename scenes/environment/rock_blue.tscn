@@ -1,0 +1,106 @@
+[gd_scene load_steps=10 format=3 uid="uid://8tot7ipvrjs7"]
+
+[ext_resource type="Script" uid="uid://cf6kq3jh32sny" path="res://scripts/rock_blue.cs" id="1_rurbd"]
+[ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_ju2en"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ps8k6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ps8k6"]
+height = 1.1
+radius = 0.3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rurbd"]
+atlas = ExtResource("2_ju2en")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju2en"]
+atlas = ExtResource("2_ju2en")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agd07"]
+atlas = ExtResource("2_ju2en")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3suw"]
+atlas = ExtResource("2_ju2en")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_amh3y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rurbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju2en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agd07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3suw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rurbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju2en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agd07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3suw")
+}],
+"loop": true,
+"name": &"type_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju2en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agd07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3suw")
+}],
+"loop": true,
+"name": &"type_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rurbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju2en")
+}],
+"loop": true,
+"name": &"type_3",
+"speed": 5.0
+}]
+
+[node name="rock_blue" type="Node3D"]
+
+[node name="rock_blue_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31168, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_ps8k6")
+script = ExtResource("1_rurbd")
+
+[node name="rock_blue_collide" type="CollisionShape3D" parent="rock_blue_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.743988, -0.075)
+shape = SubResource("CylinderShape3D_ps8k6")
+
+[node name="rock_blue_anim" type="AnimatedSprite3D" parent="rock_blue_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0425541, 0, 0)
+sprite_frames = SubResource("SpriteFrames_amh3y")
+animation = &"type_1"
+frame_progress = 0.111018

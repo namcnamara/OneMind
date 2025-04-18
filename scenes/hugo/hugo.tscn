@@ -1,7 +1,8 @@
-[gd_scene load_steps=59 format=3 uid="uid://df6vlcbd78dvn"]
+[gd_scene load_steps=62 format=3 uid="uid://df6vlcbd78dvn"]
 
 [ext_resource type="Script" uid="uid://crk6fxunhs26r" path="res://scripts/HugoBody3d.cs" id="1_nlv0l"]
 [ext_resource type="Texture2D" uid="uid://bgwurcpgn1r5" path="res://Sprites/HugoSpriteAtlas1.0.png" id="2_veulp"]
+[ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_veulp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mnpp"]
 radius = 0.151262
@@ -553,21 +554,38 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="hugo" type="CharacterBody3D"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_8v7tg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10etu"]
+render_priority = 0
+shader = ExtResource("3_veulp")
+shader_parameter/radius = 0.187
+shader_parameter/opacity = 1.0
+
+[node name="hugo" type="Node3D"]
+
+[node name="hugo_char" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36118, 0)
 script = ExtResource("1_nlv0l")
 
-[node name="hugo_collide" type="CollisionShape3D" parent="."]
+[node name="hugo_collide" type="CollisionShape3D" parent="hugo_char"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.104219, 0)
 shape = SubResource("CapsuleShape3D_4mnpp")
 debug_color = Color(0.293508, 0.497039, 1, 0.42)
 
-[node name="hugo_anim" type="AnimatedSprite3D" parent="."]
+[node name="hugo_anim" type="AnimatedSprite3D" parent="hugo_char"]
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_6sexa")
 animation = &"walk_left"
 autoplay = "idle_front"
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.960016, 0.279946, 0, -0.279946, 0.960016, 0, 1.3666, 4.36214)
+[node name="Camera3D" type="Camera3D" parent="hugo_char"]
+transform = Transform3D(1, 0, 0, 0, 0.874882, 0.484337, 0, -0.484337, 0.874882, 0, 3.58278, 6.31491)
 fov = 45.0
 near = 0.01
+
+[node name="Shadow" type="MeshInstance3D" parent="hugo_char"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.343476, 0.103631)
+mesh = SubResource("PlaneMesh_8v7tg")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_10etu")

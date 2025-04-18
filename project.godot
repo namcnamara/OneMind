@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="OneMind"
-run/main_scene="uid://bmrqqb3e6hbtf"
+run/main_scene="uid://5jm88qq8qwfl"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Sprites/icon.svg"
 
 [dotnet]
 

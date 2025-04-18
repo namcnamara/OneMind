@@ -1,0 +1,112 @@
+[gd_scene load_steps=13 format=3 uid="uid://w4fe2fecf22"]
+
+[ext_resource type="Script" uid="uid://dli77bkp8gs67" path="res://scripts/bush_berry.cs" id="1_ccx31"]
+[ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_34ahx"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sfqic"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwgtq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouq6w"]
+atlas = ExtResource("2_34ahx")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhxmb"]
+atlas = ExtResource("2_34ahx")
+region = Rect2(768, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lljk3"]
+atlas = ExtResource("2_34ahx")
+region = Rect2(768, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne1nx"]
+atlas = ExtResource("2_34ahx")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qd0u"]
+atlas = ExtResource("2_34ahx")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpyk5"]
+atlas = ExtResource("2_34ahx")
+region = Rect2(768, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7msg"]
+atlas = ExtResource("2_34ahx")
+region = Rect2(768, 1536, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i1ryt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouq6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhxmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lljk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhxmb")
+}],
+"loop": true,
+"name": &"type_1",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne1nx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouq6w")
+}],
+"loop": true,
+"name": &"type_2",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qd0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouq6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne1nx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouq6w")
+}],
+"loop": true,
+"name": &"type_3",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpyk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7msg")
+}],
+"loop": true,
+"name": &"type_4",
+"speed": 1.0
+}]
+
+[node name="bush_berry" type="Node3D"]
+
+[node name="bush_berry_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27446, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_sfqic")
+script = ExtResource("1_ccx31")
+
+[node name="bush_berry_collide" type="CollisionShape3D" parent="bush_berry_rigid"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.945539, -0.075)
+shape = SubResource("BoxShape3D_rwgtq")
+
+[node name="bush_berry_anim" type="AnimatedSprite3D" parent="bush_berry_rigid"]
+sprite_frames = SubResource("SpriteFrames_i1ryt")
+animation = &"type_4"
+frame_progress = 0.888491

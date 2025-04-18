@@ -3,83 +3,114 @@ using System;
 
 public partial class red_cap : RigidBody3D
 {
-	//Physics properties
+	// Physics properties
 	[Export] public float bumpDistance = 1.0f;
 	[Export] public float bumpStrength = 3.0f;
 	[Export] public float detectionRadius = 5f;
-	[Export] public float moveSpeed = 1f;
+	[Export] public float moveSpeed = 6f;
 	[Export] public float velocityThreshold = 0.01f;
-	
-	// Flags and Placeholders
-	private Node3D player;
+	[Export] public float maxSpeed = 2f;  
+	[Export] public float dampeningFactor = 0.9f;  
+
+	// Flags and placeholders
+	private Node3D player;  // Hugo's reference
 	private bool chasing = false;
 	private Random random = new Random();
+	private Vector3 direction = Vector3.Zero;
 	private Vector3 lastDirection = Vector3.Zero;
+
 	private AnimatedSprite3D animatedSprite;
 	private CollisionShape3D collisionShape;
-	private Vector3 direction;
+	
+	// Wandering timer
+	private float wanderTimer = 0f;
+	private float wanderCooldown = 5f;
+
 	public float health = 100;
-	
-	public int sleep_timer = 10;
-	
 
 	public override void _Ready()
 	{
-		// Initialize the animated sprite and collision shape
 		animatedSprite = GetNode<AnimatedSprite3D>("red_cap_anim");
 		collisionShape = GetNode<CollisionShape3D>("red_cap_collide");
 		collisionShape.Shape.Margin = 0.05f;
-		
-		player =  (Node3D)GetTree().Root.FindChild("hugo", true, false);
-
-		// Initial direction of the blob
+		player =  (Node3D)GetTree().Root.FindChild("hugo_char", true, false);
 		direction = new Vector3(1, 0, 0);
 	}
 
 	public override void _PhysicsProcess(double delta)
+{
+	
+	AxisLockAngularY = true;
+	float distanceToPlayer = GlobalPosition.DistanceTo(player.GlobalPosition);
+	bool in_chasing_distance = distanceToPlayer < detectionRadius;
+	direction = control_movement(in_chasing_distance, delta);
+	animate_red_cap(direction);
+	lastDirection = direction;
+	
+}
+
+	private Vector3 random_move()
 	{
-		float distanceToPlayer = GlobalPosition.DistanceTo(player.GlobalPosition);
-		bool in_chasing_distance = distanceToPlayer < detectionRadius;
-		if (in_chasing_distance)
+		return new Vector3(
+			(float)(random.NextDouble() * 2 - 1),
+			0,
+			(float)(random.NextDouble() * 2 - 1)
+		).Normalized();
+	}
+
+	private void animate_red_cap(Vector3 dir)
+	{
+		if (LinearVelocity == Vector3.Zero)
 		{
-			direction = (player.GlobalPosition - GlobalPosition).Normalized();
-			animate_red_cap(direction);
-			lastDirection = direction;
+			if (lastDirection.X > 0)
+				{animatedSprite.Play("sleep_right");}
+			else
+				{animatedSprite.Play("sleep_left");}
+		}
+		else if (dir.X > 0)
+		{
+			animatedSprite.Play("walk_right");
+		}
+		else if (dir.X < 0)
+		{
+			animatedSprite.Play("walk_left");
 		}
 		else
 		{
-			random_move();
+			// Idle animation based on the last direction
+			if (lastDirection.X > 0)
+				animatedSprite.Play("idle_right");
+			else
+				animatedSprite.Play("idle_left");
 		}
-
-		// Update position manually based on the movement speed
-		ApplyCentralForce(direction * moveSpeed);
-
-		if (direction == Vector3.Zero && lastDirection == Vector3.Zero)
-		{animatedSprite.Play("sleep_1");}
-		
-	}
-
-	private void random_move()
-	{
-		// Randomly change the direction vector in x OR z
-		// 
-		// decider = random.nextDouble()
-		direction = new Vector3((float)(random.NextDouble() * 2 - 1), 0, (float)(random.NextDouble() * 2 - 1)).Normalized();
-
 	}
 	
-	public void animate_red_cap(Vector3 direction)
+	private Vector3 control_movement(bool in_chasing_distance, double delta)
 	{
-		if (direction.X > 0){animatedSprite.Play("walk_right");}
-		else if (direction.X < 0){animatedSprite.Play("walk_left");}
-		else if (direction.Z > 0){animatedSprite.Play("walk_right");}
-		else if (direction.Z < 0){animatedSprite.Play("walk_left");}
-		else
-		// Idle depending on size
-		{
-			if (lastDirection.X > 0) {animatedSprite.Play("idle_right");}
-			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left");}
-			else {animatedSprite.Play("sleep_2");}
+		
+		if (in_chasing_distance){
+			Mass = 1f;
+			// Update the direction to move towards the current position of Hugo (not the initial one)
+			direction = 3f * (player.GlobalPosition - GlobalPosition).Normalized();
 		}
+		else{
+			Mass = 100f;
+			LinearVelocity =  Vector3.Zero;
+		}
+
+		// Apply movement force
+		if (direction.Length() > velocityThreshold){
+			ApplyCentralForce(direction * moveSpeed);
+		}
+		else{
+			LinearVelocity = LinearVelocity * dampeningFactor;
+		}
+
+		// Clamp velocity to max speed
+		if (LinearVelocity.Length() > maxSpeed){
+			LinearVelocity = LinearVelocity.Normalized() * maxSpeed;
+		}
+		lastDirection = direction;
+		return direction;
 	}
 }

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu02sicn06f8s"]
+
+[ext_resource type="Shader" uid="uid://cn2gro3jjxqrg" path="res://shaders/basic_grass.gdshader" id="1_5f687"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m3wy8"]
+render_priority = 0
+shader = ExtResource("1_5f687")
+
+[sub_resource type="QuadMesh" id="QuadMesh_56njm"]
+material = SubResource("ShaderMaterial_m3wy8")
+size = Vector2(100, 100)
+orientation = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_56njm"]
+size = Vector3(100, 0.2, 100)
+
+[node name="grassFloor" type="Node3D"]
+
+[node name="floor_static" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+
+[node name="floor_mesh" type="MeshInstance3D" parent="floor_static"]
+mesh = SubResource("QuadMesh_56njm")
+skeleton = NodePath("../..")
+
+[node name="SubViewport" type="SubViewport" parent="floor_static/floor_mesh"]
+
+[node name="floor_collide" type="CollisionShape3D" parent="floor_static"]
+shape = SubResource("BoxShape3D_56njm")

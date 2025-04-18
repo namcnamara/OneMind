@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://kwlyfgwp0g7"]
+
+[ext_resource type="Script" uid="uid://2qmcyj61eykm" path="res://scripts/bush_goop.cs" id="1_18v6r"]
+[ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_oit1u"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f7diu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uehhq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2eole"]
+atlas = ExtResource("2_oit1u")
+region = Rect2(0, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqkeh"]
+atlas = ExtResource("2_oit1u")
+region = Rect2(0, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf6mr"]
+atlas = ExtResource("2_oit1u")
+region = Rect2(0, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngnj4"]
+atlas = ExtResource("2_oit1u")
+region = Rect2(0, 1792, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g1ivh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2eole")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqkeh")
+}],
+"loop": true,
+"name": &"type_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bf6mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngnj4")
+}],
+"loop": true,
+"name": &"type_2",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqkeh")
+}],
+"loop": true,
+"name": &"type_3",
+"speed": 5.0
+}]
+
+[node name="bush_goop" type="Node3D"]
+
+[node name="bush_goop_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27446, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_f7diu")
+script = ExtResource("1_18v6r")
+
+[node name="bush_goop_collide" type="CollisionShape3D" parent="bush_goop_rigid"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.945539, -0.075)
+shape = SubResource("BoxShape3D_uehhq")
+
+[node name="bush_goop_anim" type="AnimatedSprite3D" parent="bush_goop_rigid"]
+sprite_frames = SubResource("SpriteFrames_g1ivh")
+animation = &"type_2"
