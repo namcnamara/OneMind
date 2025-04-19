@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://cqsgc7rmsrdpp"]
+
+[ext_resource type="Script" uid="uid://c37qq8adppma0" path="res://scripts/goop_well.cs" id="1_n3pcy"]
+[ext_resource type="Texture2D" uid="uid://bddw2mnd3jpho" path="res://Sprites/building_goop_well.png" id="2_n3pcy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_roi12"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3pcy"]
+size = Vector3(2.19348, 1.34225, 0.550842)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5nsa"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxxfq"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttbej"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m4qf"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqlih"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io1e6"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y7lj"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gg2na"]
+atlas = ExtResource("2_n3pcy")
+region = Rect2(0, 1536, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b2pk7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5nsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxxfq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttbej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4m4qf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqlih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_io1e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y7lj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gg2na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxxfq")
+}],
+"loop": false,
+"name": &"produce",
+"speed": 7.0
+}]
+
+[node name="goop_well" type="Node3D"]
+
+[node name="goop_well_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2781, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_roi12")
+script = ExtResource("1_n3pcy")
+
+[node name="goop_well_collide" type="CollisionShape3D" parent="goop_well_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0492963, -0.542472, -0.0163147)
+shape = SubResource("BoxShape3D_n3pcy")
+
+[node name="goop_well_anim" type="AnimatedSprite3D" parent="goop_well_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0231688, 0)
+sprite_frames = SubResource("SpriteFrames_b2pk7")
+animation = &"produce"
+frame = 6
+frame_progress = 1.0

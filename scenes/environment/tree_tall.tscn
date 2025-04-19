@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://bncrh8fe8tibn"]
+
+[ext_resource type="Script" uid="uid://b4g7c0r7qegjn" path="res://scripts/tree_tall.cs" id="1_orhq1"]
+[ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_5lceq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ps8k6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ps8k6"]
+height = 2.47607
+radius = 0.368164
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82moy"]
+atlas = ExtResource("2_5lceq")
+region = Rect2(256, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cajtj"]
+atlas = ExtResource("2_5lceq")
+region = Rect2(256, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvjb8"]
+atlas = ExtResource("2_5lceq")
+region = Rect2(256, 1536, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q382i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82moy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cajtj")
+}],
+"loop": true,
+"name": &"type_1",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvjb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cajtj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cajtj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvjb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cajtj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cajtj")
+}],
+"loop": true,
+"name": &"type_2",
+"speed": 2.0
+}]
+
+[node name="tree_tall" type="Node3D"]
+
+[node name="tree_tall_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41811, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_ps8k6")
+script = ExtResource("1_orhq1")
+
+[node name="tree_tall_collide" type="CollisionShape3D" parent="tree_tall_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0350751, 0.0926465, -0.075)
+shape = SubResource("CylinderShape3D_ps8k6")
+
+[node name="tree_tall_anim" type="AnimatedSprite3D" parent="tree_tall_rigid"]
+sprite_frames = SubResource("SpriteFrames_q382i")
+animation = &"type_2"
+frame_progress = 0.267427
