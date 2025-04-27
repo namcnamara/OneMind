@@ -13,7 +13,7 @@ public partial class PrickleBlob : RigidBody3D
 	[Export] public float dampeningFactor = 0.9f;
 
 	// Flags and Placeholders
-	private Node3D player;
+	private HugoBody3d player;
 	private bool chasing = false;
 	private Random random = new Random();
 	private AnimatedSprite3D animatedSprite;
@@ -30,7 +30,7 @@ public partial class PrickleBlob : RigidBody3D
 		animatedSprite = GetNode<AnimatedSprite3D>("blob");
 		collisionShape = GetNode<CollisionShape3D>("p_blob_collide");
 		collisionShape.Shape.Margin = 0.05f;
-		player =  (Node3D)GetTree().Root.FindChild("hugo_char", true, false);
+		player =  (HugoBody3d)GetTree().Root.FindChild("hugo_char", true, false);
 		direction = new Vector3(1, 0, 0);
 	}
 

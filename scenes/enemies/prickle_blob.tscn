@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://c8a2isnjqi43l"]
 
-[ext_resource type="Script" uid="uid://n83hv4ubkkmc" path="res://scripts/PrickleBlob.cs" id="1_ypy2t"]
+[ext_resource type="Script" uid="uid://n83hv4ubkkmc" path="res://scripts/enemies/PrickleBlob.cs" id="1_ypy2t"]
 [ext_resource type="Texture2D" uid="uid://y20ylk7m444" path="res://Sprites/blobSpriteSheet.png" id="2_cb4ca"]
 [ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_cb4ca"]
 

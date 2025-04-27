@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://dncql3pl13av8"]
 
 [ext_resource type="Texture2D" uid="uid://bc02cdphok230" path="res://Sprites/capWorkerSpriteSheet.png" id="1_8nnph"]
-[ext_resource type="Script" path="res://scripts/red_cap.cs" id="1_k7rwy"]
+[ext_resource type="Script" uid="uid://d0vbbgopkxgwi" path="res://scripts/enemies/red_cap.cs" id="1_rvo8x"]
 [ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_rvo8x"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k7rwy"]
@@ -210,14 +210,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326348, 0)
 physics_material_override = SubResource("PhysicsMaterial_k7rwy")
 can_sleep = false
 lock_rotation = true
-script = ExtResource("1_k7rwy")
-bumpDistance = null
-bumpStrength = null
-detectionRadius = null
-moveSpeed = null
-velocityThreshold = null
-maxSpeed = null
-dampeningFactor = null
+script = ExtResource("1_rvo8x")
 
 [node name="red_cap_anim" type="AnimatedSprite3D" parent="red_cap_rigid"]
 billboard = 1

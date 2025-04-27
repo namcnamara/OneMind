@@ -3,25 +3,29 @@ using System;
 
 public partial class HudLayer : CanvasLayer
 {
-	private TextureProgressBar healthBar;
-	private Label healthLabel;
-	private Label gloopLabel;
+	private TextureProgressBar healthProgressBar;
+	private Label healthLabelText;
+	private Label gloopLabelText;
 
 	public override void _Ready()
 	{
-		healthBar = GetNode<TextureProgressBar>("TopLeftPanel/ItemList/HBOXHealth/HealthBar");
-		healthLabel = GetNode<Label>("TopLeftPanel/ItemList/HBOXHealth/HealthBar/HealthLabel");
-		gloopLabel = GetNode<Label>("TopLeftPanel/ItemList/HBOXGloop/GloopLabel");
+		healthProgressBar = GetNode<TextureProgressBar>("TopLeftPanel/ItemList/HBOXHealth/HealthBar");
+		healthLabelText = GetNode<Label>("TopLeftPanel/ItemList/HBOXHealth/HealthBar/HealthLabel");
+		gloopLabelText = GetNode<Label>("TopLeftPanel/ItemList/HBOXGloop/GloopLabel");
+		UpdateHealth(100);
+		UpdateGloop(5);
 	}
 
-	public void SetHealth(int health)
+	public void UpdateHealth(int health)
 	{
-		healthBar.Value = health;
-		healthLabel.Text = $"Health: {health}";
+		health = Mathf.Clamp(health, 0, 100); 
+		healthProgressBar.Value = health;
+		healthLabelText.Text = $"Health: {health}";
 	}
 
-	public void SetGloop(int gloop)
+	public void UpdateGloop(int gloop)
 	{
-		gloopLabel.Text = gloop.ToString();
+		gloop = Mathf.Clamp(gloop, 0, 10); 
+		gloopLabelText.Text = gloop.ToString();
 	}
 }

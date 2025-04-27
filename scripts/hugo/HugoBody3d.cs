@@ -14,10 +14,13 @@ public partial class HugoBody3d: CharacterBody3D
 	public bool HEAD = false;
 	private int jumpCount = 0;
 	private int maxJumps = 2;
+	public string state = "head";
+	private bool isStuck = false;
+	private float transform_timer = 0.0f;
 	
 	// Physics stuff
 	[Export]
-	public float Speed = 5.0f;
+	public float Speed = 6.0f;
 	[Export]
 	public float GRAVITY = -29.8f; //9.8 feels way to slow, unless we turn up hugo's mass gets turned up a bit
 	[Export]
@@ -26,34 +29,47 @@ public partial class HugoBody3d: CharacterBody3D
 	private HudLayer hud;
 	private Vector3 lastDirection = Vector3.Zero;
 	
-	
+
 	public override void _Ready()
 	{
 		animatedSprite = GetNode<AnimatedSprite3D>("hugo_anim");
 		hud = GetParent().GetNode<HudLayer>("HUDLayer");
 		updateHUD();
-		
-		hud = GetParent().GetNode<HudLayer>("HUDLayer");
-		hud.SetHealth(HEALTH);
-		hud.SetGloop(GLOOP_MASS);
+		isStuck = false;
 	}
 	
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		handle_transform();
+		// Add other time-taking actions like spawning goops
+		if (isStuck)
+			transform_timer -= (float)delta;
+			if (transform_timer > 0)
+				return; 
+			else
+				isStuck = false;
+
 		if (IsOnFloor())
 			jumpCount = 0;
+
 		Vector3 gravity = add_gravity(delta);
 		gravity = handle_jump(gravity);
 		
 		Vector3 direction = get_input_direction();
 		if (direction != Vector3.Zero)
-		{
 			lastDirection = direction;
-		}
-		// Move
+
 		Vector3 velocity = move_basic(direction, gravity);
-		animate_basic(direction);
+
+		if (state == "head")
+			animate_head(direction);
+		else if (state == "hugo")
+			animate_hugo(direction);
+		else if (state == "hippo")
+			animate_hippo(direction);
+		// Display any changes to player
+		updateHUD();
 	}
 	
 	public Vector3 get_input_direction()
@@ -85,19 +101,55 @@ public partial class HugoBody3d: CharacterBody3D
 		return velocity;
 	}
 	
-	public void animate_basic(Vector3 direction)
-	{//Other animations are handled in the action specific function
-		if (direction.X > 0){animatedSprite.Play("walk_right");}
-		else if (direction.X < 0){animatedSprite.Play("walk_left");}
-		else if (direction.Z > 0){animatedSprite.Play("walk_front");}
-		else if (direction.Z < 0){animatedSprite.Play("walk_back");}
+	public void animate_hugo(Vector3 direction)
+	{//Facings for hugo
+		//If there is some minimum velocity:
+		if (Math.Abs(direction.X) + Math.Abs(direction.Z) > 0.3f)
+		{
+			if (direction.X > 0){animatedSprite.Play("walk_right");}
+			else if (direction.X < 0){animatedSprite.Play("walk_left");}
+			else if (direction.Z > 0){animatedSprite.Play("walk_front");}
+			else if (direction.Z < 0){animatedSprite.Play("walk_back");}
+		}
 		else
 		{
-			if (lastDirection.X > 0) {animatedSprite.Play("idle_right");}
-			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left");}
-			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front");}
-			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back");}
-			else {animatedSprite.Play("idle_front");}
+			if (lastDirection.X > 0) {animatedSprite.Play("idle_right_hugo");}
+			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left_hugo");}
+			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front_hugo");}
+			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back_hugo");}
+			else {animatedSprite.Play("idle_front_hugo");}
+		}
+	}
+	
+	public void animate_head(Vector3 direction)
+	{//Other animations are handled in the action specific function
+		if (direction.X > 0){animatedSprite.Play("roll_right");}
+		else if (direction.X < 0){animatedSprite.Play("roll_left");}
+		else if (direction.Z > 0){animatedSprite.Play("roll_front");}
+		else if (direction.Z < 0){animatedSprite.Play("roll_back");}
+		else
+		{
+			if (lastDirection.X > 0) {animatedSprite.Play("idle_right_head");}
+			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left_head");}
+			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front_head");}
+			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back_head");}
+			else {animatedSprite.Play("idle_front_head");}
+		}
+	}
+	
+	public void animate_hippo(Vector3 direction)
+	{//Other animations are handled in the action specific function
+		if (direction.Z > 0){animatedSprite.Play("walk_front_hippo");}
+		else if (direction.Z < 0){animatedSprite.Play("walk_back_hippo");}
+		else if (direction.X > 0){animatedSprite.Play("walk_right_hippo");}
+		else if (direction.X < 0){animatedSprite.Play("walk_left_hippo");}
+		else
+		{
+			if (lastDirection.X > 0) {animatedSprite.Play("idle_right_hippo");}
+			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left_hippo");}
+			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front_hippo");}
+			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back_hippo");}
+			else {animatedSprite.Play("idle_front_hippo");}
 		}
 	}
 	
@@ -128,25 +180,49 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public void updateHUD()
 	{
-		hud.SetHealth(HEALTH);
-		hud.SetGloop(GLOOP_MASS);
+		hud.UpdateHealth(HEALTH);
+		hud.UpdateGloop(GLOOP_MASS);
 	}
 	
-	public void TakeDamage(int amount)
-	{ // Called in reverse to heal
-		int prev_health = HEALTH;
-		HEALTH = Mathf.Max(0, HEALTH - amount);
-		HEALTH = Mathf.Min(prev_health, HEALTH);
-		updateHUD();
-	}
-
-	public void AddGloop(int amount)
-	{// Called in reverse to remove gloops
-		GLOOP_MASS += amount;
-		if (GLOOP_MASS > GLOOP_MAX)
-			GLOOP_MASS = GLOOP_MAX;
-		else if (GLOOP_MASS < 0)
-			GLOOP_MASS = 0;
-		updateHUD();
+	public void handle_transform()
+	{
+		if (state == "head" && Input.IsActionJustPressed("transform_hugo") && GLOOP_MASS >= 1)
+		{
+			state = "hugo";
+			HEALTH -= 10;
+			GLOOP_MASS -= 1;
+			Speed = 5.0f;
+			animatedSprite.Play("head_to_hugo");
+			transform_timer = 1.0f;
+			isStuck = true;
+		}
+		else if (state == "head" && Input.IsActionJustPressed("transform_hippo") && GLOOP_MASS >= 2)
+		{
+			state = "hippo";
+			HEALTH -= 15;
+			GLOOP_MASS -= 2;
+			Speed = 3.0f;
+			animatedSprite.Play("head_to_hippo");
+			transform_timer = 2.0f;
+			isStuck = true;
+		}
+		else if (state == "hugo" && Input.IsActionJustPressed("transform_hugo"))
+		{
+			state = "head";
+			HEALTH += 5;
+			Speed = 6.0f;
+			animatedSprite.Play("hugo_to_head");
+			transform_timer = 1.0f;
+			isStuck = true;
+		}
+		else if (state == "hippo" && Input.IsActionJustPressed("transform_hippo"))
+		{
+			state = "head";
+			HEALTH += 5;
+			Speed = 6.0f;
+			animatedSprite.Play("hippo_to_head");
+			transform_timer = 1.0f;
+			isStuck = true;
+		}
 	}
 }
