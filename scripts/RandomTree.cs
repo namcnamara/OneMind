@@ -14,6 +14,8 @@ public partial class RandomTree : Node3D
 			GD.Load<PackedScene>("res://scenes/environment/bush_berry.tscn"),
 			GD.Load<PackedScene>("res://scenes/environment/bush_goop.tscn"),
 			GD.Load<PackedScene>("res://scenes/environment/tree_tall.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/blob_spire.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/goop_well.tscn"),
 		};
 
 		var random = new Random();

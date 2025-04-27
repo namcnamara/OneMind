@@ -2,37 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://df6vlcbd78dvn" path="res://scenes/hugo/hugo.tscn" id="1_wxg6i"]
 [ext_resource type="PackedScene" uid="uid://cqsgc7rmsrdpp" path="res://scenes/environment/goop_well.tscn" id="1_xj2c5"]
-[ext_resource type="PackedScene" uid="uid://26vja0kgolku" path="res://scenes/environment/blob_spire.tscn" id="2_roi12"]
 [ext_resource type="PackedScene" uid="uid://c8a2isnjqi43l" path="res://scenes/enemies/prickle_blob.tscn" id="2_xj2c5"]
 [ext_resource type="PackedScene" uid="uid://dncql3pl13av8" path="res://scenes/enemies/red_cap.tscn" id="3_roi12"]
 [ext_resource type="PackedScene" uid="uid://cu02sicn06f8s" path="res://scenes/environment/grass_floor.tscn" id="4_6tkgx"]
+[ext_resource type="Script" uid="uid://ddxjwt2sf4i2y" path="res://scripts/RandomTree.cs" id="5_xj2c5"]
 
 [node name="Level" type="Node3D"]
 
 [node name="Buildings" type="Node3D" parent="."]
 
-[node name="blob_spire" parent="Buildings" instance=ExtResource("2_roi12")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73464, 0, 0)
-
-[node name="blob_spire2" parent="Buildings" instance=ExtResource("2_roi12")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.88203, 0, 0)
-
-[node name="blob_spire3" parent="Buildings" instance=ExtResource("2_roi12")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.27056, 0, 0)
-
-[node name="blob_spire4" parent="Buildings" instance=ExtResource("2_roi12")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.628, 0, 0)
-
 [node name="goop_well" parent="Buildings" instance=ExtResource("1_xj2c5")]
-
-[node name="goop_well2" parent="Buildings" instance=ExtResource("1_xj2c5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75891, 0, -0.964156)
-
-[node name="goop_well3" parent="Buildings" instance=ExtResource("1_xj2c5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.86984, 0, -0.230895)
-
-[node name="goop_well4" parent="Buildings" instance=ExtResource("1_xj2c5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62876, 0, -1.19505)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4638, 0, 0)
 
 [node name="Characters" type="Node3D" parent="."]
 
@@ -50,3 +30,51 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.134619, 3.68042)
 
 [node name="hugo" parent="." instance=ExtResource("1_wxg6i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.296204, 1.28977, 5.68541)
+
+[node name="RandomTree" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45013, 0, -2.08193)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree" type="Node3D" parent="RandomTree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41534, 0, 0)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree2" type="Node3D" parent="RandomTree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34366, 0, 0)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree" type="Node3D" parent="RandomTree/RandomTree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41534, 0, 0)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree2" type="Node3D" parent="RandomTree/RandomTree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067277, 0, 1.0778)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree" type="Node3D" parent="RandomTree/RandomTree2/RandomTree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41534, 0, 0)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree3" type="Node3D" parent="RandomTree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88629, 0, -5.69306)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree" type="Node3D" parent="RandomTree/RandomTree3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41534, 0, 0)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree2" type="Node3D" parent="RandomTree/RandomTree3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34366, 0, 0)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree" type="Node3D" parent="RandomTree/RandomTree3/RandomTree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41534, 0, 0)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree2" type="Node3D" parent="RandomTree/RandomTree3/RandomTree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067277, 0, 1.0778)
+script = ExtResource("5_xj2c5")
+
+[node name="RandomTree" type="Node3D" parent="RandomTree/RandomTree3/RandomTree2/RandomTree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.41534, 0, 0)
+script = ExtResource("5_xj2c5")

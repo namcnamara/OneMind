@@ -6,7 +6,7 @@ public partial class goop_head : RigidBody3D
 	// Physics properties
 	[Export] public float bumpDistance = 1.0f;
 	[Export] public float bumpStrength = 3.0f;
-	[Export] public float detectionRadius = 1f;
+	[Export] public float detectionRadius = 3f;
 	[Export] public float moveSpeed = 6f;
 	[Export] public float velocityThreshold = 0.01f;
 	[Export] public float maxSpeed = 2f;  

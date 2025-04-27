@@ -1,8 +1,9 @@
-[gd_scene load_steps=62 format=3 uid="uid://df6vlcbd78dvn"]
+[gd_scene load_steps=63 format=3 uid="uid://df6vlcbd78dvn"]
 
 [ext_resource type="Script" uid="uid://crk6fxunhs26r" path="res://scripts/HugoBody3d.cs" id="1_nlv0l"]
 [ext_resource type="Texture2D" uid="uid://bgwurcpgn1r5" path="res://Sprites/HugoSpriteAtlas1.0.png" id="2_veulp"]
 [ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_veulp"]
+[ext_resource type="PackedScene" uid="uid://4i34htcy7p0h" path="res://scenes/hugo/hud_layer.tscn" id="4_8v7tg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mnpp"]
 radius = 0.151262
@@ -589,3 +590,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.343476, 0.103631)
 mesh = SubResource("PlaneMesh_8v7tg")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_10etu")
+
+[node name="HUDLayer" parent="." instance=ExtResource("4_8v7tg")]

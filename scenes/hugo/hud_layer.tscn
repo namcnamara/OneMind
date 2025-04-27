@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://4i34htcy7p0h"]
+
+[ext_resource type="Script" uid="uid://da5th4f55d23w" path="res://scripts/HudLayer.cs" id="1_srwms"]
+[ext_resource type="Texture2D" uid="uid://yhsq6emxtwng" path="res://Sprites/healthbar/healthbar-bad.png" id="2_gtjoe"]
+[ext_resource type="Texture2D" uid="uid://bb6jwckprsree" path="res://Sprites/healthbar/healthbar-border.png" id="3_f4ty6"]
+[ext_resource type="Texture2D" uid="uid://tu8lfwwcvw2c" path="res://Sprites/healthbar/healthbar-good.png" id="4_0noyy"]
+[ext_resource type="Texture2D" uid="uid://gxmh31xc0r60" path="res://Sprites/hugoTransitionSpriteSheet.png" id="5_gtjoe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4ty6"]
+atlas = ExtResource("5_gtjoe")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0noyy"]
+atlas = ExtResource("5_gtjoe")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwjgf"]
+atlas = ExtResource("5_gtjoe")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyf2y"]
+atlas = ExtResource("5_gtjoe")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhef6"]
+atlas = ExtResource("5_gtjoe")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r8ua"]
+atlas = ExtResource("5_gtjoe")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8o5v"]
+atlas = ExtResource("5_gtjoe")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h57un"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4ty6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0noyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwjgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyf2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhef6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r8ua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8o5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r8ua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhef6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyf2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwjgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0noyy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HUDLayer" type="CanvasLayer"]
+script = ExtResource("1_srwms")
+
+[node name="TopLeftPanel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemList" type="VBoxContainer" parent="TopLeftPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBOXHealth" type="HBoxContainer" parent="TopLeftPanel/ItemList"]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="TopLeftPanel/ItemList/HBOXHealth"]
+layout_mode = 2
+texture_under = ExtResource("2_gtjoe")
+texture_over = ExtResource("3_f4ty6")
+texture_progress = ExtResource("4_0noyy")
+
+[node name="HealthLabel" type="Label" parent="TopLeftPanel/ItemList/HBOXHealth/HealthBar"]
+layout_mode = 2
+offset_left = 226.0
+offset_top = 8.0
+offset_right = 282.0
+offset_bottom = 31.0
+text = "Health:"
+
+[node name="HBOXGloop" type="HBoxContainer" parent="TopLeftPanel/ItemList"]
+layout_mode = 2
+
+[node name="GloopLabel" type="Label" parent="TopLeftPanel/ItemList/HBOXGloop"]
+layout_mode = 2
+text = "  GLOOPS:"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TopLeftPanel/ItemList/HBOXGloop"]
+position = Vector2(114, -12)
+sprite_frames = SubResource("SpriteFrames_h57un")
+frame_progress = 0.786952

@@ -57,9 +57,11 @@ public partial class goop_well : RigidBody3D
 	private void SpawnGoop()
 	{
 		Node3D goop = (Node3D)goopScene.Instantiate();
-
-		Vector3 spawnPosition = GlobalTransform.Origin + GlobalTransform.Basis.Z * spawnOffset * 1.5f;
-		spawnPosition = GlobalTransform.Origin + GlobalTransform.Basis.Y * -1 * spawnOffset;
+		Vector3 offset = Vector3.Zero;
+		offset.Z = 2.0f;
+		offset.Y = -1.0f;
+		offset.X = .3f;
+		Vector3 spawnPosition = GlobalTransform.Origin + offset; // GlobalTransform.Basis.Z * spawnOffset * -1;
 		goop.GlobalTransform = new Transform3D(goop.GlobalTransform.Basis, spawnPosition);
 
 		GetParent().AddChild(goop); 

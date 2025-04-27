@@ -95,6 +95,4 @@ shape = SubResource("BoxShape3D_n3pcy")
 [node name="goop_well_anim" type="AnimatedSprite3D" parent="goop_well_rigid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0231688, 0)
 sprite_frames = SubResource("SpriteFrames_b2pk7")
-animation = &"produce"
-frame = 6
-frame_progress = 1.0
+animation = &"idle"

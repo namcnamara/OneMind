@@ -46,7 +46,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ma6q2")
 }],
 "loop": true,
-"name": &"idle_1",
+"name": &"idle",
 "speed": 1.0
 }, {
 "frames": [{
@@ -91,6 +91,4 @@ shape = SubResource("BoxShape3D_n3pcy")
 [node name="blob_spire_anim" type="AnimatedSprite3D" parent="blob_spire_rigid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573566, 0)
 sprite_frames = SubResource("SpriteFrames_4ffgj")
-animation = &"produce"
-frame = 6
-frame_progress = 1.0
+animation = &"idle"

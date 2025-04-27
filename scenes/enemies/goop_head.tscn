@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bo5wir3o8smda"]
+[gd_scene load_steps=39 format=3 uid="uid://bo5wir3o8smda"]
 
 [ext_resource type="Script" uid="uid://fk4u1upta5io" path="res://scripts/goop_head.cs" id="1_epext"]
 [ext_resource type="Texture2D" uid="uid://bgwurcpgn1r5" path="res://Sprites/HugoSpriteAtlas1.0.png" id="2_nmb5c"]
@@ -59,6 +59,14 @@ region = Rect2(64, 256, 64, 64)
 atlas = ExtResource("2_nmb5c")
 region = Rect2(128, 256, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_epext"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmb5c"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(448, 256, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_h6e6o"]
 atlas = ExtResource("2_nmb5c")
 region = Rect2(0, 256, 64, 64)
@@ -84,6 +92,38 @@ atlas = ExtResource("2_nmb5c")
 region = Rect2(384, 256, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_11c36"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpy8q"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m404f"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i1ig"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3aae"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rvo4"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvfpy"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drvk8"]
+atlas = ExtResource("2_nmb5c")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jw0vw"]
 atlas = ExtResource("2_nmb5c")
 region = Rect2(448, 256, 64, 64)
 
@@ -165,6 +205,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_epext")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmb5c")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_h6e6o")
 }, {
 "duration": 1.0,
@@ -190,7 +241,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"roll_back",
-"speed": 3.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -219,15 +270,9 @@ animations = [{
 }],
 "loop": true,
 "name": &"roll_front",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h6e6o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wo60e")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_24l6a")
 }, {
@@ -245,10 +290,45 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_11c36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6e6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wo60e")
 }],
 "loop": true,
 "name": &"roll_left",
-"speed": 5.0
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpy8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m404f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i1ig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3aae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rvo4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvfpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drvk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jw0vw")
+}],
+"loop": true,
+"name": &"roll_right",
+"speed": 10.0
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rvo8x"]
@@ -275,7 +355,7 @@ script = ExtResource("1_epext")
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_vpy8q")
 animation = &"roll_front"
-frame_progress = 0.993867
+frame_progress = 0.368021
 
 [node name="goop_head_collide" type="CollisionShape3D" parent="goop_head_rigid"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)
