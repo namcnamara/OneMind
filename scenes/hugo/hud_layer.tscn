@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://4i34htcy7p0h"]
 
-[ext_resource type="Script" uid="uid://da5th4f55d23w" path="res://scripts/HudLayer.cs" id="1_srwms"]
+[ext_resource type="Script" uid="uid://da5th4f55d23w" path="res://scripts/hugo/HudLayer.cs" id="1_gtjoe"]
 [ext_resource type="Texture2D" uid="uid://yhsq6emxtwng" path="res://Sprites/healthbar/healthbar-bad.png" id="2_gtjoe"]
 [ext_resource type="Texture2D" uid="uid://bb6jwckprsree" path="res://Sprites/healthbar/healthbar-border.png" id="3_f4ty6"]
 [ext_resource type="Texture2D" uid="uid://tu8lfwwcvw2c" path="res://Sprites/healthbar/healthbar-good.png" id="4_0noyy"]
@@ -79,7 +79,7 @@ animations = [{
 }]
 
 [node name="HUDLayer" type="CanvasLayer"]
-script = ExtResource("1_srwms")
+script = ExtResource("1_gtjoe")
 
 [node name="TopLeftPanel" type="Panel" parent="."]
 offset_right = 40.0

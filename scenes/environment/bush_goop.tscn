@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://kwlyfgwp0g7"]
 
-[ext_resource type="Script" uid="uid://2qmcyj61eykm" path="res://scripts/bush_goop.cs" id="1_18v6r"]
+[ext_resource type="Script" uid="uid://2qmcyj61eykm" path="res://scripts/environment/bush_goop.cs" id="1_18v6r"]
 [ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_oit1u"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f7diu"]

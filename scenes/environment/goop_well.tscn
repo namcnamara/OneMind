@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cqsgc7rmsrdpp"]
 
-[ext_resource type="Script" uid="uid://c37qq8adppma0" path="res://scripts/goop_well.cs" id="1_n3pcy"]
+[ext_resource type="Script" uid="uid://c37qq8adppma0" path="res://scripts/environment/goop_well.cs" id="1_n3pcy"]
 [ext_resource type="Texture2D" uid="uid://bddw2mnd3jpho" path="res://Sprites/building_goop_well.png" id="2_n3pcy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_roi12"]

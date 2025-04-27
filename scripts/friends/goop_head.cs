@@ -64,23 +64,23 @@ public partial class goop_head : RigidBody3D
 		{	
 			if (Math.Abs(LinearVelocity.Z) > min_force)
 			{
-				if (LinearVelocity.Z > 0){animatedSprite.Play("roll_front");}
-				else if (LinearVelocity.Z < 0){animatedSprite.Play("roll_back");}
+				if (LinearVelocity.Z > 0){animatedSprite.Play("roll_back_head");}
+				else if (LinearVelocity.Z < 0){animatedSprite.Play("roll_front_head");}
 			}
 		}
 		// If theres a reasonable abount of movement in x
 		else if (Math.Abs(LinearVelocity.X) > min_force)
 		{
-			if (LinearVelocity.X > 0){animatedSprite.Play("roll_right");}
-			else if (LinearVelocity.X < 0){animatedSprite.Play("roll_left");}
+			if (LinearVelocity.X > 0){animatedSprite.Play("roll_right_head");}
+			else if (LinearVelocity.X < 0){animatedSprite.Play("roll_left_head");}
 		}
 		else
 		{
-			if (lastDirection.X > 0) {animatedSprite.Play("idle_right");}
-			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left");}
-			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front");}
-			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back");}
-			else {animatedSprite.Play("idle_front");}
+			if (lastDirection.X > 0) {animatedSprite.Play("idle_right_head");}
+			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left_head");}
+			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front_head");}
+			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back_head");}
+			else {animatedSprite.Play("idle_front_head");}
 		}
 	}
 	

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gxmh31xc0r60"
-path.s3tc="res://.godot/imported/hugoTransitionSpriteSheet.png-27b0700e6a6593362aba07ee76a00a04.s3tc.ctex"
+uid="uid://c5fu6schiboyi"
+path.s3tc="res://.godot/imported/hippo_atlas.png-94897b965e644abed08d3f3650c21220.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Sprites/hugoTransitionSpriteSheet.png"
-dest_files=["res://.godot/imported/hugoTransitionSpriteSheet.png-27b0700e6a6593362aba07ee76a00a04.s3tc.ctex"]
+source_file="res://Sprites/hippo_atlas.png"
+dest_files=["res://.godot/imported/hippo_atlas.png-94897b965e644abed08d3f3650c21220.s3tc.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://8tot7ipvrjs7"]
 
-[ext_resource type="Script" uid="uid://cf6kq3jh32sny" path="res://scripts/rock_blue.cs" id="1_rurbd"]
+[ext_resource type="Script" uid="uid://cf6kq3jh32sny" path="res://scripts/environment/rock_blue.cs" id="1_rurbd"]
 [ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_ju2en"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ps8k6"]
