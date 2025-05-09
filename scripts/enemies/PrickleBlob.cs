@@ -11,6 +11,7 @@ public partial class PrickleBlob : RigidBody3D
 	[Export] public float velocityThreshold = 0.01f;
 	[Export] public float maxSpeed = 1f; 
 	[Export] public float dampeningFactor = 0.9f;
+	
 
 	// Flags and Placeholders
 	private HugoBody3d player;
@@ -19,7 +20,9 @@ public partial class PrickleBlob : RigidBody3D
 	private AnimatedSprite3D animatedSprite;
 	private CollisionShape3D collisionShape;
 	private Vector3 direction;
-	public float health = 100;
+	public float health = 40;
+	public float damage = 10;
+	private bool leader = false;
 
 	// Wandering timer 
 	private float wanderTimer = 0f;
@@ -32,6 +35,13 @@ public partial class PrickleBlob : RigidBody3D
 		collisionShape.Shape.Margin = 0.05f;
 		player =  (HugoBody3d)GetTree().Root.FindChild("hugo_char", true, false);
 		direction = new Vector3(1, 0, 0);
+		double leader_selector = random.NextDouble();
+		if (leader_selector > .9)
+			{
+				leader = true;
+				health += 30;
+				damage += 10;
+			}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -39,6 +49,17 @@ public partial class PrickleBlob : RigidBody3D
 		AxisLockAngularY = true;
 		float distanceToPlayer = GlobalPosition.DistanceTo(player.GlobalPosition);
 		bool in_chasing_distance = distanceToPlayer < detectionRadius;
+		control_movement(in_chasing_distance, delta);
+		
+		if (leader)
+			animatedSprite.Play("rest_1");
+			// Add leader shader to make it visually distinct.
+		else
+			animatedSprite.Play("rest_2");
+	}
+	
+	private void control_movement(bool in_chasing_distance, double delta)
+	{
 		if (in_chasing_distance)
 		{
 			// Move toward the player, but apply negative direction to "chase"
@@ -67,11 +88,8 @@ public partial class PrickleBlob : RigidBody3D
 		{
 			LinearVelocity = LinearVelocity.Normalized() * maxSpeed;
 		}
-
-		// Play idle animation when not moving
-		animatedSprite.Play("rest_2");
 	}
-
+	
 	private void random_move()
 	{
 		// Randomly change the direction vector in x and z (no movement in y)

@@ -29,10 +29,15 @@ public partial class HugoBody3d: CharacterBody3D
 	private HudLayer hud;
 	private Vector3 lastDirection = Vector3.Zero;
 	
+	private ShaderMaterial damageShader;
+	private float flashTimer = 0.0f;
+	private float flashDuration = 0.2f;
+	
 
 	public override void _Ready()
 	{
 		animatedSprite = GetNode<AnimatedSprite3D>("hugo_anim");
+		damageShader = (ShaderMaterial)animatedSprite.MaterialOverride;
 		hud = GetParent().GetNode<HudLayer>("HUDLayer");
 		updateHUD();
 		isStuck = false;
@@ -42,37 +47,44 @@ public partial class HugoBody3d: CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (HEALTH <= 0)
+		{
 			die();
+		}
 		else
 		{
+			handle_shaders(delta);
 			handle_transform();
-		// Add other time-taking actions like spawning goops
-		if (isStuck)
-			transform_timer -= (float)delta;
-			if (transform_timer > 0)
-				return; 
-			else
-				isStuck = false;
 
-		if (IsOnFloor())
-			jumpCount = 0;
+			// Add other time-taking actions like spawning goops
+			if (isStuck)
+			{
+				transform_timer -= (float)delta;
+				if (transform_timer > 0)
+					return;
+				else
+					isStuck = false;
+			}
 
-		Vector3 gravity = add_gravity(delta);
-		gravity = handle_jump(gravity);
-		
-		Vector3 direction = get_input_direction();
-		if (direction != Vector3.Zero)
-			lastDirection = direction;
+			if (IsOnFloor())
+				jumpCount = 0;
 
-		Vector3 velocity = move_basic(direction, gravity);
+			Vector3 gravity = add_gravity(delta);
+			gravity = handle_jump(gravity);
 
-		if (state == "head")
-			animate_head(direction);
-		else if (state == "hugo")
-			animate_hugo(direction);
-		else if (state == "hippo")
-			animate_hippo(direction);
+			Vector3 direction = get_input_direction();
+			if (direction != Vector3.Zero)
+				lastDirection = direction;
+
+			Vector3 velocity = move_basic(direction, gravity);
+
+			if (state == "head")
+				animate_head(direction);
+			else if (state == "hugo")
+				animate_hugo(direction);
+			else if (state == "hippo")
+				animate_hippo(direction);
 		}
+
 		updateHUD();
 	}
 	
@@ -93,7 +105,18 @@ public partial class HugoBody3d: CharacterBody3D
 		}
 		return direction;
 	}
-
+	
+	public void handle_shaders(double delta)
+	{
+		if (flashTimer > 0.0f)
+			{
+				flashTimer -= (float)delta;
+				if (flashTimer <= 0.0f)
+				{
+					damageShader.SetShaderParameter("flash_strength", 4.0f);
+				}
+			}
+	}
 	public Vector3 move_basic(Vector3 direction, Vector3 gravity)
 	{
 		Vector3 velocity = Vector3.Zero;
@@ -143,14 +166,26 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public void animate_hippo(Vector3 direction)
 	{//Other animations are handled in the action specific function
-		if (direction.Z > 0){animatedSprite.Play("walk_front_hippo");}
-		else if (direction.Z < 0){animatedSprite.Play("walk_back_hippo");}
-		else if (direction.X > 0){animatedSprite.Play("walk_right_hippo");}
-		else if (direction.X < 0){animatedSprite.Play("walk_left_hippo");}
+		//If there is some minimum velocity:
+		if (Math.Abs(direction.X) + Math.Abs(direction.Z) > 0.3f)
+		{
+			if (direction.X > 0){
+				animatedSprite.FlipH = true;
+				animatedSprite.Play("walk_left_hippo");}
+			else if (direction.X < 0){
+				animatedSprite.FlipH = false;
+				animatedSprite.Play("walk_left_hippo");}
+			else if (direction.Z > 0){animatedSprite.Play("walk_front_hippo");}
+			else if (direction.Z < 0){animatedSprite.Play("walk_back_hippo");}
+		}
 		else
 		{
-			if (lastDirection.X > 0) {animatedSprite.Play("idle_right_hippo");}
-			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left_hippo");}
+			if (lastDirection.X > 0) {
+				animatedSprite.FlipH = true;
+				animatedSprite.Play("idle_left_hippo");}
+			else if (lastDirection.X < 0) {
+				animatedSprite.FlipH = false;
+				animatedSprite.Play("idle_left_hippo");}
 			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front_hippo");}
 			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back_hippo");}
 			else {animatedSprite.Play("idle_front_hippo");}
@@ -239,6 +274,8 @@ public partial class HugoBody3d: CharacterBody3D
 		{
 			hud.UpdateHealth(HEALTH);
 			// Flash red to show damage using dmg shader
+			flashTimer = flashDuration;
+			damageShader.SetShaderParameter("flash_strength", 1.0f);
 		}
 	}
 	
@@ -251,5 +288,6 @@ public partial class HugoBody3d: CharacterBody3D
 	{
 		animatedSprite.Play("die");
 		bool isStuck = true;
+		// Load into base
 	}
 }

@@ -189,7 +189,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"rest_1",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -252,8 +252,7 @@ billboard = 1
 sprite_frames = SubResource("SpriteFrames_xqiim")
 animation = &"rest_1"
 autoplay = "rest_1"
-frame = 3
-frame_progress = 0.737395
+frame_progress = 0.715498
 
 [node name="Shadow" type="MeshInstance3D" parent="prickle_blob_rigid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.0905924)

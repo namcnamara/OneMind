@@ -9,7 +9,7 @@ const float cell_variation = .9;
 // Change the diameter of edge dividers
 const float edge_thickness = 0.1;
 
-float fake_randomness_color(vec2 p) 
+float fake_randomness_color(vec2 p)
 {
 	// Uses the x and y values of a vec2 to generate a sort of randomness,
 	// return a relatively random float
@@ -18,14 +18,14 @@ float fake_randomness_color(vec2 p)
 	{
 		rand_1 = cos(rand_1 * p.y - p.x);
 	}
-	else 
+	else
 	{
 		rand_1 = (rand_1);
 	}
 	return fract(rand_1);
 }
 
-float fake_randomness(vec2 p) 
+float fake_randomness(vec2 p)
 {
 	// Uses the x and y values of a vec2 to generate a sort of randomness,
 	// return a relatively random float
@@ -41,9 +41,9 @@ float fake_randomness(vec2 p)
 vec3 get_cell_color(vec2 cell_id) {
     // Need to change this to be lighter by default, too dark rn
     return vec3(
-        fake_randomness_color(cell_id) * 0.9,               // Red 
-        fake_randomness_color(cell_id + vec2(10.0, 10.0)) * 0.9,  // Green 
-        fake_randomness_color(cell_id + vec2(20.0, 20.0)) * 0.05 + 0.0  // Blue 
+        fake_randomness_color(cell_id) * 0.9,               // Red
+        fake_randomness_color(cell_id + vec2(10.0, 10.0)) * 0.9,  // Green
+        fake_randomness_color(cell_id + vec2(20.0, 20.0)) * 0.05 + 0.0  // Blue
     );
 }
 

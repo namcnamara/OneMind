@@ -22,6 +22,7 @@ public partial class goop_head : RigidBody3D
 	private Vector3 direction;
 	private Vector3 lastDirection;
 	private float health = 100;
+	private int damage = 10;
 
 	// Wandering timer 
 	private float wanderTimer = 0f;
@@ -89,8 +90,8 @@ public partial class goop_head : RigidBody3D
 			animatedSprite.Play("explode");
 			if (hasExploded == false)
 				{
-					player.take_damage(20);
 					hasExploded = true;
+					player.take_damage(damage);
 				}
 			await Task.Delay(500);
 			QueueFree();
@@ -98,10 +99,13 @@ public partial class goop_head : RigidBody3D
 	}
 	
 	private void die()
-	{
+	{	
+		bool a = false;
+		/*
 		animatedSprite.Play("explode");
 		await Task.Delay(500);
 		QueueFree();
+		*/
 	}
 	
 	private void animate_direction(Vector3 direction)

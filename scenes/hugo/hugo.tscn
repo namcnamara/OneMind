@@ -33,7 +33,7 @@ billboard = 1
 sprite_frames = ExtResource("2_8v7tg")
 animation = &"walk_left_hippo"
 autoplay = "idle_front_head"
-frame_progress = 0.0667421
+frame_progress = 0.652326
 
 [node name="Camera3D" type="Camera3D" parent="hugo_char"]
 transform = Transform3D(1, 0, 0, 0, 0.874882, 0.484337, 0, -0.484337, 0.874882, 0, 3.58278, 6.31491)

@@ -13,7 +13,7 @@ public partial class red_cap : RigidBody3D
 	[Export] public float dampeningFactor = 0.9f;  
 
 	// Flags and placeholders
-	private Node3D player;  // Hugo's reference
+	private HugoBody3d player;  // Hugo's reference
 	private bool chasing = false;
 	private Random random = new Random();
 	private Vector3 direction = Vector3.Zero;
@@ -27,27 +27,28 @@ public partial class red_cap : RigidBody3D
 	private float wanderCooldown = 5f;
 
 	public float health = 100;
+	public int damage = 10;
 
 	public override void _Ready()
 	{
 		animatedSprite = GetNode<AnimatedSprite3D>("red_cap_anim");
 		collisionShape = GetNode<CollisionShape3D>("red_cap_collide");
 		collisionShape.Shape.Margin = 0.05f;
-		player =  (Node3D)GetTree().Root.FindChild("hugo_char", true, false);
+		player =  (HugoBody3d)GetTree().Root.FindChild("hugo_char", true, false);
 		direction = new Vector3(1, 0, 0);
 	}
 
 	public override void _PhysicsProcess(double delta)
-{
-	
-	AxisLockAngularY = true;
-	float distanceToPlayer = GlobalPosition.DistanceTo(player.GlobalPosition);
-	bool in_chasing_distance = distanceToPlayer < detectionRadius;
-	direction = control_movement(in_chasing_distance, delta);
-	animate_red_cap(direction);
-	lastDirection = direction;
-	
-}
+	{
+		
+		AxisLockAngularY = true;
+		float distanceToPlayer = GlobalPosition.DistanceTo(player.GlobalPosition);
+		bool in_chasing_distance = distanceToPlayer < detectionRadius;
+		direction = control_movement(in_chasing_distance, delta);
+		animate_red_cap(direction);
+		lastDirection = direction;
+		
+	}
 
 	private Vector3 random_move()
 	{
@@ -88,7 +89,7 @@ public partial class red_cap : RigidBody3D
 	private Vector3 control_movement(bool in_chasing_distance, double delta)
 	{
 		
-		if (in_chasing_distance){
+		if (in_chasing_distance && player.state != "hippo"){
 			Mass = 1f;
 			// Update the direction to move towards the current position of Hugo (not the initial one)
 			direction = 3f * (player.GlobalPosition - GlobalPosition).Normalized();

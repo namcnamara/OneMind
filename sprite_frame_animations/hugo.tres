@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=130 format=3 uid="uid://bje008fdkfg2j"]
+[gd_resource type="SpriteFrames" load_steps=131 format=3 uid="uid://bje008fdkfg2j"]
 
 [ext_resource type="Texture2D" uid="uid://bgwurcpgn1r5" path="res://Sprites/HugoSpriteAtlas1.0.png" id="1_5aabj"]
 [ext_resource type="Texture2D" uid="uid://c5fu6schiboyi" path="res://Sprites/hippo_atlas.png" id="2_xayot"]
@@ -507,6 +507,10 @@ region = Rect2(512, 256, 256, 256)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1laqq"]
 atlas = ExtResource("2_xayot")
 region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsucp"]
+atlas = ExtResource("2_xayot")
+region = Rect2(768, 0, 256, 256)
 
 [resource]
 animations = [{
@@ -1289,10 +1293,13 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x6rls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsucp")
 }],
 "loop": true,
 "name": &"walk_left_hippo",
-"speed": 8.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
