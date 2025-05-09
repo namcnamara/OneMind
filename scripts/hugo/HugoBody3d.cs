@@ -41,7 +41,11 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		handle_transform();
+		if (HEALTH <= 0)
+			die();
+		else
+		{
+			handle_transform();
 		// Add other time-taking actions like spawning goops
 		if (isStuck)
 			transform_timer -= (float)delta;
@@ -68,7 +72,7 @@ public partial class HugoBody3d: CharacterBody3D
 			animate_hugo(direction);
 		else if (state == "hippo")
 			animate_hippo(direction);
-		// Display any changes to player
+		}
 		updateHUD();
 	}
 	
@@ -106,10 +110,10 @@ public partial class HugoBody3d: CharacterBody3D
 		//If there is some minimum velocity:
 		if (Math.Abs(direction.X) + Math.Abs(direction.Z) > 0.3f)
 		{
-			if (direction.X > 0){animatedSprite.Play("walk_right");}
-			else if (direction.X < 0){animatedSprite.Play("walk_left");}
-			else if (direction.Z > 0){animatedSprite.Play("walk_front");}
-			else if (direction.Z < 0){animatedSprite.Play("walk_back");}
+			if (direction.X > 0){animatedSprite.Play("walk_right_hugo");}
+			else if (direction.X < 0){animatedSprite.Play("walk_left_hugo");}
+			else if (direction.Z > 0){animatedSprite.Play("walk_front_hugo");}
+			else if (direction.Z < 0){animatedSprite.Play("walk_back_hugo");}
 		}
 		else
 		{
@@ -123,16 +127,16 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public void animate_head(Vector3 direction)
 	{//Other animations are handled in the action specific function
-		if (direction.X > 0){animatedSprite.Play("roll_right");}
-		else if (direction.X < 0){animatedSprite.Play("roll_left");}
-		else if (direction.Z > 0){animatedSprite.Play("roll_front");}
-		else if (direction.Z < 0){animatedSprite.Play("roll_back");}
+		if (direction.X > 0){animatedSprite.Play("roll_right_head");}
+		else if (direction.X < 0){animatedSprite.Play("roll_left_head");}
+		else if (direction.Z < 0){animatedSprite.Play("roll_front_head");}
+		else if (direction.Z > 0){animatedSprite.Play("roll_back_head");}
 		else
 		{
 			if (lastDirection.X > 0) {animatedSprite.Play("idle_right_head");}
 			else if (lastDirection.X < 0) {animatedSprite.Play("idle_left_head");}
-			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_front_head");}
-			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_back_head");}
+			else if (lastDirection.Z < 0) {animatedSprite.Play("idle_front_head");}
+			else if (lastDirection.Z > 0) {animatedSprite.Play("idle_back_head");}
 			else {animatedSprite.Play("idle_front_head");}
 		}
 	}
@@ -224,5 +228,28 @@ public partial class HugoBody3d: CharacterBody3D
 			transform_timer = 1.0f;
 			isStuck = true;
 		}
+	}
+	
+	public void take_damage(int damage)
+	{
+		HEALTH -= damage;
+		if (HEALTH < 0)
+			die();
+		else
+		{
+			hud.UpdateHealth(HEALTH);
+			// Flash red to show damage using dmg shader
+		}
+	}
+	
+	public void heal(int heal)
+	{
+		// Flash blue to show damage using heal shader
+	}
+	
+	public void die()
+	{
+		animatedSprite.Play("die");
+		bool isStuck = true;
 	}
 }

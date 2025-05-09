@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu02sicn06f8s"]
+[gd_scene load_steps=8 format=3 uid="uid://cu02sicn06f8s"]
 
 [ext_resource type="Shader" uid="uid://cn2gro3jjxqrg" path="res://shaders/basic_grass.gdshader" id="1_5f687"]
+[ext_resource type="Script" uid="uid://grrl2kkb8enr" path="res://scripts/environment/GrassFloor.cs" id="1_ijr4p"]
+[ext_resource type="PackedScene" uid="uid://cf8r55odgsvj8" path="res://scenes/environment/tree_wall.tscn" id="3_fy4qi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m3wy8"]
 render_priority = 0
@@ -14,7 +16,10 @@ orientation = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_56njm"]
 size = Vector3(100, 0.2, 100)
 
+[sub_resource type="Environment" id="Environment_jk200"]
+
 [node name="grassFloor" type="Node3D"]
+script = ExtResource("1_ijr4p")
 
 [node name="floor_static" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
@@ -27,3 +32,9 @@ skeleton = NodePath("../..")
 
 [node name="floor_collide" type="CollisionShape3D" parent="floor_static"]
 shape = SubResource("BoxShape3D_56njm")
+
+[node name="treeWall" parent="." instance=ExtResource("3_fy4qi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.8436, 0, -34.2236)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jk200")

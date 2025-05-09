@@ -30,8 +30,7 @@ script = ExtResource("1_epext")
 [node name="goop_head_anim" type="AnimatedSprite3D" parent="goop_head_rigid"]
 billboard = 1
 sprite_frames = ExtResource("2_epext")
-animation = &"roll_back_head"
-frame_progress = 0.966187
+animation = &"explode"
 
 [node name="goop_head_collide" type="CollisionShape3D" parent="goop_head_rigid"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)

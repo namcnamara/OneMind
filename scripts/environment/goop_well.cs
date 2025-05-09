@@ -61,9 +61,7 @@ public partial class goop_well : RigidBody3D
 		offset.Z = 2.0f;
 		offset.Y = -1.0f;
 		offset.X = .3f;
-		Vector3 spawnPosition = GlobalTransform.Origin + offset; // GlobalTransform.Basis.Z * spawnOffset * -1;
-		goop.GlobalTransform = new Transform3D(goop.GlobalTransform.Basis, spawnPosition);
-
+		//goop.GlobalTransform = new Transform3D(goop.GlobalTransform.Basis, spawnPosition);
 		GetParent().AddChild(goop); 
 	}
 }

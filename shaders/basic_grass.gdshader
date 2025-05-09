@@ -39,7 +39,7 @@ float fake_randomness(vec2 p)
 
 // Gets the color for a given cell
 vec3 get_cell_color(vec2 cell_id) {
-    // Provides earthy tones resembling dirt or a floor, with brown, green, and some yellow
+    // Need to change this to be lighter by default, too dark rn
     return vec3(
         fake_randomness_color(cell_id) * 0.9,               // Red 
         fake_randomness_color(cell_id + vec2(10.0, 10.0)) * 0.9,  // Green 

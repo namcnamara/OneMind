@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3g03dl7y4r1q"]
+
+[ext_resource type="Script" uid="uid://ddxjwt2sf4i2y" path="res://scripts/environment/RandomTree.cs" id="1_po5ne"]
+
+[node name="RandomTree" type="Node3D"]
+script = ExtResource("1_po5ne")
