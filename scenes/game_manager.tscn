@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://qpvf8dgvshke"]
+
+[ext_resource type="Script" uid="uid://d6iy73mcpbsj" path="res://scripts/GameManager.cs" id="1_hwd4i"]
+[ext_resource type="PackedScene" uid="uid://vm5dtjpwer2o" path="res://scenes/environment/levels/basic_floor.tscn" id="2_glms7"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_hwd4i")
+
+[node name="basic_floor" parent="." instance=ExtResource("2_glms7")]

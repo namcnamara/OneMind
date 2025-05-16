@@ -36,5 +36,3 @@ light_color = Color(1, 0.802197, 0.999489, 1)
 shadow_enabled = true
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]
-
-[node name="PathFollow3D" type="PathFollow3D" parent="."]

@@ -132,7 +132,6 @@ public partial class basic_floor : Node3D
 		Vector3 floorSize = boxMesh.Size;
 
 		// Wall vertical placement
-		float wallHeight = 4.0f;
 		float wallY = meshInstance.GlobalTransform.Origin.Y + boxMesh.Size.Y / 2.0f;
 
 		float halfX = floorSize.X / 2.0f;

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="OneMind"
-run/main_scene="uid://5jm88qq8qwfl"
+run/main_scene="uid://qpvf8dgvshke"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 

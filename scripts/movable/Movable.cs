@@ -1,0 +1,32 @@
+using Godot;
+using System;
+
+public partial class Movable : Node3D
+{
+	// This class provides a bridge for pause functionality between any object type that moves. 
+	// It enables the pause menu to pause all moving objects, like the player,
+	// enemies, or terrain features. 
+	//Shoudl also stop timers and animations. 
+	[Export]
+	public bool AffectedByPause { get; set; } = true;
+	public Vector3 CurrentPosition { get; set; }
+	public Vector3 LastVelocity { get; set; }
+	public Vector3 lastPosition;
+	protected bool IsPaused => GetTree().Paused && AffectedByPause;
+
+	public override void _Ready()
+	{
+		lastPosition = GlobalTransform.Origin;
+		CurrentPosition = lastPosition;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (IsPaused)
+			return;
+
+		CurrentPosition = GlobalTransform.Origin;
+		LastVelocity = (CurrentPosition - lastPosition) / (float)delta;
+		lastPosition = CurrentPosition;
+	}
+}

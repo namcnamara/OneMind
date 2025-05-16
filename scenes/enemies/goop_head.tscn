@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dh5admdydsvww"]
 
-[ext_resource type="Script" uid="uid://fk4u1upta5io" path="res://scripts/friends/goop_head.cs" id="1_epext"]
+[ext_resource type="Script" uid="uid://cd5nprltkl5fo" path="res://scripts/movable/enemy/GoopHead.cs" id="1_epext"]
 [ext_resource type="SpriteFrames" uid="uid://cdvlcmjwimiq7" path="res://sprite_frame_animations/goop_head.tres" id="2_epext"]
 [ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_46w0w"]
 
@@ -19,13 +19,13 @@ shader_parameter/radius = 0.187
 shader_parameter/opacity = 1.0
 
 [node name="goop_head" type="Node3D"]
+script = ExtResource("1_epext")
 
 [node name="goop_head_rigid" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326348, 0)
 physics_material_override = SubResource("PhysicsMaterial_k7rwy")
 can_sleep = false
 lock_rotation = true
-script = ExtResource("1_epext")
 
 [node name="goop_head_anim" type="AnimatedSprite3D" parent="goop_head_rigid"]
 billboard = 1

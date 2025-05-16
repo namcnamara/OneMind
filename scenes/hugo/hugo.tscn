@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://df6vlcbd78dvn"]
+[gd_scene load_steps=9 format=3 uid="uid://df6vlcbd78dvn"]
 
 [ext_resource type="Script" uid="uid://crk6fxunhs26r" path="res://scripts/hugo/HugoBody3d.cs" id="1_0ob2s"]
+[ext_resource type="Script" uid="uid://yjq08pxe52m1" path="res://scripts/movable/player/Player.cs" id="1_10etu"]
 [ext_resource type="SpriteFrames" uid="uid://bje008fdkfg2j" path="res://sprite_frame_animations/hugo.tres" id="2_8v7tg"]
 [ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_veulp"]
 [ext_resource type="PackedScene" uid="uid://4i34htcy7p0h" path="res://scenes/hugo/hud_layer.tscn" id="4_8v7tg"]
@@ -18,6 +19,7 @@ shader_parameter/radius = 0.187
 shader_parameter/opacity = 1.0
 
 [node name="hugo" type="Node3D"]
+script = ExtResource("1_10etu")
 
 [node name="hugo_char" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36118, 0)

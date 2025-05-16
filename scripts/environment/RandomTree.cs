@@ -7,9 +7,9 @@ public partial class RandomTree : Node3D
 	{
 	PackedScene[] TreeScenes = new PackedScene[]
 		{
-			GD.Load<PackedScene>("res://scenes/environment/tree_curl.tscn"),
-			GD.Load<PackedScene>("res://scenes/environment/tree_poof.tscn"),
-			GD.Load<PackedScene>("res://scenes/environment/tree_tall.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/trees/tree_curl.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/trees/tree_poof.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/trees/tree_tall.tscn"),
 			/*
 			GD.Load<PackedScene>("res://scenes/environment/bush_berry.tscn"),
 			GD.Load<PackedScene>("res://scenes/environment/bush_goop.tscn"),

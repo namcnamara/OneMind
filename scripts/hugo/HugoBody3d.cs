@@ -36,11 +36,24 @@ public partial class HugoBody3d: CharacterBody3D
 
 	public override void _Ready()
 	{
+		// Call a method after a short delay to ensure GameManager is initialized
+		CallDeferred("RegisterPlayerInGameManager");
 		animatedSprite = GetNode<AnimatedSprite3D>("hugo_anim");
 		damageShader = (ShaderMaterial)animatedSprite.MaterialOverride;
 		hud = GetParent().GetNode<HudLayer>("HUDLayer");
 		updateHUD();
 		isStuck = false;
+	}
+
+	private void RegisterPlayerInGameManager()
+	{
+		if (GameManager.Instance == null)
+		{
+			GD.PrintErr("❌ GameManager.Instance is null!");
+			return;
+		}
+		GameManager.Instance.Player_body = this;
+		GD.Print("✅ Player registered in GameManager.");
 	}
 	
 	
