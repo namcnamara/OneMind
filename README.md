@@ -7,8 +7,7 @@ To run the project you need Godot 4.4 installed with C# support.
 
 
 The two main files are scenes and scripts. Each scene defines an object in godot. Most scenes have a Node3D as its root object for greater portability.
-
-This project tries to make use of C# patterns:
+This project scripts try to make use of C# patterns:
 
 Bridge:
  - Movable class extends from Node, and is used to allow pause access for all objects that have movement, or can cause damage.
