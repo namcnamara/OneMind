@@ -4,12 +4,9 @@ using System;
 public partial class HugoBody3d: CharacterBody3D
 {
 	// VARIABLES###############################################################
-	[Export]
 	public int HEALTH = 100;
-	[Export]
 	public int GLOOP_MASS = 5;
 	private int GLOOP_MAX = 10;
-	[Export]
 	public bool ALIVE = true;
 	public bool HEAD = false;
 	private int jumpCount = 0;
@@ -19,11 +16,8 @@ public partial class HugoBody3d: CharacterBody3D
 	private float transform_timer = 0.0f;
 	
 	// Physics stuff
-	[Export]
 	public float Speed = 6.0f;
-	[Export]
 	public float GRAVITY = -29.8f; //9.8 feels way to slow, unless we turn up hugo's mass gets turned up a bit
-	[Export]
 	private float jumpForce = 8.50f;
 	private AnimatedSprite3D animatedSprite;
 	private HudLayer hud;
@@ -32,12 +26,13 @@ public partial class HugoBody3d: CharacterBody3D
 	private ShaderMaterial damageShader;
 	private float flashTimer = 0.0f;
 	private float flashDuration = 0.2f;
+	private Player playerNode;
 	
 
 	public override void _Ready()
 	{
-		// Call a method after a short delay to ensure GameManager is initialized
 		CallDeferred("RegisterPlayerInGameManager");
+		playerNode = GetParent() as Player;
 		animatedSprite = GetNode<AnimatedSprite3D>("hugo_anim");
 		damageShader = (ShaderMaterial)animatedSprite.MaterialOverride;
 		hud = GetParent().GetNode<HudLayer>("HUDLayer");
@@ -59,6 +54,8 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		if ( playerNode.isPaused )
+			return;
 		if (HEALTH <= 0)
 		{
 			die();

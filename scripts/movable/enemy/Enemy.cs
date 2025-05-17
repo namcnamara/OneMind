@@ -43,13 +43,16 @@ public partial class Enemy : Movable
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
-		CurrentLocation = this.GlobalPosition;
-		if (PlayerNode != null)
+		if (!isPaused)
 		{
-			CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.Player_location);
+			CurrentLocation = this.GlobalPosition;
+			if (PlayerNode != null)
+			{
+				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.Player_location);
+			}
+			UpdateMovement(delta); 
+			UpdateAction(delta);
 		}
-		UpdateMovement(delta); 
-		UpdateAction(delta);
 	}
 
 	protected void UpdateMovement(double delta)

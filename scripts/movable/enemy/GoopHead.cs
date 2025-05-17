@@ -34,6 +34,7 @@ public partial class GoopHead : Enemy
 	{
 		//Updates current direction
 		base._PhysicsProcess(delta);
+		
 		Explode();
 		Vector3 direction = CurrentDirection;
 		AnimateDirection(direction);

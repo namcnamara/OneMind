@@ -12,7 +12,7 @@ public partial class Movable : Node3D
 	public Vector3 CurrentPosition { get; set; }
 	public Vector3 LastVelocity { get; set; }
 	public Vector3 lastPosition;
-	protected bool IsPaused => GetTree().Paused && AffectedByPause;
+	public bool isPaused;
 
 	public override void _Ready()
 	{
@@ -22,9 +22,13 @@ public partial class Movable : Node3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (IsPaused)
-			return;
-
+		if (GameManager.Instance.isPaused)
+		{
+			isPaused = true;
+		}
+		else
+			isPaused = false;
+			
 		CurrentPosition = GlobalTransform.Origin;
 		LastVelocity = (CurrentPosition - lastPosition) / (float)delta;
 		lastPosition = CurrentPosition;

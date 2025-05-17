@@ -14,6 +14,6 @@ public partial class Player : Movable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		base._Ready();
+		base._PhysicsProcess(delta);
 	}
 }

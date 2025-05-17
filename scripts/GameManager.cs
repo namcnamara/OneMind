@@ -9,7 +9,10 @@ public partial class GameManager : Node
 	public Player Player_Movable { get; set;}
 	public HugoBody3d Player_body { get; set; }
 	public Vector3 Player_location {get; set;} = Vector3.Zero;
+	public bool isPaused {get; set;} = false;
 	// TODO: Hold a random generator for my classes 
+	
+	
 
 	public override void _Ready()
 	{
@@ -19,5 +22,10 @@ public partial class GameManager : Node
 	public override void _PhysicsProcess(double delta)
 	{
 		Player_location = Player_body.GlobalPosition;
+		if (Input.IsActionJustPressed("pause"))
+		{
+			isPaused = !isPaused; 
+			GD.Print($"Game is {(isPaused ? "Paused" : "Unpaused")}");
+		}
 	}
 }
