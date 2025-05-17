@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://5r7ovxtg11eg"]
 
-[ext_resource type="Script" uid="uid://bnwoa2m37a225" path="res://scripts/environment/tree_curl.cs" id="1_ps8k6"]
+[ext_resource type="Script" uid="uid://bnwoa2m37a225" path="res://scripts/environment/trees/tree_curl.cs" id="1_ps8k6"]
 [ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_300rc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ps8k6"]

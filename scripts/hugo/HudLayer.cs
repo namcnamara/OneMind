@@ -6,6 +6,7 @@ public partial class HudLayer : CanvasLayer
 	private TextureProgressBar healthProgressBar;
 	private Label healthLabelText;
 	private Label gloopLabelText;
+	private string default_text = "GLOOPS LEFT:";
 
 	public override void _Ready()
 	{
@@ -26,6 +27,6 @@ public partial class HudLayer : CanvasLayer
 	public void UpdateGloop(int gloop)
 	{
 		gloop = Mathf.Clamp(gloop, 0, 10); 
-		gloopLabelText.Text = "Gloops: " + gloop.ToString();
+		gloopLabelText.Text = default_text + gloop.ToString();
 	}
 }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://5jm88qq8qwfl"]
 
 [ext_resource type="PackedScene" uid="uid://df6vlcbd78dvn" path="res://scenes/hugo/hugo.tscn" id="1_wxg6i"]
-[ext_resource type="PackedScene" uid="uid://cqsgc7rmsrdpp" path="res://scenes/environment/goop_well.tscn" id="1_xj2c5"]
+[ext_resource type="PackedScene" uid="uid://cqsgc7rmsrdpp" path="res://scenes/environment/buildings/goop_well.tscn" id="1_xj2c5"]
 [ext_resource type="PackedScene" uid="uid://dh5admdydsvww" path="res://scenes/enemies/goop_head.tscn" id="2_6tkgx"]
 [ext_resource type="PackedScene" uid="uid://c8a2isnjqi43l" path="res://scenes/enemies/prickle_blob.tscn" id="2_xj2c5"]
 [ext_resource type="PackedScene" uid="uid://dncql3pl13av8" path="res://scenes/enemies/red_cap.tscn" id="3_roi12"]

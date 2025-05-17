@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpytvtiiqe246"]
+
+[ext_resource type="Script" uid="uid://dd4vljf8keggi" path="res://scripts/environment/buildings/blob_spire.cs" id="1_2d22a"]
+[ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_2d22a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_roi12"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3pcy"]
+size = Vector3(2.19348, 1.26263, 0.550842)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3owyn"]
+atlas = ExtResource("2_2d22a")
+region = Rect2(1280, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdv0u"]
+atlas = ExtResource("2_2d22a")
+region = Rect2(1280, 768, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ffgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3owyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdv0u")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[node name="BubbleHut" type="Node3D"]
+
+[node name="BubbleHutRigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17813, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_roi12")
+script = ExtResource("1_2d22a")
+
+[node name="BubbleHutCollide" type="CollisionShape3D" parent="BubbleHutRigid"]
+transform = Transform3D(1, 0, 0, 0, 2.2032, 0, 0, 0, 1, 0.0492963, 0.159175, -0.0163147)
+shape = SubResource("BoxShape3D_n3pcy")
+
+[node name="BubbleHutAnim" type="AnimatedSprite3D" parent="BubbleHutRigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573566, 0)
+sprite_frames = SubResource("SpriteFrames_4ffgj")
+animation = &"idle"
+frame_progress = 0.696226
