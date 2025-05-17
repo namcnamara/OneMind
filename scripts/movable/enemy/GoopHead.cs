@@ -8,8 +8,8 @@ public partial class GoopHead : Enemy
 	public float WanderTimer = 0f;
 	public float WanderCooldown = 1f;
 	[Export] public float DetectionRadius = 20f;
-	[Export] public float ExplodeRadius = 1.5f;
-	[Export] public float jabRadius = .5f;
+	[Export] public float ExplodeRadius = .5f;
+	[Export] public float jabRadius = 1f;
 	private bool isJabbing = false;
 	private AnimatedSprite3D animatedSprite;
 	public RigidBody3D RigidBody;  // This should reference goop_head_rigid
@@ -45,12 +45,17 @@ public partial class GoopHead : Enemy
 		//Update strategies for movement
 		if (decider % 2 == 0)
 			EnemyName = "goop_chase";
+				
 		else
 			EnemyName = "goop_random";
 		_movementStrategy = MovementStrategyRegistry.GetStrategy(EnemyName);
-		//Add Attack type
-		
 		//Add update Action
+		string actionType = "explode";
+		if (decider % 3 == 0)
+		{
+			actionType = "jab";
+		}
+		_actionStrategy = ActionStrategyRegistry.GetStrategy(actionType);
 	}
 	
 	public RigidBody3D GetRigidBody()

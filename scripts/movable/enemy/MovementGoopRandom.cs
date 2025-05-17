@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class GoopRandomMovement : MovementStrategy
+public class MovementGoopRandom : MovementStrategy
 {
 	private float moveSpeed = 4f;
 	private float maxSpeed = 5f;
