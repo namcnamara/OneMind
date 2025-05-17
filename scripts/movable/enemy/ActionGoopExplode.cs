@@ -16,5 +16,26 @@ public class ActionGoopExplode : ActionStrategy
 			return;
 		var body = goop.GetRigidBody();
 		var player_location = GameManager.Instance.Player_location;
+		Explode(goop);
+	}
+	private void Explode(GoopHead goop)
+	{
+		if (goop.hasExploded) return;
+
+		if (goop.CurrentDistance < goop.ExplodeRadius && goop.PlayerBody.state != "head")
+		{
+			goop.hasExploded = true; 
+			goop.health = 0;
+			GD.Print("***************startEXPLODE*****************" + goop.EnemyName);
+			goop.animatedSprite.Play("explode");
+			goop.PlayerBody.take_damage(goop.damage);
+				
+			// Delay deletion to allow animation to play
+			goop.GetTree().CreateTimer(0.5f).Timeout += () =>
+			{
+				GD.Print("deleted");
+				goop.QueueFree();
+			};
+		}
 	}
 }

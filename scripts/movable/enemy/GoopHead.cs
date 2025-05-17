@@ -7,14 +7,20 @@ public partial class GoopHead : Enemy
 	public string EnemyName = "goop_chase";
 	public float WanderTimer = 0f;
 	public float WanderCooldown = 1f;
-	[Export] public float DetectionRadius = 20f;
-	[Export] public float ExplodeRadius = .5f;
-	[Export] public float jabRadius = 1f;
-	private bool isJabbing = false;
-	private AnimatedSprite3D animatedSprite;
-	public RigidBody3D RigidBody;  // This should reference goop_head_rigid
-	private CollisionShape3D collider;
-	private bool hasExploded = false;
+	public float DetectionRadius = 20f;
+	public float ExplodeRadius = 1f;
+	public float BumpRadius = .3f;
+	public AnimatedSprite3D animatedSprite;
+	public RigidBody3D RigidBody;  
+	public CollisionShape3D collider;
+	public bool hasExploded = false;
+	
+	// Bumping variables
+	public bool IsBumping = false;
+	public float BumpTimer = 0f;
+	public float BumpCooldown = 1f;
+	public float bumpAnim;
+	public float BumpChargeRadius = 2f;
 
 	public override void _Ready()
 	{
@@ -34,8 +40,6 @@ public partial class GoopHead : Enemy
 	{
 		//Updates current direction
 		base._PhysicsProcess(delta);
-		
-		Explode();
 		Vector3 direction = CurrentDirection;
 		AnimateDirection(direction);
 	}
@@ -54,7 +58,7 @@ public partial class GoopHead : Enemy
 		string actionType = "explode";
 		if (decider % 3 == 0)
 		{
-			actionType = "jab";
+			actionType = "bump";
 		}
 		_actionStrategy = ActionStrategyRegistry.GetStrategy(actionType);
 	}
@@ -70,7 +74,7 @@ public partial class GoopHead : Enemy
 
 	private void AnimateDirection(Vector3 direction)
 	{
-		if (!hasExploded)
+		if (!hasExploded && !IsBumping)
 			{if (direction.X > 0){animatedSprite.Play("roll_right_head");}
 			else if (direction.X < 0){animatedSprite.Play("roll_left_head");}
 			else if (direction.Z < 0){animatedSprite.Play("roll_front_head");}
@@ -89,28 +93,15 @@ public partial class GoopHead : Enemy
 	private void OnAnimationFinished()
 	{
 		if (animatedSprite.Animation == "explode")
+		{ 
 			QueueFree();
 			GD.Print("***************EXPLODE*****************");
-	}
-	
-	private void Explode()
-	{
-		if (hasExploded) return;
-
-		if (CurrentDistance < ExplodeRadius && PlayerBody.state != "head")
-		{
-			hasExploded = true; 
-			health = 0;
-			GD.Print("***************startEXPLODE*****************" + EnemyName);
-			animatedSprite.Play("explode");
-			PlayerBody.take_damage(damage);
-				
-			// Delay deletion to allow animation to play
-			GetTree().CreateTimer(0.5f).Timeout += () =>
-			{
-				GD.Print("deleted");
-				QueueFree();
-			};
+		}
+		if (animatedSprite.Animation == "bump")
+		{ 
+				if (health < 0)
+					QueueFree();
+				GD.Print("***************bump*****************");
 		}
 	}
 }

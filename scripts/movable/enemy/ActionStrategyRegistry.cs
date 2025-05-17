@@ -19,8 +19,8 @@ public static class ActionStrategyRegistry
 		{
 			//Will always initially defaut to _ since the defautl name is for movement
 			"explode" => new ActionGoopExplode(),
-			"jab" => new ActionGoopExplode(),
-			_ => new ActionGoopExplode()
+			"bump" => new ActionGoopBump(),
+			_ => new ActionGoopBump()
 		};
 	}
 }

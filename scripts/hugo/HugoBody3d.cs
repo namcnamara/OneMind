@@ -277,9 +277,13 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public void take_damage(int damage)
 	{
+		if (state == "hippo")
+			damage -= 7;
 		HEALTH -= damage;
 		if (HEALTH < 0)
 			die();
+		if (HEALTH > 100)
+			HEALTH = 100;
 		else
 		{
 			hud.UpdateHealth(HEALTH);

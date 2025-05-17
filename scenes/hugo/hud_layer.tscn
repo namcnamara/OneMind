@@ -98,6 +98,8 @@ layout_mode = 2
 texture_under = ExtResource("2_gtjoe")
 texture_over = ExtResource("3_f4ty6")
 texture_progress = ExtResource("4_0noyy")
+tint_under = Color(1, 0, 0, 1)
+tint_progress = Color(0, 0, 1, 1)
 
 [node name="HealthLabel" type="Label" parent="TopLeftPanel/ItemList/HBOXHealth/HealthBar"]
 layout_mode = 2
