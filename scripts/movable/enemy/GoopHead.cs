@@ -1,83 +1,110 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class GoopHead : Enemy
 {
-	public override string EnemyName => "goop_chase";
-	public float WanderTimer { get; set; } = 0f;
-	[Export] public float DetectionRadius = 10f;
-	[Export] public float ExplodeRadius = 2.5f;
-	[Export] public int Damage = 10;
-
-	public HugoBody3d Player { get; private set; }
-	public Vector3 CurrentDirection { get; set; } = Vector3.Right;
-	public Vector3 LastDirection { get; set; }
-	public float CurrentDistance { get; set; } = 100f;
-
+	public string EnemyName = "goop_chase";
+	public float WanderTimer = 0f;
+	public float WanderCooldown = 1f;
+	[Export] public float DetectionRadius = 20f;
+	[Export] public float ExplodeRadius = 1.5f;
+	[Export] public float jabRadius = .5f;
+	private bool isJabbing = false;
 	private AnimatedSprite3D animatedSprite;
-	private RigidBody3D rigidBody;  // This should reference goop_head_rigid
+	public RigidBody3D RigidBody;  // This should reference goop_head_rigid
 	private CollisionShape3D collider;
 	private bool hasExploded = false;
-	private float health = 100;
 
 	public override void _Ready()
 	{
 		base._Ready();
-
 		// Ensure we get the RigidBody3D from the right node
-		rigidBody = GetNode<RigidBody3D>("goop_head_rigid");
+		RigidBody = GetNode<RigidBody3D>("goop_head_rigid");
 		animatedSprite = GetNode<AnimatedSprite3D>("goop_head_rigid/goop_head_anim");
 		collider = GetNode<CollisionShape3D>("goop_head_rigid/goop_head_collide");
 		collider.Shape.Margin = 0.05f;
-
-		Player = GetTree().Root.FindChild("hugo_char", true, false) as HugoBody3d;
+		PlayerNode = GetTree().Root.FindChild("hugo", true, false) as Player;
+		PlayerBody = GetTree().Root.FindChild("hugo_char", true, false) as HugoBody3d;
 		animatedSprite.AnimationFinished += OnAnimationFinished;
+		define_strategy();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		//Updates current direction
 		base._PhysicsProcess(delta);
-		AnimateDirection();
-		CheckExplosion();
+		Explode();
+		Vector3 direction = CurrentDirection;
+		AnimateDirection(direction);
+	}
+	
+	public override void define_strategy()
+	{
+		int decider = random.Next(0, 10);
+		//Update strategies for movement
+		if (decider % 2 == 0)
+			EnemyName = "goop_chase";
+		else
+			EnemyName = "goop_random";
+		_movementStrategy = MovementStrategyRegistry.GetStrategy(EnemyName);
+		//Add Attack type
+		
+		//Add update Action
 	}
 	
 	public RigidBody3D GetRigidBody()
 	{
-		if (rigidBody == null)
+		if (RigidBody == null)
 		{
-			rigidBody = GetNode<RigidBody3D>("goop_head_rigid");
+			RigidBody = GetNode<RigidBody3D>("goop_head_rigid");
 		}
-		return rigidBody;
+		return RigidBody;
 	}
 
-	private void CheckExplosion()
+	private void AnimateDirection(Vector3 direction)
 	{
-		
-		if (CurrentDistance < ExplodeRadius && Player.state != "head")
-		{
-			if (!hasExploded)
+		if (!hasExploded)
+			{if (direction.X > 0){animatedSprite.Play("roll_right_head");}
+			else if (direction.X < 0){animatedSprite.Play("roll_left_head");}
+			else if (direction.Z < 0){animatedSprite.Play("roll_front_head");}
+			else if (direction.Z > 0){animatedSprite.Play("roll_back_head");}
+			else
 			{
-				hasExploded = true;
-				health -= 100;
-				animatedSprite.Play("explode");
-				Player.take_damage(Damage);
-				CallDeferred(nameof(QueueFree), 0.5f); // Delay removal
+				if (LastDirection.X > 0) {animatedSprite.Play("idle_right_head");}
+				else if (LastDirection.X < 0) {animatedSprite.Play("idle_left_head");}
+				else if (LastDirection.Z < 0) {animatedSprite.Play("idle_front_head");}
+				else if (LastDirection.Z > 0) {animatedSprite.Play("idle_back_head");}
+				else {animatedSprite.Play("idle_front_head");}
 			}
 		}
-	}
-
-	private void AnimateDirection()
-	{
-		if (CurrentDirection.X > 0) animatedSprite.Play("roll_right_head");
-		else if (CurrentDirection.X < 0) animatedSprite.Play("roll_left_head");
-		else if (CurrentDirection.Z < 0) animatedSprite.Play("roll_front_head");
-		else if (CurrentDirection.Z > 0) animatedSprite.Play("roll_back_head");
-		else animatedSprite.Play("idle_front_head");
 	}
 
 	private void OnAnimationFinished()
 	{
 		if (animatedSprite.Animation == "explode")
 			QueueFree();
+			GD.Print("***************EXPLODE*****************");
+	}
+	
+	private void Explode()
+	{
+		if (hasExploded) return;
+
+		if (CurrentDistance < ExplodeRadius && PlayerBody.state != "head")
+		{
+			hasExploded = true; 
+			health = 0;
+			GD.Print("***************startEXPLODE*****************" + EnemyName);
+			animatedSprite.Play("explode");
+			PlayerBody.take_damage(damage);
+				
+			// Delay deletion to allow animation to play
+			GetTree().CreateTimer(0.5f).Timeout += () =>
+			{
+				GD.Print("deleted");
+				QueueFree();
+			};
+		}
 	}
 }

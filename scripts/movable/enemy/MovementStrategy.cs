@@ -5,5 +5,9 @@ public partial class MovementStrategy
 	public virtual void Move(Enemy enemy, string name, double delta)
 	{
 		strategy_name = name;
+		if (enemy.health < 0)
+			{
+				enemy.isDead = true;
+			}
 	}
 }

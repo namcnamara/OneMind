@@ -49,11 +49,11 @@ public partial class HugoBody3d: CharacterBody3D
 	{
 		if (GameManager.Instance == null)
 		{
-			GD.PrintErr("❌ GameManager.Instance is null!");
+			GD.PrintErr("GameManager.Instance is null!");
 			return;
 		}
 		GameManager.Instance.Player_body = this;
-		GD.Print("✅ Player registered in GameManager.");
+		GD.Print("Player registered in GameManager.");
 	}
 	
 	
@@ -288,7 +288,7 @@ public partial class HugoBody3d: CharacterBody3D
 			hud.UpdateHealth(HEALTH);
 			// Flash red to show damage using dmg shader
 			flashTimer = flashDuration;
-			damageShader.SetShaderParameter("flash_strength", 1.0f);
+			damageShader.SetShaderParameter("flash_strength", 2.0f);
 		}
 	}
 	
@@ -300,7 +300,6 @@ public partial class HugoBody3d: CharacterBody3D
 	public void die()
 	{
 		animatedSprite.Play("die");
-		bool isStuck = true;
 		// Load into base
 	}
 }

@@ -42,8 +42,8 @@ public partial class basic_floor : Node3D
 		rand.Randomize();
 		
 		//resize and assign the new size
-		float sizeX = rand.RandfRange(40, 80);
-		float sizeZ = rand.RandfRange(40, 80);
+		float sizeX = rand.RandfRange(20, 40);
+		float sizeZ = rand.RandfRange(20, 40);
 		Vector3 meshSize = new Vector3(sizeX, 2, sizeZ);
 		Vector3 shapeSize = meshSize / 2.0f;
 		boxMesh = new BoxMesh();
@@ -71,9 +71,7 @@ public partial class basic_floor : Node3D
 	private void SpawnWallSegment(Vector3 position, float rotationYDeg, float scaleX)
 	{
 		var wall = WallScene.Instantiate<Node3D>();
-
 		AddChild(wall);
-
 		wall.GlobalTransform = new Transform3D(
 			Basis.FromEuler(new Vector3(0, Mathf.DegToRad(rotationYDeg), 0)),
 			position
@@ -144,7 +142,7 @@ public partial class basic_floor : Node3D
 			scaleX: floorSize.X
 		);
 
-		// South wall
+		// South wall needs to be seethrough
 		SpawnWallSegment(
 			position: new Vector3(center.X, wallY, center.Z - halfZ),
 			rotationYDeg: 0f,
@@ -181,7 +179,6 @@ public partial class basic_floor : Node3D
 		Vector3 center = meshInstance.GlobalTransform.Origin;
 		Vector3 size = boxMesh.Size;
 		contentBuilder.Build(this, center, size);
-		
 	}
 	
 }

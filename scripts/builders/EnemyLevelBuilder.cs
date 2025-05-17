@@ -9,8 +9,7 @@ public partial class EnemyLevelBuilder : LevelBuilderInterface
 	{
 		var rand = new RandomNumberGenerator();
 		rand.Randomize();
-
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 25; i++)
 		{
 			var goop = goopScene.Instantiate<Node3D>();
 			Vector3 pos = new Vector3(

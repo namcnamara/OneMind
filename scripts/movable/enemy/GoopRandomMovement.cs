@@ -1,12 +1,10 @@
 using Godot;
 using System;
 
-public class GoopChaseMovement : MovementStrategy
+public class GoopRandomMovement : MovementStrategy
 {
-	private float moveSpeed = 6f;
-	private float velocityThreshold = 0.01f;
-	private float maxSpeed = 6f;
-	private float dampeningFactor = 0.9f;
+	private float moveSpeed = 4f;
+	private float maxSpeed = 5f;
 
 	public override void Move(Enemy enemy, string name, double delta)
 	{
@@ -20,25 +18,16 @@ public class GoopChaseMovement : MovementStrategy
 		goop.CurrentDistance = goop.RigidBody.GlobalPosition.DistanceTo(player_location);
 		goop.CurrentDirection = choose_direction(goop, delta);
 	}
-
+	
 	private Vector3 choose_direction(GoopHead goop, double delta)
 	{
-		bool in_chasing_distance = goop.CurrentDistance < goop.DetectionRadius;
-		if (in_chasing_distance && goop.PlayerBody.state != "head")
+		// Wander periodically in different directions indefinately
+		goop.WanderTimer -= (float)delta;  
+		if (goop.WanderTimer <= 0)
 		{
-			goop.CurrentDirection = 1f * (GameManager.Instance.Player_location - goop.RigidBody.GlobalPosition).Normalized();
+			random_move(goop);
+			goop.WanderTimer = goop.WanderCooldown; 
 		}
-		else
-		{
-			// Wander periodically in different directions indefinately
-			goop.WanderTimer -= (float)delta;  
-			if (goop.WanderTimer <= 0)
-			{
-				random_move(goop);
-				goop.WanderTimer = goop.WanderCooldown; 
-			}
-		}
-	
 		//Apply momementum
 		goop.RigidBody.ApplyCentralForce(goop.CurrentDirection * moveSpeed);	
 		//goop.RigidBody.LinearVelocity = goop.RigidBody.LinearVelocity * dampeningFactor;
