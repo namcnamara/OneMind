@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://7mb5oy3q2baa"]
+
+[ext_resource type="Script" uid="uid://byfjbc2654wiy" path="res://scripts/environment/trees/tree_conifer.cs" id="1_d6aup"]
+[ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_65h42"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ps8k6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ps8k6"]
+radius = 0.3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65h42"]
+atlas = ExtResource("2_65h42")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qq78"]
+atlas = ExtResource("2_65h42")
+region = Rect2(1280, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08bfo"]
+atlas = ExtResource("2_65h42")
+region = Rect2(1280, 512, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xc53b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65h42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qq78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08bfo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65h42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qq78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65h42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65h42")
+}],
+"loop": true,
+"name": &"type_1",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65h42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08bfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08bfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qq78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08bfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08bfo")
+}],
+"loop": true,
+"name": &"type_2",
+"speed": 4.0
+}]
+
+[node name="tree_conifer" type="Node3D"]
+
+[node name="tree_conifer_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.323, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_ps8k6")
+lock_rotation = true
+script = ExtResource("1_d6aup")
+
+[node name="tree_conifer_collide" type="CollisionShape3D" parent="tree_conifer_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245, -0.075)
+shape = SubResource("CylinderShape3D_ps8k6")
+
+[node name="tree_conifer_anim" type="AnimatedSprite3D" parent="tree_conifer_rigid"]
+sprite_frames = SubResource("SpriteFrames_xc53b")
+animation = &"type_1"
+autoplay = "type_1"

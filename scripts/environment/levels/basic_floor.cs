@@ -17,7 +17,6 @@ public partial class basic_floor : Node3D
 	
 	public override void _Ready()
 	{	
-		GD.Print("Loading floor!");
 		load_assets();
 		size_floor();
 		populate_boundary();

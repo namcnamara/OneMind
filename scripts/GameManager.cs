@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
@@ -12,11 +13,15 @@ public partial class GameManager : Node
 	public bool isPaused {get; set;} = false;
 	// TODO: Hold a random generator for my classes 
 	
+	public int PlayerMaxHealth {get; set;} = 100;
+	public int PlayerMaxGoop {get; set;} = 5;
+	public List<string> PlayerTransforms = new List<string>();
 	
 
 	public override void _Ready()
 	{
 		Instance = this;
+		PlayerTransforms.Add("head");
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -30,8 +35,6 @@ public partial class GameManager : Node
 	
 	public void LoadFloor(string buildType = "home")
 {
-	GD.Print("Loading floor...");
-
 	var floorScene = GD.Load<PackedScene>("res://scenes/environment/levels/basic_floor.tscn");
 	var floorInstance = floorScene.Instantiate<Node>();
 

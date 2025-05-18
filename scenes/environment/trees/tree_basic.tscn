@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://blfqqtk6iplsw"]
 
-[ext_resource type="Script" uid="uid://blnuk6xniy7hw" path="res://scenes/environment/trees/tree_basic.cs" id="1_kqfvj"]
+[ext_resource type="Script" uid="uid://blnuk6xniy7hw" path="res://scripts/environment/trees/tree_basic.cs" id="1_kqfvj"]
 [ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_nm3ay"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ps8k6"]
@@ -93,4 +93,4 @@ shape = SubResource("CylinderShape3D_ps8k6")
 [node name="tree_basic_anim" type="AnimatedSprite3D" parent="tree_basic_rigid"]
 sprite_frames = SubResource("SpriteFrames_xc53b")
 animation = &"type_1"
-frame_progress = 0.387813
+frame_progress = 0.261872

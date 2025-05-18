@@ -10,6 +10,9 @@ public partial class RandomTree : Node3D
 			GD.Load<PackedScene>("res://scenes/environment/trees/tree_curl.tscn"),
 			GD.Load<PackedScene>("res://scenes/environment/trees/tree_poof.tscn"),
 			GD.Load<PackedScene>("res://scenes/environment/trees/tree_tall.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/trees/tree_basic.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/trees/tree_birch.tscn"),
+			GD.Load<PackedScene>("res://scenes/environment/trees/tree_conifer.tscn"),
 			/*
 			GD.Load<PackedScene>("res://scenes/environment/bush_berry.tscn"),
 			GD.Load<PackedScene>("res://scenes/environment/bush_goop.tscn"),

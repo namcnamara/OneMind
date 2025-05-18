@@ -3,7 +3,6 @@ using System;
 
 public partial class tree_curl : RigidBody3D
 {
-	
 	private Random random = new Random();
 	private Vector3 lastDirection = Vector3.Zero;
 	private AnimatedSprite3D animatedSprite;
@@ -16,7 +15,6 @@ public partial class tree_curl : RigidBody3D
 
 	public override void _Ready()
 	{
-		
 		// Initialize the animated sprite and collision shape
 		animatedSprite = GetNode<AnimatedSprite3D>("tree_curl_anim");
 		collisionShape = GetNode<CollisionShape3D>("tree_curl_collide");

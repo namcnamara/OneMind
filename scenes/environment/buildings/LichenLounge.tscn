@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2k5kcaf7k0hc"]
+
+[ext_resource type="Script" uid="uid://bk2vjrqm7655x" path="res://scripts/environment/buildings/LichenLounge.cs" id="1_r1f2d"]
+[ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_djh7t"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_roi12"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3pcy"]
+size = Vector3(2.19348, 1.26263, 0.550842)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btr7g"]
+atlas = ExtResource("2_djh7t")
+region = Rect2(1536, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djh7t"]
+atlas = ExtResource("2_djh7t")
+region = Rect2(1536, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k50he"]
+atlas = ExtResource("2_djh7t")
+region = Rect2(1536, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q14si"]
+atlas = ExtResource("2_djh7t")
+region = Rect2(1536, 512, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ffgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btr7g")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djh7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k50he")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q14si")
+}],
+"loop": true,
+"name": &"occupied",
+"speed": 5.0
+}]
+
+[node name="LichenLounge" type="Node3D"]
+
+[node name="LichenLoungeRigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17813, 0)
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_roi12")
+script = ExtResource("1_r1f2d")
+
+[node name="LichenLoungeCollide" type="CollisionShape3D" parent="LichenLoungeRigid"]
+transform = Transform3D(1, 0, 0, 0, 2.2032, 0, 0, 0, 1, 0.0492963, 0.159175, -0.0163147)
+shape = SubResource("BoxShape3D_n3pcy")
+
+[node name="LichenLoungeAnim" type="AnimatedSprite3D" parent="LichenLoungeRigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573566, 0)
+sprite_frames = SubResource("SpriteFrames_4ffgj")
+animation = &"occupied"
+frame_progress = 0.499014
