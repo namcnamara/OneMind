@@ -16,14 +16,22 @@ public partial class GameManager : Node
 	public int PlayerMaxHealth {get; set;} = 100;
 	public int PlayerMaxGoop {get; set;} = 5;
 	public List<string> PlayerTransforms = new List<string>();
+	public bool GameIsPlaying = false;
 	
-
 	public override void _Ready()
 	{
 		Instance = this;
 		PlayerTransforms.Add("head");
 	}
 	public override void _PhysicsProcess(double delta)
+	{
+		if (GameIsPlaying)
+		{
+			check_game_processes(delta);
+		}
+	}
+	
+	public void check_game_processes(double delta)
 	{
 		Player_location = Player_body.GlobalPosition;
 		if (Input.IsActionJustPressed("pause"))

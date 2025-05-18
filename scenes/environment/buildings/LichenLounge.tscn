@@ -65,4 +65,4 @@ shape = SubResource("BoxShape3D_n3pcy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573566, 0)
 sprite_frames = SubResource("SpriteFrames_4ffgj")
 animation = &"occupied"
-frame_progress = 0.499014
+frame_progress = 0.776627

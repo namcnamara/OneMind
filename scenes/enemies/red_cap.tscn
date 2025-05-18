@@ -214,6 +214,7 @@ script = ExtResource("1_rvo8x")
 
 [node name="red_cap_anim" type="AnimatedSprite3D" parent="red_cap_rigid"]
 billboard = 1
+shaded = true
 sprite_frames = SubResource("SpriteFrames_6ek0e")
 animation = &"sleep_left"
 frame_progress = 0.381956

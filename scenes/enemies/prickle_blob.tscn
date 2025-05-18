@@ -246,9 +246,10 @@ transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, -0.0277252, 0)
 shape = SubResource("BoxShape3D_cb4ca")
 debug_color = Color(0.268539, 0.534764, 0.89554, 0.42)
 
-[node name="blob" type="AnimatedSprite3D" parent="prickle_blob_rigid"]
+[node name="prickle_blob_anim" type="AnimatedSprite3D" parent="prickle_blob_rigid"]
 transform = Transform3D(0.999998, 0.00195912, -3.23856e-05, -0.00195916, 0.999997, -0.00143046, 2.9583e-05, 0.00143052, 0.999999, 0, 0.217935, 0)
 billboard = 1
+shaded = true
 sprite_frames = SubResource("SpriteFrames_xqiim")
 animation = &"rest_1"
 autoplay = "rest_1"

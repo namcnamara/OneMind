@@ -6,6 +6,7 @@ public partial class HudLayer : CanvasLayer
 	private TextureProgressBar healthProgressBar;
 	private Label healthLabelText;
 	private Label gloopLabelText;
+	private AnimatedSprite2D GloopAnimation;
 	private string default_text = "GLOOPS LEFT:";
 
 	public override void _Ready()
@@ -13,8 +14,10 @@ public partial class HudLayer : CanvasLayer
 		healthProgressBar = GetNode<TextureProgressBar>("TopLeftPanel/ItemList/HBOXHealth/HealthBar");
 		healthLabelText = GetNode<Label>("TopLeftPanel/ItemList/HBOXHealth/HealthBar/HealthLabel");
 		gloopLabelText = GetNode<Label>("TopLeftPanel/ItemList/HBOXGloop/GloopLabel");
-		UpdateHealth(100);
-		UpdateGloop(5);
+		GloopAnimation = GetNode<AnimatedSprite2D>("TopLeftPanel/ItemList/HBOXGloop/GloopAnimation");
+		GloopAnimation.Play("default");
+		UpdateHealth(GameManager.Instance.PlayerMaxHealth);
+		UpdateGloop(GameManager.Instance.PlayerMaxGoop);
 	}
 
 	public void UpdateHealth(int health)

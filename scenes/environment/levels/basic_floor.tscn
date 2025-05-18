@@ -34,8 +34,8 @@ mesh = SubResource("BoxMesh_3qnk6")
 environment = SubResource("Environment_i3q0d")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 52, -0.584034)
-light_color = Color(1, 0.802197, 0.999489, 1)
+transform = Transform3D(0.996866, -0.00942954, -0.0785423, 0.0790503, 0.156099, 0.984573, 0.00297615, -0.987696, 0.156355, 0.203114, 52.7976, 2.79688)
+light_color = Color(0.588235, 0.8, 0.454902, 1)
 shadow_enabled = true
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]

@@ -68,7 +68,7 @@ public partial class basic_floor : Node3D
 		AddChild(tree);
 	}
 	
-	private void SpawnWallSegment(Vector3 position, float rotationYDeg, float scaleX)
+	private void SpawnWallSegment(Vector3 position, float rotationYDeg, float scaleX, bool bottom_wall = false)
 	{
 		var wall = WallScene.Instantiate<Node3D>();
 		AddChild(wall);
@@ -111,9 +111,17 @@ public partial class basic_floor : Node3D
 			float t = (i + 1f) / (layerCount + 1f);
 			Vector3 min = min_per + (min_edge - min_per) * t;
 			Vector3 max = max_per + (max_edge - max_per) * t;
-			for (float x = min.X; x <= max.X; x += spacing)
+			float x_min = min.X;
+			float x_max = max.X;
+			float x_offset_for_center = 1.3f;
+			float halfway = (x_min + x_max) / 2;
+			
+			for (float x = x_min; x <= x_max; x += spacing)
 			{
-				SpawnTree(new Vector3(x, center.Y, min.Z), heightScale);
+				if (x < (halfway - x_offset_for_center) || x > (halfway + x_offset_for_center))
+				{
+					SpawnTree(new Vector3(x, center.Y, min.Z), heightScale);
+				}
 				SpawnTree(new Vector3(x, center.Y, max.Z), heightScale);
 			}
 			for (float z = min.Z; z <= max.Z; z += spacing)

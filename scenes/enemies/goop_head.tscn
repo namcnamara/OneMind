@@ -30,6 +30,7 @@ lock_rotation = true
 
 [node name="goop_head_anim" type="AnimatedSprite3D" parent="goop_head_rigid"]
 billboard = 1
+shaded = true
 sprite_frames = ExtResource("2_epext")
 animation = &"bump"
 

@@ -17,11 +17,14 @@ public partial class Master : Node
 
 		if (GameManager.Instance != null)
 		{
-			GD.Print("GameManager is active");
-
+			GD.Print("Starting Gameplay:");
 			GameManager.Instance.LoadFloor("home"); // Call it explicitly here
-
+			
+			//Drop the title scene and load home level
 			GetNode("Title").QueueFree();
+			
+			// Open physics process in game manager
+			GameManager.Instance.GameIsPlaying = true;
 		}
 		else
 		{
