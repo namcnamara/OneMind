@@ -13,15 +13,16 @@ public partial class basic_floor : Node3D
 	public BoxShape3D boxShape;
 	public Aabb aabb;
 	public Vector3 FloorSize;
-
+	public String BuildType {get; set;} = "home";
+	
 	public override void _Ready()
 	{	
+		GD.Print("Loading floor!");
 		load_assets();
 		size_floor();
 		populate_boundary();
 		populate_walls();
-		String build_type = "enemy";
-		populate_contents(build_type);
+		populate_contents(BuildType);
 	}
 	
 	private void load_assets()

@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="OneMind"
-run/main_scene="uid://qpvf8dgvshke"
+run/main_scene="uid://diwnrhvd67lau"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
+
+[autoload]
+
+GameManager="*res://scenes/game_manager.tscn"
 
 [dotnet]
 

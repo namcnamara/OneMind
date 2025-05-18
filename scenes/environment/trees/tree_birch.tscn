@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://c23nhr5r4yeg3"]
+[gd_scene load_steps=12 format=3 uid="uid://c23nhr5r4yeg3"]
 
-[ext_resource type="Script" uid="uid://2db85fb326mt" path="res://scripts/environment/trees/tree_poof.cs" id="1_8fxdq"]
+[ext_resource type="Script" uid="uid://bjt0po0dwq5at" path="res://scripts/environment/trees/tree_birch.cs" id="1_13njg"]
 [ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_eqeva"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ps8k6"]
@@ -24,6 +24,14 @@ region = Rect2(512, 256, 256, 256)
 atlas = ExtResource("2_eqeva")
 region = Rect2(512, 0, 256, 256)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgctr"]
+atlas = ExtResource("2_eqeva")
+region = Rect2(0, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkdo6"]
+atlas = ExtResource("2_eqeva")
+region = Rect2(0, 2304, 256, 256)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_xc53b"]
 animations = [{
 "frames": [{
@@ -45,70 +53,57 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oks2p")
+"texture": SubResource("AtlasTexture_pgctr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wfnf3")
+"texture": SubResource("AtlasTexture_kkdo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkdo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkdo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkdo6")
 }],
 "loop": true,
 "name": &"type_1",
-"speed": 2.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q3520")
+"texture": SubResource("AtlasTexture_pgctr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oks2p")
+"texture": SubResource("AtlasTexture_kkdo6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wfnf3")
+"texture": SubResource("AtlasTexture_pgctr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oks2p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q3520")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qo6al")
+"texture": SubResource("AtlasTexture_pgctr")
 }],
 "loop": true,
 "name": &"type_2",
-"speed": 2.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qo6al")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q3520")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qo6al")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q3520")
-}],
-"loop": true,
-"name": &"type_3",
-"speed": 1.0
+"speed": 8.0
 }]
 
-[node name="tree_poof" type="Node3D"]
+[node name="tree_birch" type="Node3D"]
 
-[node name="tree_poof_rigid" type="RigidBody3D" parent="."]
+[node name="tree_birch_rigid" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.323, 0)
 mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_ps8k6")
 lock_rotation = true
-script = ExtResource("1_8fxdq")
+script = ExtResource("1_13njg")
 
-[node name="tree_collide" type="CollisionShape3D" parent="tree_poof_rigid"]
+[node name="tree_birch collide" type="CollisionShape3D" parent="tree_birch_rigid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245, -0.075)
 shape = SubResource("CylinderShape3D_ps8k6")
 
-[node name="tree_poof_anim" type="AnimatedSprite3D" parent="tree_poof_rigid"]
+[node name="tree_birch_anim" type="AnimatedSprite3D" parent="tree_birch_rigid"]
 sprite_frames = SubResource("SpriteFrames_xc53b")
-animation = &"type_1"
-frame_progress = 0.707026
+animation = &"type_2"
+autoplay = "type_1"
+frame_progress = 0.300552

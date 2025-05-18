@@ -104,7 +104,7 @@ physics_material_override = SubResource("PhysicsMaterial_ps8k6")
 lock_rotation = true
 script = ExtResource("1_oks2p")
 
-[node name="tree_collide" type="CollisionShape3D" parent="tree_poof_rigid"]
+[node name="tree_poof_collide" type="CollisionShape3D" parent="tree_poof_rigid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245, -0.075)
 shape = SubResource("CylinderShape3D_ps8k6")
 

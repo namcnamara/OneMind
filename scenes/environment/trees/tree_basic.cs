@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class tree_poof : RigidBody3D
+public partial class tree_basic : RigidBody3D
 {
 	private Random random = new Random();
 	private Vector3 lastDirection = Vector3.Zero;
@@ -16,9 +16,9 @@ public partial class tree_poof : RigidBody3D
 	public override void _Ready()
 	{
 		// Initialize the animated sprite and collision shape
-		animatedSprite = GetNode<AnimatedSprite3D>("tree_poof_anim");
-		collisionShape = GetNode<CollisionShape3D>("tree_poof_collide");
-		int animationChoice = random.Next(1, 7); 
+		animatedSprite = GetNode<AnimatedSprite3D>("tree_basic_anim");
+		collisionShape = GetNode<CollisionShape3D>("tree_basic_collide");
+		int animationChoice = random.Next(1, 4); 
 		
 		//Determines speed for this animation so its varied a bit
 		int slowdown = random.Next(1, 130);

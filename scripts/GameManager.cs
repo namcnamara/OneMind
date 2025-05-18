@@ -18,7 +18,6 @@ public partial class GameManager : Node
 	{
 		Instance = this;
 	}
-	
 	public override void _PhysicsProcess(double delta)
 	{
 		Player_location = Player_body.GlobalPosition;
@@ -28,4 +27,19 @@ public partial class GameManager : Node
 			GD.Print($"Game is {(isPaused ? "Paused" : "Unpaused")}");
 		}
 	}
+	
+	public void LoadFloor(string buildType = "home")
+{
+	GD.Print("Loading floor...");
+
+	var floorScene = GD.Load<PackedScene>("res://scenes/environment/levels/basic_floor.tscn");
+	var floorInstance = floorScene.Instantiate<Node>();
+
+	if (floorInstance is basic_floor floor)
+	{
+		floor.BuildType = buildType;
+	}
+
+	GetTree().Root.AddChild(floorInstance);
+}
 }

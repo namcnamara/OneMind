@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpytvtiiqe246"]
 
-[ext_resource type="Script" uid="uid://dd4vljf8keggi" path="res://scripts/environment/buildings/blob_spire.cs" id="1_2d22a"]
+[ext_resource type="Script" uid="uid://ndln1a2j6nkp" path="res://scripts/environment/buildings/BubbleHut.cs" id="1_2d22a"]
 [ext_resource type="Texture2D" uid="uid://bxmc3ovi71man" path="res://Sprites/master_resource_outside.png" id="2_2d22a"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_roi12"]
