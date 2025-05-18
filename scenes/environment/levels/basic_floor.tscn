@@ -16,6 +16,8 @@ size = Vector3(100, 2, 100)
 [node name="basic_floor" type="Node3D"]
 script = ExtResource("1_18xtu")
 
+[node name="hugo" parent="." instance=ExtResource("2_klls7")]
+
 [node name="ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 axis_lock_linear_x = true
@@ -37,5 +39,3 @@ environment = SubResource("Environment_i3q0d")
 transform = Transform3D(0.996866, -0.00942954, -0.0785423, 0.0790503, 0.156099, 0.984573, 0.00297615, -0.987696, 0.156355, 0.203114, 52.7976, 2.79688)
 light_color = Color(0.588235, 0.8, 0.454902, 1)
 shadow_enabled = true
-
-[node name="hugo" parent="." instance=ExtResource("2_klls7")]

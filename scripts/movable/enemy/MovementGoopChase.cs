@@ -15,9 +15,9 @@ public class MovementGoopChase : MovementStrategy
 		if (enemy is not GoopHead goop)
 			return;
 		var body = goop.GetRigidBody();
-		var player_location = GameManager.Instance.Player_location;
-		if (player_location == Vector3.Zero) return;
-		goop.CurrentDistance = goop.RigidBody.GlobalPosition.DistanceTo(player_location);
+		var Player_Location = GameManager.Instance.Player_Location;
+		if (Player_Location == Vector3.Zero) return;
+		goop.CurrentDistance = goop.RigidBody.GlobalPosition.DistanceTo(Player_Location);
 		goop.CurrentDirection = choose_direction(goop, delta);
 	}
 
@@ -26,7 +26,7 @@ public class MovementGoopChase : MovementStrategy
 		bool in_chasing_distance = goop.CurrentDistance < goop.DetectionRadius;
 		if (in_chasing_distance && goop.PlayerBody.state != "head")
 		{
-			goop.CurrentDirection = 1f * (GameManager.Instance.Player_location - goop.RigidBody.GlobalPosition).Normalized();
+			goop.CurrentDirection = 1f * (GameManager.Instance.Player_Location - goop.RigidBody.GlobalPosition).Normalized();
 		}
 		else
 		{

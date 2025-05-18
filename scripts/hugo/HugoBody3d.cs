@@ -4,10 +4,8 @@ using System;
 public partial class HugoBody3d: CharacterBody3D
 {
 	// VARIABLES###############################################################
-	public int HEALTH = 100;
-	public int GLOOP_MASS = 5;
-	private int GLOOP_MAX = 10;
-	public bool ALIVE = true;
+	public int HEALTH = GameManager.Instance.PlayerMaxHealth;
+	public int GoopMass = GameManager.Instance.PlayerMaxGoop;
 	public bool HEAD = false;
 	private int jumpCount = 0;
 	private int maxJumps = 2;
@@ -17,7 +15,7 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	// Physics stuff
 	public float Speed = 6.0f;
-	public float GRAVITY = -29.8f; //9.8 feels way to slow, unless we turn up hugo's mass gets turned up a bit
+	public float GRAVITY = -29.8f; 
 	private float jumpForce = 8.50f;
 	private AnimatedSprite3D animatedSprite;
 	private HudLayer hud;
@@ -47,13 +45,15 @@ public partial class HugoBody3d: CharacterBody3D
 			GD.PrintErr("GameManager.Instance is null!");
 			return;
 		}
-		GameManager.Instance.Player_body = this;
+		GameManager.Instance.Player_Body = this;
 		GD.Print("Player registered in GameManager.");
 	}
 	
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		if (GameManager.Instance.IsDead)
+			return;
 		if ( playerNode.isPaused )
 			return;
 		if (HEALTH <= 0)
@@ -64,7 +64,6 @@ public partial class HugoBody3d: CharacterBody3D
 		{
 			handle_shaders(delta);
 			handle_transform();
-
 			// Add other time-taking actions like spawning goops
 			if (isStuck)
 			{
@@ -94,7 +93,6 @@ public partial class HugoBody3d: CharacterBody3D
 			else if (state == "hippo")
 				animate_hippo(direction);
 		}
-
 		updateHUD();
 	}
 	
@@ -230,26 +228,26 @@ public partial class HugoBody3d: CharacterBody3D
 	public void updateHUD()
 	{
 		hud.UpdateHealth(HEALTH);
-		hud.UpdateGloop(GLOOP_MASS);
+		hud.UpdateGloop(GoopMass);
 	}
 	
 	public void handle_transform()
 	{
-		if (state == "head" && Input.IsActionJustPressed("transform_hugo") && GLOOP_MASS >= 1)
+		if (state == "head" && Input.IsActionJustPressed("transform_hugo") && GoopMass >= 1 && GameManager.Instance.PlayerTransforms.Contains(state))
 		{
 			state = "hugo";
 			HEALTH -= 10;
-			GLOOP_MASS -= 1;
+			GoopMass -= 1;
 			Speed = 5.0f;
 			animatedSprite.Play("head_to_hugo");
 			transform_timer = 1.0f;
 			isStuck = true;
 		}
-		else if (state == "head" && Input.IsActionJustPressed("transform_hippo") && GLOOP_MASS >= 2)
+		else if (state == "head" && Input.IsActionJustPressed("transform_hippo") && GoopMass >= 2)
 		{
 			state = "hippo";
 			HEALTH -= 15;
-			GLOOP_MASS -= 2;
+			GoopMass -= 2;
 			Speed = 3.0f;
 			animatedSprite.Play("head_to_hippo");
 			transform_timer = 2.0f;
@@ -282,15 +280,15 @@ public partial class HugoBody3d: CharacterBody3D
 		HEALTH -= damage;
 		if (HEALTH < 0)
 			die();
-		if (HEALTH > 100)
-			HEALTH = 100;
+		if (HEALTH > GameManager.Instance.PlayerMaxHealth)
+			HEALTH = GameManager.Instance.PlayerMaxHealth;
 		else
 		{
-			hud.UpdateHealth(HEALTH);
 			// Flash red to show damage using dmg shader
 			flashTimer = flashDuration;
 			damageShader.SetShaderParameter("flash_strength", 2.0f);
 		}
+		hud.UpdateHealth(HEALTH);
 	}
 	
 	public void heal(int heal)
@@ -300,7 +298,21 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public void die()
 	{
+		GD.Print("****DYING!!!!!!!!!!!!!!!!");
 		animatedSprite.Play("die");
+		isStuck = true;
 		// Load into base
+		Timer deathTimer = new Timer();
+		AddChild(deathTimer); 
+		deathTimer.WaitTime = 3.0f;  
+		deathTimer.OneShot = true;  
+		deathTimer.Start();
+		deathTimer.Timeout += OnDeathTimeout;
+	}
+
+	private void OnDeathTimeout()
+	{
+		GameManager.Instance.IsDead = true;
+		GD.Print("Death complete, game over.");
 	}
 }

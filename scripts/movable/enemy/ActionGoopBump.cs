@@ -12,7 +12,7 @@ public class ActionGoopBump : ActionStrategy
 		if (enemy is not GoopHead goop)
 			return;
 		var body = goop.GetRigidBody();
-		var player_location = GameManager.Instance.Player_location;
+		var Player_Location = GameManager.Instance.Player_Location;
 		BumpCharge(goop, delta);
 	}
 	
@@ -33,7 +33,7 @@ public class ActionGoopBump : ActionStrategy
 			// Check if within charge range (but not yet bumped)
 			if (goop.CurrentDistance < goop.BumpChargeRadius && goop.PlayerBody.state != "head")
 			{
-				Vector3 direction = (GameManager.Instance.Player_location - goop.RigidBody.GlobalPosition).Normalized();
+				Vector3 direction = (GameManager.Instance.Player_Location - goop.RigidBody.GlobalPosition).Normalized();
 				goop.CurrentDirection = direction * moveSpeed;
 				goop.RigidBody.ApplyCentralForce(goop.CurrentDirection);
 				goop.WanderTimer = goop.WanderCooldown;

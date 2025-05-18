@@ -1,0 +1,272 @@
+[gd_scene load_steps=12 format=3 uid="uid://b84b0is2t8tf6"]
+
+[ext_resource type="Texture2D" uid="uid://bq1ckst0xhues" path="res://Sprites/OneMindTitle.png" id="1_wq2ky"]
+[ext_resource type="Texture2D" uid="uid://b2lghphq7o7nn" path="res://Stills/hippo_blink/hippo_1.png" id="2_uth7j"]
+[ext_resource type="Texture2D" uid="uid://djymqxksafjsy" path="res://Stills/hippo_blink/hippo_2.png" id="3_af2l1"]
+[ext_resource type="Texture2D" uid="uid://lq4eplg6bt3g" path="res://Stills/hippo_blink/hippo_3.png" id="4_wiaur"]
+[ext_resource type="Texture2D" uid="uid://jaln0js0arix" path="res://Stills/hippo_blink/hippo_4.png" id="5_tydxx"]
+[ext_resource type="Texture2D" uid="uid://ccois5p86ik61" path="res://Stills/hippo_blink/hippo_5.png" id="6_e2xtt"]
+[ext_resource type="Texture2D" uid="uid://tm4xjamwudaa" path="res://Stills/hippo_blink/hippo_6.png" id="7_qwemb"]
+[ext_resource type="Texture2D" uid="uid://dmc6psouhdel5" path="res://Stills/hippo_blink/hippo_7.png" id="8_6ptrc"]
+
+[sub_resource type="Gradient" id="Gradient_f00kv"]
+colors = PackedColorArray(0, 0.172549, 0.219608, 1, 0.0941176, 0.439216, 0.639216, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o8htl"]
+gradient = SubResource("Gradient_f00kv")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r6f15"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_af2l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wiaur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tydxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e2xtt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tydxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wiaur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_af2l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_af2l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wiaur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_af2l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_af2l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wiaur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tydxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e2xtt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qwemb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6ptrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6ptrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6ptrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6ptrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qwemb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e2xtt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tydxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wiaur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_af2l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6ptrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6ptrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uth7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_af2l1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wiaur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tydxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e2xtt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qwemb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6ptrc")
+}],
+"loop": true,
+"name": &"default_1",
+"speed": 5.0
+}]
+
+[node name="Title" type="Node"]
+
+[node name="Gradient" type="TextureRect" parent="."]
+offset_left = -9.0
+offset_top = -5.0
+offset_right = 55.0
+offset_bottom = 59.0
+scale = Vector2(8.2355, 10.1434)
+texture = SubResource("GradientTexture2D_o8htl")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="Play" type="Button" parent="."]
+offset_left = 223.0
+offset_top = 448.0
+offset_right = 264.0
+offset_bottom = 479.0
+text = "Play"
+
+[node name="OneMind" type="TextureRect" parent="."]
+offset_left = 26.0
+offset_top = 256.0
+offset_right = 470.0
+offset_bottom = 409.0
+texture = ExtResource("1_wq2ky")
+
+[node name="BlinkHippo" type="AnimatedSprite2D" parent="."]
+position = Vector2(830, 323)
+scale = Vector2(0.272304, 0.17899)
+sprite_frames = SubResource("SpriteFrames_r6f15")
+animation = &"default_1"

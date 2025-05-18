@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cly7edj4ui7bx"]
+
+[ext_resource type="Texture2D" uid="uid://c3ftohs5hkohn" path="res://Sprites/Pause.png" id="1_0ep5p"]
+
+[node name="Panel" type="Panel"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pause" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 67.0
+offset_right = 767.0
+offset_bottom = 220.0
+texture = ExtResource("1_0ep5p")

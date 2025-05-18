@@ -13,9 +13,9 @@ public class MovementGoopRandom : MovementStrategy
 		if (enemy is not GoopHead goop)
 			return;
 		var body = goop.GetRigidBody();
-		var player_location = GameManager.Instance.Player_location;
-		if (player_location == Vector3.Zero) return;
-		goop.CurrentDistance = goop.RigidBody.GlobalPosition.DistanceTo(player_location);
+		var Player_Location = GameManager.Instance.Player_Location;
+		if (Player_Location == Vector3.Zero) return;
+		goop.CurrentDistance = goop.RigidBody.GlobalPosition.DistanceTo(Player_Location);
 		goop.CurrentDirection = choose_direction(goop, delta);
 	}
 	

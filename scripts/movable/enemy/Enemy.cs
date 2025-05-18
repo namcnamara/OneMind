@@ -48,7 +48,7 @@ public partial class Enemy : Movable
 			CurrentLocation = this.GlobalPosition;
 			if (PlayerNode != null)
 			{
-				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.Player_location);
+				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.Player_Location);
 			}
 			UpdateMovement(delta); 
 			UpdateAction(delta);

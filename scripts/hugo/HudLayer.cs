@@ -30,6 +30,6 @@ public partial class HudLayer : CanvasLayer
 	public void UpdateGloop(int gloop)
 	{
 		gloop = Mathf.Clamp(gloop, 0, 10); 
-		gloopLabelText.Text = default_text + gloop.ToString();
+		gloopLabelText.Text = default_text + " " + gloop.ToString();
 	}
 }
