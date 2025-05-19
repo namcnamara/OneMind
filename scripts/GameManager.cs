@@ -6,6 +6,7 @@ public partial class GameManager : Node
 {
 	//GameManager is a singleton
 	public static GameManager Instance { get; private set; }
+	public string CurrentFloor { get; set; } = "home";
 	private Node currentFloorInstance;
 	//player is a singleton
 	public Player Player_Movable { get; set;}
@@ -16,6 +17,7 @@ public partial class GameManager : Node
 	
 	private PackedScene pausePanelScene;
 	private Control pausePanelInstance;
+	public Button ToHomeButton {get; set;}
 	
 	public bool floorUnloaded = false;
 	// TODO: Hold a random generator for my classes 
@@ -35,13 +37,13 @@ public partial class GameManager : Node
 		PlayerTransforms.Add("head");
 		pausePanelScene = GD.Load<PackedScene>("res://scenes/Pause.tscn");
 	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		if (GameIsPlaying)
 		{
 			check_game_processes(delta);
 		}
-
 		if (IsDead && !floorUnloaded)
 		{
 			UnloadFloor();
@@ -52,6 +54,13 @@ public partial class GameManager : Node
 	public void check_game_processes(double delta)
 	{
 		Player_Location = Player_Body.GlobalPosition;
+		//Handle Pausing
+		handle_pause(delta);
+		
+	}
+	
+	public void handle_pause(double delta)
+	{
 		if (Input.IsActionJustPressed("pause"))
 		{
 			TogglePause();
@@ -94,6 +103,11 @@ public partial class GameManager : Node
 			{
 				pausePanelInstance = pausePanelScene.Instantiate<Control>();
 				GetTree().Root.AddChild(pausePanelInstance);
+				if (CurrentFloor != "home")
+				{
+					ToHomeButton = pausePanelInstance.GetNode<Button>("ToHomeButton");
+					ToHomeButton.Pressed += ToHomePressed;
+				}
 			}
 		}
 		else
@@ -102,6 +116,19 @@ public partial class GameManager : Node
 			{
 				pausePanelInstance.QueueFree();
 				pausePanelInstance = null;
+			}
+		}
+	}
+	
+	public void ToHomePressed()
+	{
+		{
+			GD.Print("Going home");
+			if (GameManager.Instance != null)
+			{
+				GD.Print("Starting Gameplay:");
+				GameManager.Instance.UnloadFloor(); 
+				GameManager.Instance.LoadFloor("home");
 			}
 		}
 	}

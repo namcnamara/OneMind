@@ -6,7 +6,6 @@ public partial class Master : Node
 	public PackedScene TitleScreen { get; set;}
 	public AnimatedSprite2D animatedSprite {get; set;}
 	public Button playButton {get; set;}
-	public string a  = "a";
 	
 	 public override void _Ready()
 	{

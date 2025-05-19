@@ -13,3 +13,11 @@ offset_top = 67.0
 offset_right = 767.0
 offset_bottom = 220.0
 texture = ExtResource("1_0ep5p")
+
+[node name="ToHomeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 229.0
+offset_right = 604.0
+offset_bottom = 260.0
+text = "Cull Weakness"

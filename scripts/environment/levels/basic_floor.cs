@@ -22,6 +22,7 @@ public partial class basic_floor : Node3D
 		populate_boundary();
 		populate_walls();
 		populate_contents(BuildType);
+		GameManager.Instance.CurrentFloor = BuildType;
 	}
 	
 	private void load_assets()
