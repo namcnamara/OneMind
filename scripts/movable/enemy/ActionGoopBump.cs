@@ -7,7 +7,7 @@ public class ActionGoopBump : ActionStrategy
 
 	public override void Act(Enemy enemy, string name, double delta)
 	{
-		//ensure run is ready
+		//	Ensure run is ready
 		base.Act(enemy, name, delta);
 		if (enemy is not GoopHead goop)
 			return;
@@ -44,20 +44,10 @@ public class ActionGoopBump : ActionStrategy
 			{
 				goop.IsBumping = true;
 				goop.BumpTimer = goop.BumpCooldown;
-				goop.health -= 50;
 				GD.Print("***************Bumpin*****************" + goop.EnemyName);
 				goop.animatedSprite.Play("bump");
+				goop.TakeDamage(50);
 				goop.PlayerBody.take_damage(5);
-
-				// Handle death
-				if (goop.health <= 0)
-				{
-					goop.GetTree().CreateTimer(0.5f).Timeout += () =>
-					{
-						GD.Print("deleted");
-						goop.QueueFree();
-					};
-				}
 			}
 		}
 	}

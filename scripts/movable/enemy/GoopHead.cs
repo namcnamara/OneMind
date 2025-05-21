@@ -4,15 +4,11 @@ using System.Threading.Tasks;
 
 public partial class GoopHead : Enemy
 {
-	public string EnemyName = "goop_chase";
 	public float WanderTimer = 0f;
 	public float WanderCooldown = 1f;
 	public float DetectionRadius = 20f;
 	public float ExplodeRadius = 1f;
 	public float BumpRadius = .3f;
-	public AnimatedSprite3D animatedSprite;
-	public RigidBody3D RigidBody;  
-	public CollisionShape3D collider;
 	public bool hasExploded = false;
 	
 	// Bumping variables
@@ -24,6 +20,7 @@ public partial class GoopHead : Enemy
 
 	public override void _Ready()
 	{
+		EnemyName = "goop";
 		base._Ready();
 		// Ensure we get the RigidBody3D from the right node
 		RigidBody = GetNode<RigidBody3D>("goop_head_rigid");
@@ -49,18 +46,18 @@ public partial class GoopHead : Enemy
 		int decider = random.Next(0, 10);
 		//Update strategies for movement
 		if (decider % 2 == 0)
-			EnemyName = "goop_chase";
+			movement = "chase";
 				
 		else
-			EnemyName = "goop_random";
-		_movementStrategy = MovementStrategyRegistry.GetStrategy(EnemyName);
+			movement = "random";
+		_movementStrategy = MovementStrategyRegistry.GetStrategy(movement);
 		//Add update Action
-		string actionType = "explode";
+		action = "Explode";
 		if (decider % 3 == 0)
 		{
-			actionType = "bump";
+			action = "bump";
 		}
-		_actionStrategy = ActionStrategyRegistry.GetStrategy(actionType);
+		_actionStrategy = ActionStrategyRegistry.GetStrategy(action);
 	}
 	
 	public RigidBody3D GetRigidBody()
@@ -72,7 +69,7 @@ public partial class GoopHead : Enemy
 		return RigidBody;
 	}
 
-	private void AnimateDirection(Vector3 direction)
+	public void AnimateDirection(Vector3 direction)
 	{
 		if (!hasExploded && !IsBumping)
 			{if (direction.X > 0){animatedSprite.Play("roll_right_head");}
@@ -87,21 +84,6 @@ public partial class GoopHead : Enemy
 				else if (LastDirection.Z > 0) {animatedSprite.Play("idle_back_head");}
 				else {animatedSprite.Play("idle_front_head");}
 			}
-		}
-	}
-
-	private void OnAnimationFinished()
-	{
-		if (animatedSprite.Animation == "explode")
-		{ 
-			QueueFree();
-			GD.Print("***************EXPLODE*****************");
-		}
-		if (animatedSprite.Animation == "bump")
-		{ 
-				if (health < 0)
-					QueueFree();
-				GD.Print("***************bump*****************");
 		}
 	}
 }

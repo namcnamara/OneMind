@@ -7,7 +7,7 @@ public partial class HudLayer : CanvasLayer
 	private Label healthLabelText;
 	private Label gloopLabelText;
 	private AnimatedSprite2D GloopAnimation;
-	private string default_text = "GLOOPS LEFT:";
+	private string default_text = "GOOPS LEFT:";
 
 	public override void _Ready()
 	{

@@ -18,7 +18,7 @@ public static class ActionStrategyRegistry
 		return key switch
 		{
 			//Will always initially defaut to _ since the default name is for movement in enemies
-			"explode" => new ActionGoopExplode(),
+			"Explode" => new ActionGoopExplode(),
 			"bump" => new ActionGoopBump(),
 			_ => new ActionGoopBump()
 		};

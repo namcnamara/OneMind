@@ -5,13 +5,20 @@ public partial class Enemy : Movable
 {
 	//enemy basic stuff
 	public virtual string EnemyName { get; set; } = "generic";
-	public int health = 100;
-	public int damage = 10;
-	public bool isDead = false;
-	
-	//Pointer to the player 
+	public int MaxHealth = 100;
+	public int Health = 100;
+	public int Damage = 10;
+	public bool IsDead = false;
+	public bool IsDying = false;
 	public Player PlayerNode { get; set; }
 	public HugoBody3d PlayerBody { get; set; }
+	
+	public AnimatedSprite3D animatedSprite;
+	public RigidBody3D RigidBody;  
+	public CollisionShape3D collider;
+	
+	public PackedScene HealthBar { get; set; }
+	public HealthBar healthBarInstance;
 	
 	//location distance, and direction 
 	public Vector3 CurrentDirection { get; set; } = Vector3.Right;
@@ -20,6 +27,8 @@ public partial class Enemy : Movable
 	public float CurrentDistance { get; set; } = 100f; //tracks distance to player
 	
 	//strategies
+	public string movement = "";
+	public string action = "";
 	public MovementStrategy _movementStrategy { get; set; }
 	public ActionStrategy _actionStrategy { get; set; }
 	
@@ -42,7 +51,13 @@ public partial class Enemy : Movable
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		if (IsDying) return;
 		base._PhysicsProcess(delta);
+		if (Health < 0)
+		{
+			IsDead = true;
+		}
+		if (healthBarInstance == null){AddHealthBar();}
 		if (!isPaused)
 		{
 			CurrentLocation = this.GlobalPosition;
@@ -53,6 +68,16 @@ public partial class Enemy : Movable
 			UpdateMovement(delta); 
 			UpdateAction(delta);
 		}
+		if (IsDead)
+		{
+			Die("Explode");
+		}
+	}
+	
+	public void Die(string animName = "die")
+	{
+		IsDying = true;
+		animatedSprite.Play(animName);
 	}
 
 	protected void UpdateMovement(double delta)
@@ -64,8 +89,53 @@ public partial class Enemy : Movable
 	{
 		GD.Print("add anmation registry");
 	}
+	
 	protected void UpdateAction(double delta)
 	{
 		_actionStrategy.Act(this, EnemyName, delta);
+	}
+	
+	private void AddHealthBar()
+	{
+		HealthBar = GD.Load<PackedScene>("res://scenes/health_bar.tscn");
+		healthBarInstance = (HealthBar)HealthBar.Instantiate();
+		collider.AddChild(healthBarInstance);
+		healthBarInstance.Translate(new Vector3(0, 1.5f, 0));
+		healthBarInstance.Visit(this);
+	}
+	
+	public void TakeDamage(int damageAmount)
+	{
+		Health -= damageAmount;
+		if (Health < 0) Health = 0; 
+		if (healthBarInstance != null)
+		{
+			GD.Print($"takedame {damageAmount}");
+			healthBarInstance.Visit(this); 
+		}
+		if (Health <= 0)
+		{
+			IsDead = true;
+		}
+	}
+	
+	public void OnAnimationFinished()
+	{
+		if (animatedSprite.Animation == "Explode")
+		{ 
+			QueueFree();
+			GD.Print("***************Explode*****************");
+		}
+		if (animatedSprite.Animation == "die")
+		{ 
+				QueueFree();
+				GD.Print("***************die*****************");
+		}
+		if (animatedSprite.Animation == "bump")
+		{ 
+				if (Health < 0)
+					QueueFree();
+				GD.Print("***************die from bump*****************");
+		}
 	}
 }

@@ -25,17 +25,12 @@ public class ActionGoopExplode : ActionStrategy
 		if (goop.CurrentDistance < goop.ExplodeRadius && goop.PlayerBody.state != "head")
 		{
 			goop.hasExploded = true; 
-			goop.health = 0;
-			GD.Print("***************startEXPLODE*****************" + goop.EnemyName);
-			goop.animatedSprite.Play("explode");
-			goop.PlayerBody.take_damage(goop.damage);
-				
-			// Delay deletion to allow animation to play
-			goop.GetTree().CreateTimer(0.5f).Timeout += () =>
-			{
-				GD.Print("deleted");
-				goop.QueueFree();
-			};
+			GD.Print("***************startExplode*****************" + goop.EnemyName);
+			goop.animatedSprite.Play("Explode");
+			//Damage player and enemy
+			goop.TakeDamage(100);
+			goop.PlayerBody.take_damage(goop.Damage);
+			goop.Die("Explode");
 		}
 	}
 }
