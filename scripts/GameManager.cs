@@ -1,33 +1,40 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 public partial class GameManager : Node
 {
 	//GameManager is a singleton
 	public static GameManager Instance { get; private set; }
+	
+	//Floor related stuff
 	public string CurrentFloor { get; set; } = "home";
 	private Node currentFloorInstance;
-	//player is a singleton
+	
+	//Registries for enemy and friendly units
+	public Dictionary<string, Enemy> EnemiesByID { get; private set; } = new();
+	public Dictionary<Enemy, string> EnemyIDsByRef { get; private set; } = new();
+	public IEnumerable<Enemy> GetAllEnemies() => EnemiesByID.Values;
+
+	//Player related stuff
 	public Player Player_Movable { get; set;}
 	public HugoBody3d Player_Body { get; set; }
 	public Vector3 Player_Location {get; set;} = Vector3.Zero;
-	public bool IsDead {get; set;} = false;
-	public bool IsPaused {get; set;} = false;
-	
-	private PackedScene pausePanelScene;
-	private Control pausePanelInstance;
-	public Button ToHomeButton {get; set;}
-	
-	public bool floorUnloaded = false;
-	// TODO: Hold a random generator for my classes 
-	
 	public int PlayerMaxHealth {get; set;} = 100;
 	public int PlayerMaxGoop {get; set;} = 5;
 	public List<string> PlayerTransforms = new List<string>();
-	public bool GameIsPlaying = false;
+	public bool IsDead {get; set;} = false;
 	
-	//Benefits
+	//Game scene contollers
+	public bool IsPaused {get; set;} = false;
+	private PackedScene pausePanelScene;
+	private Control pausePanelInstance;
+	public Button ToHomeButton {get; set;}
+	public bool GameIsPlaying = false;
+	public bool floorUnloaded = false;
+	
+	//Unlocked Home Benefits for stat and transform updates.
 	public bool lichenLounge = false;
 	public bool BubbleHut = false;
 	
@@ -130,6 +137,34 @@ public partial class GameManager : Node
 				GameManager.Instance.UnloadFloor(); 
 				GameManager.Instance.LoadFloor("home");
 			}
+		}
+	}
+	
+	public Enemy GetClosestEnemy(Vector3 toPosition)
+	{
+		return EnemiesByID.Values
+			.OrderBy(e => e.GlobalPosition.DistanceTo(toPosition))
+			.FirstOrDefault();
+	}
+	
+	public void RegisterEnemy(Enemy enemy)
+	{
+		string id = Guid.NewGuid().ToString();
+		if (!EnemiesByID.ContainsKey(id))
+		{
+			EnemiesByID[id] = enemy;
+			EnemyIDsByRef[enemy] = id;
+			GD.Print($"Registered{enemy} at {id}");
+		}
+	}
+
+	public void UnregisterEnemy(Enemy enemy)
+	{
+		if (EnemyIDsByRef.TryGetValue(enemy, out var id))
+		{
+			EnemiesByID.Remove(id);
+			EnemyIDsByRef.Remove(enemy);
+			GD.Print($"Unregistered{enemy} at {id}");
 		}
 	}
 }

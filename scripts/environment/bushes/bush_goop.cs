@@ -14,10 +14,8 @@ public partial class bush_goop : RigidBody3D
 	
 	public int sleep_timer = 10;
 	
-
 	public override void _Ready()
 	{
-		
 		// Initialize the animated sprite and collision shape
 		animatedSprite = GetNode<AnimatedSprite3D>("bush_goop_anim");
 		collisionShape = GetNode<CollisionShape3D>("bush_goop_collide");
@@ -55,4 +53,4 @@ public partial class bush_goop : RigidBody3D
 			}
 		}
 	}
-	}
+}

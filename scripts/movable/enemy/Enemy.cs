@@ -41,6 +41,7 @@ public partial class Enemy : Movable
 		base._Ready();
 		_movementStrategy = MovementStrategyRegistry.GetStrategy(EnemyName);
 		_actionStrategy = ActionStrategyRegistry.GetStrategy(EnemyName);
+		GameManager.Instance.RegisterEnemy(this);
 	}
 	
 	//Assign strategy must be defined in the child
@@ -123,11 +124,13 @@ public partial class Enemy : Movable
 	{
 		if (animatedSprite.Animation == "Explode")
 		{ 
+			GameManager.Instance.UnregisterEnemy(this);
 			QueueFree();
 			GD.Print("***************Explode*****************");
 		}
 		if (animatedSprite.Animation == "die")
 		{ 
+				GameManager.Instance.UnregisterEnemy(this);
 				QueueFree();
 				GD.Print("***************die*****************");
 		}

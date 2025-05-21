@@ -14,7 +14,6 @@ public partial class Master : Node
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		// The only function that changes this flag is the HugoBody3d's die function
 		if (GameManager.Instance.IsDead)
 		{
 			LoadTitle();
@@ -27,12 +26,7 @@ public partial class Master : Node
 		GD.Print("Play");
 		if (GameManager.Instance != null)
 		{
-			GD.Print("Starting Gameplay:");
-			GameManager.Instance.LoadFloor("enemy"); 
-			//Drop the title scene and load home level
-			GetNode("Title").QueueFree();
-			// Open physics process in game manager
-			GameManager.Instance.GameIsPlaying = true;
+			LoadGame();
 		}
 		else
 		{
@@ -40,9 +34,20 @@ public partial class Master : Node
 		}
 	}
 	
+	public void LoadGame()
+	{
+		GD.Print("Starting Gameplay:");
+			GameManager.Instance.LoadFloor("enemy"); 
+			//Drop the title scene and load home level
+			GetNode("Title").QueueFree();
+			// Open physics process in game manager
+			GameManager.Instance.GameIsPlaying = true;
+	}
+	
 	public void LoadTitle()
 	{
 		GameManager.Instance.UnloadFloor();
+		GameManager.Instance.GameIsPlaying = false;
 		TitleScreen = GD.Load<PackedScene>("res://scenes/Title.tscn");
 		var titleInstance = TitleScreen.Instantiate<Node>();
 		animatedSprite = titleInstance.GetNode<AnimatedSprite2D>("BlinkHippo");

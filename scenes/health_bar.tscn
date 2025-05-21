@@ -17,7 +17,7 @@ billboard_mode = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_iwqyq"]
 material = SubResource("StandardMaterial3D_iwqyq")
-size = Vector2(0.8, 0.3)
+size = Vector2(0.8, 0.42)
 orientation = 2
 
 [node name="HealthBar" type="Node3D"]
@@ -33,13 +33,13 @@ mesh = SubResource("PlaneMesh_iwqyq")
 skeleton = NodePath("")
 
 [node name="Label" type="Label3D" parent="BackBar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0209225)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.237308, 0.0209225)
 pixel_size = 0.02
 billboard = 2
 text = "---  /  ---"
 
 [node name="NameLabel" type="Label3D" parent="BackBar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.611676, 0.041845)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.383736, 0.041845)
 pixel_size = 0.02
 billboard = 2
 text = "-----"
