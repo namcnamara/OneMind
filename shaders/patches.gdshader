@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-#include "../prof_examples/voronoi.gdshaderinc"
+#include "prof_examples/voronoi.gdshaderinc"
 
 uniform float root_scale = 0.01;
 uniform float scale_factor = 2.0;

@@ -282,18 +282,7 @@ public partial class HugoBody3d: CharacterBody3D
 			die();
 		if (HEALTH > GameManager.Instance.PlayerMaxHealth)
 			HEALTH = GameManager.Instance.PlayerMaxHealth;
-		else
-		{
-			// Flash red to show damage using dmg shader
-			flashTimer = flashDuration;
-			damageShader.SetShaderParameter("flash_strength", 2.0f);
-		}
 		hud.UpdateHealth(HEALTH);
-	}
-	
-	public void heal(int heal)
-	{
-		// Flash blue to show damage using heal shader
 	}
 	
 	public void die()

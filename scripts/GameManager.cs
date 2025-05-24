@@ -63,7 +63,8 @@ public partial class GameManager : Node
 	
 	public void check_game_processes(double delta)
 	{
-		Player_Location = Player_Body.GlobalPosition;
+		if(Player_Body != null)
+			Player_Location = Player_Body.GlobalPosition;
 		//Handle Pausing
 		handle_pause(delta);
 		

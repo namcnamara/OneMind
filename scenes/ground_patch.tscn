@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfg2wpbkuch7l"]
+
+[ext_resource type="Script" uid="uid://bpn2qmt8m1swj" path="res://scripts/ShaderTexture2d.cs" id="1_piyyx"]
+[ext_resource type="Shader" uid="uid://chjakswmu1ksn" path="res://shaders/patches.gdshader" id="2_kgliq"]
+[ext_resource type="PackedScene" path="res://scenes/patches_viewport.tscn" id="3_kgliq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_7nt27"]
+resource_local_to_scene = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cqe0a"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tf3ek"]
+albedo_texture = SubResource("ViewportTexture_cqe0a")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3g67"]
+resource_local_to_scene = true
+shader = ExtResource("2_kgliq")
+shader_parameter/root_scale = 0.01
+shader_parameter/scale_factor = 4.0
+shader_parameter/offset = 0.65
+shader_parameter/border = 0.0
+shader_parameter/levels = 1
+shader_parameter/show_nucleus = true
+
+[node name="Patches" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_7nt27")
+surface_material_override/0 = SubResource("StandardMaterial3D_tf3ek")
+script = ExtResource("1_piyyx")
+ShaderMat = SubResource("ShaderMaterial_k3g67")
+RenderTargetUpdateMode = 4
+
+[node name="SubViewport" parent="." instance=ExtResource("3_kgliq")]

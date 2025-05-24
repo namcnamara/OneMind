@@ -32,7 +32,7 @@ lock_rotation = true
 billboard = 1
 shaded = true
 sprite_frames = ExtResource("2_epext")
-animation = &"die"
+animation = &"Explode"
 autoplay = "idle_front_head"
 
 [node name="goop_head_collide" type="CollisionShape3D" parent="goop_head_rigid"]

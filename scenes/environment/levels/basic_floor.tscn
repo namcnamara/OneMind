@@ -1,26 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://vm5dtjpwer2o"]
+[gd_scene load_steps=12 format=3 uid="uid://vm5dtjpwer2o"]
 
 [ext_resource type="Script" uid="uid://pl4foo4isbpi" path="res://scripts/environment/levels/basic_floor.cs" id="1_18xtu"]
 [ext_resource type="PackedScene" uid="uid://df6vlcbd78dvn" path="res://scenes/hugo/hugo.tscn" id="2_klls7"]
+[ext_resource type="PackedScene" uid="uid://dfg2wpbkuch7l" path="res://scenes/ground_patch.tscn" id="3_3bnp1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_klls7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gtwy1"]
 size = Vector3(100, 2, 100)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxmfu"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_3qnk6"]
+material = SubResource("StandardMaterial3D_dxmfu")
 size = Vector3(100, 2, 100)
 
 [sub_resource type="Environment" id="Environment_i3q0d"]
+background_mode = 5
+ambient_light_source = 2
+ambient_light_color = Color(0.332359, 4.45209e-07, 0.188373, 1)
+ambient_light_energy = 0.06
+
+[sub_resource type="QuadMesh" id="QuadMesh_1gbkd"]
+resource_local_to_scene = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cqe0a"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tf3ek"]
+albedo_texture = SubResource("ViewportTexture_cqe0a")
 
 [node name="basic_floor" type="Node3D"]
 script = ExtResource("1_18xtu")
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38.613, -6.02222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.7325, -6.02222)
 
 [node name="ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.73877, 0)
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
@@ -36,7 +53,21 @@ mesh = SubResource("BoxMesh_3qnk6")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i3q0d")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.996866, -0.00942954, -0.0785423, 0.0790503, 0.156099, 0.984573, 0.00297615, -0.987696, 0.156355, 0.203114, 52.7976, 2.79688)
-light_color = Color(0.588235, 0.8, 0.454902, 1)
-shadow_enabled = true
+[node name="outside_ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216553, 0, -0.135376)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+physics_material_override = SubResource("PhysicsMaterial_klls7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="outside_ground"]
+auto_translate_mode = 2
+shape = SubResource("BoxShape3D_gtwy1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="outside_ground"]
+mesh = SubResource("BoxMesh_3qnk6")
+
+[node name="Patches" parent="." instance=ExtResource("3_3bnp1")]
+mesh = SubResource("QuadMesh_1gbkd")
+surface_material_override/0 = SubResource("StandardMaterial3D_tf3ek")
+script = null

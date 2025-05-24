@@ -197,7 +197,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Explode",
-"speed": 29.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
