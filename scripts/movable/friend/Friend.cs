@@ -1,22 +1,26 @@
 using Godot;
 using System;
 
-public partial class Enemy : Movable 
+public partial class Friend : Movable 
 {
+	// basic stuff
 	private static string TYPE = "enemy";
-	//enemy basic stuff
 	public int MaxHealth = 100;
 	public int Health = 100;
 	public int Damage = 10;
 	public bool IsDead = false;
 	public bool IsDying = false;
+	
+	// Pointer to player
 	public Player PlayerNode { get; set; }
 	public HugoBody3d PlayerBody { get; set; }
 	
+	// nodes for friend to be filled by child class
 	public AnimatedSprite3D animatedSprite;
 	public RigidBody3D RigidBody;  
 	public CollisionShape3D collider;
 	
+	//HealthBar centric items for the Friend
 	public PackedScene HealthBar { get; set; }
 	public HealthBar healthBarInstance;
 	
@@ -29,8 +33,8 @@ public partial class Enemy : Movable
 	//strategies
 	public string movement = "";
 	public string action = "";
-	public EnemyMovementStrategy _movementStrategy { get; set; }
-	public EnemyActionStrategy _actionStrategy { get; set; }
+	public MovementStrategy _movementStrategy { get; set; }
+	public ActionStrategy _actionStrategy { get; set; }
 	
 	//random generation needs to be centarlized but we failed hard the first time
 	public Random random { get; set; } = new Random();
@@ -39,9 +43,9 @@ public partial class Enemy : Movable
 	{
 		//variable defaults are updated in child class define_strategy()
 		base._Ready();
-		_movementStrategy = EnemyMovementStrategyRegistry.GetStrategy(TYPE);
-		_actionStrategy = EnemyActionStrategyRegistry.GetStrategy(TYPE);
-		GameManager.Instance.RegisterMovable(this, TYPE);
+		_movementStrategy = MovementStrategyRegistry.GetStrategy(TYPE);
+		_actionStrategy = ActionStrategyRegistry.GetStrategy(TYPE);
+		GameManager.Instance.RegisterMovable(this);
 	}
 	
 	//Assign strategy must be defined in the child
@@ -71,7 +75,7 @@ public partial class Enemy : Movable
 		}
 		if (IsDead)
 		{
-			Die();
+			Die("Explode");
 		}
 	}
 	
@@ -102,7 +106,7 @@ public partial class Enemy : Movable
 		healthBarInstance = (HealthBar)HealthBar.Instantiate();
 		collider.AddChild(healthBarInstance);
 		healthBarInstance.Translate(new Vector3(0, 1.5f, 0));
-		healthBarInstance.Visit(TYPE, Health, MaxHealth); 
+		healthBarInstance.Visit(TYPE, Health, MaxHealth);
 	}
 	
 	public void TakeDamage(int damageAmount)
@@ -111,7 +115,6 @@ public partial class Enemy : Movable
 		if (Health < 0) Health = 0; 
 		if (healthBarInstance != null)
 		{
-			GD.Print($"takedame {damageAmount}");
 			healthBarInstance.Visit(TYPE, Health, MaxHealth); 
 		}
 		if (Health <= 0)
@@ -124,13 +127,13 @@ public partial class Enemy : Movable
 	{
 		if (animatedSprite.Animation == "Explode")
 		{ 
-			GameManager.Instance.UnregisterMovable(this, TYPE);
+			GameManager.Instance.UnregisterMovable(this);
 			QueueFree();
 			GD.Print("***************Explode*****************");
 		}
 		if (animatedSprite.Animation == "die")
 		{ 
-				GameManager.Instance.UnregisterMovable(this, TYPE);
+				GameManager.Instance.UnregisterMovable(this);
 				QueueFree();
 				GD.Print("***************die*****************");
 		}

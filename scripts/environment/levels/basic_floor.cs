@@ -62,12 +62,12 @@ public partial class basic_floor : Node3D
 	}
 	
 	private void SpawnTree(Vector3 pos, float heightScale = 1.0f)
-	{
-		var tree = TreeScene.Instantiate<Node3D>();
-		tree.GlobalPosition = pos;
-		tree.Scale = new Vector3(1, heightScale, 1);
-		AddChild(tree);
-	}
+{
+	var tree = TreeScene.Instantiate<Node3D>();
+	AddChild(tree);               // Add first
+	tree.GlobalPosition = pos;    // Then set global position
+	tree.Scale = new Vector3(1, heightScale, 1);
+}
 	
 	private void SpawnWallSegment(Vector3 position, float rotationYDeg, float scaleX, bool bottom_wall = false)
 	{

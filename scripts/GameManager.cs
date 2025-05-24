@@ -16,6 +16,9 @@ public partial class GameManager : Node
 	public Dictionary<string, Enemy> EnemiesByID { get; private set; } = new();
 	public Dictionary<Enemy, string> EnemyIDsByRef { get; private set; } = new();
 	public IEnumerable<Enemy> GetAllEnemies() => EnemiesByID.Values;
+	public Dictionary<string, Friend> FriendsByID { get; private set; } = new();
+	public Dictionary<Friend, string> FriendIDsByRef { get; private set; } = new();
+	public IEnumerable<Friend> GetAllFriends() => FriendsByID.Values;
 
 	//Player related stuff
 	public Player Player_Movable { get; set;}
@@ -140,31 +143,69 @@ public partial class GameManager : Node
 		}
 	}
 	
-	public Enemy GetClosestEnemy(Vector3 toPosition)
+	public Movable GetClosestEntity(Vector3 toPosition, string type = "enemy")
 	{
-		return EnemiesByID.Values
+		if (type == "enemy")
+		{
+			return EnemiesByID.Values
 			.OrderBy(e => e.GlobalPosition.DistanceTo(toPosition))
 			.FirstOrDefault();
+		}
+		
+		else 
+		{
+			return FriendsByID.Values
+			.OrderBy(e => e.GlobalPosition.DistanceTo(toPosition))
+			.FirstOrDefault();
+		}
 	}
 	
-	public void RegisterEnemy(Enemy enemy)
+	public void RegisterMovable(Movable entity, string type = "enemy")
 	{
 		string id = Guid.NewGuid().ToString();
-		if (!EnemiesByID.ContainsKey(id))
-		{
-			EnemiesByID[id] = enemy;
-			EnemyIDsByRef[enemy] = id;
-			GD.Print($"Registered{enemy} at {id}");
+		if (type == "enemy")
+		{	
+			Enemy enemy = entity as Enemy;
+			if (!EnemiesByID.ContainsKey(id))
+			{
+				EnemiesByID[id] = enemy;
+				EnemyIDsByRef[enemy] = id;
+				GD.Print($"Registered{enemy} at {id}");
+			}
+		}
+		if (type == "friend")
+			{
+			if (!FriendsByID.ContainsKey(id))
+			{
+				Friend friend = entity as Friend;
+				FriendsByID[id] = friend;
+				FriendIDsByRef[friend] = id;
+				GD.Print($"Registered{entity} at {id}");
+			}
 		}
 	}
 
-	public void UnregisterEnemy(Enemy enemy)
+	public void UnregisterMovable(Movable entity, string type = "enemy")
 	{
-		if (EnemyIDsByRef.TryGetValue(enemy, out var id))
+		if (type == "enemy")
 		{
-			EnemiesByID.Remove(id);
-			EnemyIDsByRef.Remove(enemy);
-			GD.Print($"Unregistered{enemy} at {id}");
+			Enemy enemy = entity as Enemy;
+			if (EnemyIDsByRef.TryGetValue(enemy, out var id))
+			{
+				EnemiesByID.Remove(id);
+				EnemyIDsByRef.Remove(enemy);
+				GD.Print($"Unregistered{entity} at {id}");
+			}
+		}
+		if (type == "friend")
+		{
+			Friend friend = entity as Friend;
+			if (FriendIDsByRef.TryGetValue(friend, out var id))
+			{
+				FriendsByID.Remove(id);
+				FriendIDsByRef.Remove(friend);
+				GD.Print($"Unregistered{entity} at {id}");
+			}
 		}
 	}
 }

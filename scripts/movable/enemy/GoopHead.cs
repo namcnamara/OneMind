@@ -20,7 +20,7 @@ public partial class GoopHead : Enemy
 
 	public override void _Ready()
 	{
-		EnemyName = "goop";
+		TYPE = "goop";
 		base._Ready();
 		// Ensure we get the RigidBody3D from the right node
 		RigidBody = GetNode<RigidBody3D>("goop_head_rigid");
@@ -50,14 +50,14 @@ public partial class GoopHead : Enemy
 				
 		else
 			movement = "random";
-		_movementStrategy = MovementStrategyRegistry.GetStrategy(movement);
+		_movementStrategy = EnemyMovementStrategyRegistry.GetStrategy(movement);
 		//Add update Action
 		action = "Explode";
 		if (decider % 3 == 0)
 		{
 			action = "bump";
 		}
-		_actionStrategy = ActionStrategyRegistry.GetStrategy(action);
+		_actionStrategy = EnemyActionStrategyRegistry.GetStrategy(action);
 	}
 	
 	public RigidBody3D GetRigidBody()

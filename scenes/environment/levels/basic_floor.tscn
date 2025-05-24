@@ -17,6 +17,7 @@ size = Vector3(100, 2, 100)
 script = ExtResource("1_18xtu")
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38.613, -6.02222)
 
 [node name="ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

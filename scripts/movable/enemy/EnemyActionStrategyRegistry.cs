@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-public static class ActionStrategyRegistry 
+public static class EnemyActionStrategyRegistry 
 {
-	private static readonly Dictionary<string, ActionStrategy> Strategies = new();
+	private static readonly Dictionary<string, EnemyActionStrategy> Strategies = new();
 
-	public static ActionStrategy GetStrategy(string key)
+	public static EnemyActionStrategy GetStrategy(string key)
 	{
 		if (!Strategies.TryGetValue(key, out var strategy))
 		{
@@ -13,7 +13,7 @@ public static class ActionStrategyRegistry
 		return strategy;
 	}
 
-	private static ActionStrategy CreateStrategy(string key)
+	private static EnemyActionStrategy CreateStrategy(string key)
 	{
 		return key switch
 		{

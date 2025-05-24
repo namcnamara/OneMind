@@ -16,22 +16,22 @@ public partial class HealthBar : Node3D, HealthBarVisitor
 		NameLabel = GetNode<Label3D>("BackBar/NameLabel");
 	}
 
-	public void Visit(Enemy enemy)
+	public void Visit(string TYPE, int Health, int MaxHealth)
 	{
 		// Update fill amount based the on enemy Health / MaxHealth values
 		GD.Print("Attempt");
-		float healthPercent = (float)enemy.Health / enemy.MaxHealth;
+		float healthPercent = Health / MaxHealth;
 		FillBar.Scale = new Vector3(healthPercent, 1, 1); 
-		Label.Text = $"{enemy.Health}  /  {enemy.MaxHealth}";
-		NameLabel.Text = buildName(enemy);
-		GD.Print($"updated: {enemy.EnemyName} ({enemy.Health}/{enemy.MaxHealth})");
+		Label.Text = $"{Health}  /  {MaxHealth}";
+		NameLabel.Text = TYPE;
+		GD.Print($"updated: {TYPE} ({Health}/{MaxHealth})");
 	}
 	
-	private string buildName(Enemy enemy)
+	private string buildName(Movable entity)
 	{
-		string action = char.ToUpper(enemy.action[0]) + enemy.action.Substring(1);
-		string movement = char.ToUpper(enemy.movement[0]) + enemy.movement.Substring(1);
-		string name = char.ToUpper(enemy.EnemyName[0]) + enemy.EnemyName.Substring(1);
+		string action = char.ToUpper(entity.action[0]) + entity.action.Substring(1);
+		string movement = char.ToUpper(entity.movement[0]) + entity.movement.Substring(1);
+		string name = char.ToUpper(entity.TYPE[0]) + entity.TYPE.Substring(1);
 		return $"{action} {movement} {name}";
 	}
 }

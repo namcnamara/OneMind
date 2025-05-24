@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class MovementGoopChase : MovementStrategy
+public class MovementGoopChase : EnemyMovementStrategy
 {
 	private float moveSpeed = 6f;
 	private float velocityThreshold = 0.01f;

@@ -13,6 +13,11 @@ public partial class Movable : Node3D
 	public Vector3 LastVelocity { get; set; }
 	public Vector3 lastPosition;
 	public bool isPaused;
+	public int Health;
+	public int MaxHealth;
+	public string TYPE = "generic";
+	public string movement = "";
+	public string action = "";
 
 	public override void _Ready()
 	{

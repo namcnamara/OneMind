@@ -18,8 +18,8 @@ public partial class EnemyLevelBuilder : LevelBuilderInterface
 				rand.RandfRange(floorCenter.Z - floorSize.Z / 2f, floorCenter.Z + floorSize.Z / 2f)
 			);
 
-			goop.GlobalPosition = pos;
 			parent.AddChild(goop);
+			goop.GlobalPosition = pos;
 		}
 	}
 }

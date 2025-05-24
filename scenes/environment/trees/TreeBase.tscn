@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdltbq3vhfs2s"]
+
+[ext_resource type="Shader" uid="uid://0crdhvcmatfg" path="res://shaders/leaf.gdshader" id="1_a2kyy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pn5a4"]
+render_priority = 0
+shader = ExtResource("1_a2kyy")
+shader_parameter/time = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uurks"]
+material = SubResource("ShaderMaterial_pn5a4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2kyy"]
+render_priority = 0
+shader = ExtResource("1_a2kyy")
+shader_parameter/time = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3sf84"]
+material = SubResource("ShaderMaterial_a2kyy")
+
+[node name="TreeBase" type="Node3D"]
+transform = Transform3D(0.619406, 0, 0, 0, 0.246102, 0, 0, 0, 1, 0.0483258, 0.193599, -0.04041)
+
+[node name="base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.66855, 0, 0, 0, 0.689373, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_uurks")
+
+[node name="bottom" type="MeshInstance3D" parent="base"]
+transform = Transform3D(2.30302, 0, 0, 0, 0.285113, 0, 0, 0, 1.98802, 0.0150523, -0.615326, 0.00302386)
+mesh = SubResource("CapsuleMesh_3sf84")
+skeleton = NodePath("../..")

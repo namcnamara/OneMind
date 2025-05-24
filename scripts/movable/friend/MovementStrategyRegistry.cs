@@ -17,9 +17,8 @@ public static class MovementStrategyRegistry
 	{
 		return key switch
 		{
-			"chase" => new MovementGoopChase(),
-			"random" => new MovementGoopRandom(),
-			_ => new MovementGoopRandom()
+			"follow" => new MovementFollow(),
+			_ => new MovementFollow()
 		};
 	}
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ActionGoopExplode : ActionStrategy
+public class ActionGoopExplode : EnemyActionStrategy
 {
 	private float moveSpeed = 6f;
 	private float velocityThreshold = 0.01f;
@@ -25,7 +25,7 @@ public class ActionGoopExplode : ActionStrategy
 		if (goop.CurrentDistance < goop.ExplodeRadius && goop.PlayerBody.state != "head")
 		{
 			goop.hasExploded = true; 
-			GD.Print("***************startExplode*****************" + goop.EnemyName);
+			GD.Print("***************startExplode*****************" + goop.TYPE);
 			goop.animatedSprite.Play("Explode");
 			//Damage player and enemy
 			goop.TakeDamage(100);

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ActionGoopBump : ActionStrategy
+public class ActionGoopBump : EnemyActionStrategy
 {
 	private float moveSpeed = 60f;
 
@@ -44,7 +44,7 @@ public class ActionGoopBump : ActionStrategy
 			{
 				goop.IsBumping = true;
 				goop.BumpTimer = goop.BumpCooldown;
-				GD.Print("***************Bumpin*****************" + goop.EnemyName);
+				GD.Print("***************Bumpin*****************" + goop.TYPE);
 				goop.animatedSprite.Play("bump");
 				goop.TakeDamage(50);
 				goop.PlayerBody.take_damage(5);
