@@ -157,10 +157,12 @@ public partial class basic_floor : Node3D
 		float outsideOffset = 2.3f;
 		float outsideSpacing = 3.5f;
 		int outsideLayers = 3;
+		float scale = 1;
 		Vector3 outsideMin = min_edge - new Vector3(outsideOffset, 0, outsideOffset);
 		Vector3 outsideMax = max_edge + new Vector3(outsideOffset, 0, outsideOffset);
 		for (int layer = 0; layer < outsideLayers; layer++)
 		{
+			scale += (layer * .25f);
 			float offsetAmount = layer * outsideSpacing;
 			Vector3 min = outsideMin - new Vector3(offsetAmount, 0, offsetAmount);
 			Vector3 max = outsideMax + new Vector3(offsetAmount, 0, offsetAmount);
@@ -168,14 +170,14 @@ public partial class basic_floor : Node3D
 			for (float x = min.X; x <= max.X; x += outsideSpacing)
 			{
 				float randOffset = (float)(rand.NextDouble() - 0.5f);
-				SpawnOutsideTree(new Vector3(x + randOffset, center.Y, min.Z + randOffset));
-				SpawnOutsideTree(new Vector3(x + randOffset, center.Y, max.Z + randOffset));
+				SpawnOutsideTree(new Vector3(x + randOffset, center.Y, min.Z + randOffset), scale);
+				SpawnOutsideTree(new Vector3(x + randOffset, center.Y, max.Z + randOffset), scale - .25f);
 			}
 			for (float z = min.Z; z <= max.Z; z += outsideSpacing)
 			{
 				float randOffset = (float)(rand.NextDouble() - 0.5f);
-				SpawnOutsideTree(new Vector3(min.X + randOffset, center.Y, z + randOffset));
-				SpawnOutsideTree(new Vector3(max.X + randOffset, center.Y, z + randOffset));
+				SpawnOutsideTree(new Vector3(min.X + randOffset, center.Y, z + randOffset), scale);
+				SpawnOutsideTree(new Vector3(max.X + randOffset, center.Y, z + randOffset), scale);
 			}
 		}
 	}
