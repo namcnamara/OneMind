@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bpn2qmt8m1swj" path="res://scripts/ShaderTexture2d.cs" id="1_piyyx"]
 [ext_resource type="Shader" uid="uid://chjakswmu1ksn" path="res://shaders/patches.gdshader" id="2_kgliq"]
-[ext_resource type="PackedScene" path="res://scenes/patches_viewport.tscn" id="3_kgliq"]
+[ext_resource type="PackedScene" uid="uid://1242ki04nt3p" path="res://scenes/patches_viewport.tscn" id="3_kgliq"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_7nt27"]
 resource_local_to_scene = true

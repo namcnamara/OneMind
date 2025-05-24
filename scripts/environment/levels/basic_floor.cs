@@ -78,7 +78,7 @@ public partial class basic_floor : Node3D
 		tree = ProcGenTreeScene.Instantiate<Node3D>();
 		AddChild(tree);
 		tree.GlobalPosition = pos;
-		tree.Scale = new Vector3(1, heightScale, 1);
+		tree.Scale = new Vector3(2, heightScale, 2);
 	}
 	
 	private void SpawnWallSegment(Vector3 position, float rotationYDeg, float scaleX, bool bottom_wall = false)
@@ -108,9 +108,9 @@ public partial class basic_floor : Node3D
 		Vector3 min_per = min_edge * magicNum;
 		Vector3 max_edge = min_edge + aabb.Size;
 		Vector3 max_per = max_edge * magicNum;
-		float spacing = 6.0f;
+		float spacing = 7.0f;
 		float heightScale = 1.0f;
-		int layerCount = 6;
+		int layerCount = 4;
 
 		Random rand = new Random();
 
@@ -154,8 +154,8 @@ public partial class basic_floor : Node3D
 		}
 		
 		//outside wall logic
-		float outsideOffset = 1f;
-		float outsideSpacing = 1.5f;
+		float outsideOffset = 2.3f;
+		float outsideSpacing = 3.5f;
 		int outsideLayers = 3;
 		Vector3 outsideMin = min_edge - new Vector3(outsideOffset, 0, outsideOffset);
 		Vector3 outsideMax = max_edge + new Vector3(outsideOffset, 0, outsideOffset);
@@ -169,7 +169,7 @@ public partial class basic_floor : Node3D
 			{
 				float randOffset = (float)(rand.NextDouble() - 0.5f);
 				SpawnOutsideTree(new Vector3(x + randOffset, center.Y, min.Z + randOffset));
-				//SpawnOutsideTree(new Vector3(x + randOffset, center.Y, max.Z + randOffset));
+				SpawnOutsideTree(new Vector3(x + randOffset, center.Y, max.Z + randOffset));
 			}
 			for (float z = min.Z; z <= max.Z; z += outsideSpacing)
 			{

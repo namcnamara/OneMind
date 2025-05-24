@@ -17,9 +17,12 @@ size = Vector3(100, 2, 100)
 
 [sub_resource type="Environment" id="Environment_i3q0d"]
 background_mode = 5
+background_color = Color(0, 0.20289, 0.203514, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.332359, 4.45209e-07, 0.188373, 1)
 ambient_light_energy = 0.06
+fog_enabled = true
+fog_light_color = Color(0.306379, 0.162979, 0.0765167, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_1gbkd"]
 resource_local_to_scene = true
@@ -34,7 +37,7 @@ albedo_texture = SubResource("ViewportTexture_cqe0a")
 script = ExtResource("1_18xtu")
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.7325, -6.02222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.3429, -6.02222)
 
 [node name="ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.73877, 0)
