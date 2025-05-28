@@ -40,10 +40,10 @@ transform = Transform3D(1, 0, 0, 0, 0.874882, 0.484337, 0, -0.484337, 0.874882, 
 fov = 45.0
 near = 0.01
 
-[node name="Shadow" type="MeshInstance3D" parent="hugo_char"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.343476, 0.103631)
-mesh = SubResource("PlaneMesh_8v7tg")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_10etu")
+[node name="OmniLight3D" type="OmniLight3D" parent="hugo_char"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04699, -2.42865)
+light_color = Color(0.224643, 0.698699, 0.594228, 1)
+light_energy = 16.0
+omni_range = 7.45568
 
 [node name="HUDLayer" parent="." instance=ExtResource("4_8v7tg")]

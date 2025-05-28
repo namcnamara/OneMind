@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://vm5dtjpwer2o"]
+[gd_scene load_steps=13 format=3 uid="uid://vm5dtjpwer2o"]
 
 [ext_resource type="Script" uid="uid://pl4foo4isbpi" path="res://scripts/environment/levels/basic_floor.cs" id="1_18xtu"]
 [ext_resource type="PackedScene" uid="uid://df6vlcbd78dvn" path="res://scenes/hugo/hugo.tscn" id="2_klls7"]
+[ext_resource type="Shader" uid="uid://chjakswmu1ksn" path="res://shaders/patches.gdshader" id="3_1gbkd"]
 [ext_resource type="PackedScene" uid="uid://dfg2wpbkuch7l" path="res://scenes/ground_patch.tscn" id="3_3bnp1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_klls7"]
@@ -9,10 +10,17 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_gtwy1"]
 size = Vector3(100, 2, 100)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxmfu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_odlta"]
+shader = ExtResource("3_1gbkd")
+shader_parameter/root_scale = 0.01
+shader_parameter/scale_factor = 2.0
+shader_parameter/offset = 1.0
+shader_parameter/border = 0.1
+shader_parameter/levels = 2
+shader_parameter/show_nucleus = false
 
 [sub_resource type="BoxMesh" id="BoxMesh_3qnk6"]
-material = SubResource("StandardMaterial3D_dxmfu")
+material = SubResource("ShaderMaterial_odlta")
 size = Vector3(100, 2, 100)
 
 [sub_resource type="Environment" id="Environment_i3q0d"]
@@ -34,7 +42,7 @@ albedo_texture = SubResource("ViewportTexture_cqe0a")
 script = ExtResource("1_18xtu")
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.7325, -6.02222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.3429, -6.02222)
 
 [node name="ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.73877, 0)

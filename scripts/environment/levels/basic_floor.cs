@@ -6,9 +6,12 @@ public partial class basic_floor : Node3D
 	public PackedScene TreeScene;
 	public PackedScene ProcGenTreeScene;
 	public PackedScene WallScene;
+	private PackedScene TriggerAreaScene;
+	
 	private LevelBuilderInterface contentBuilder;
 	RandomNumberGenerator rand = new RandomNumberGenerator();
-	
+	private Player Player_Movable { get; set;}
+	private HugoBody3d Player_Body { get; set; }
 	public MeshInstance3D meshInstance;
 	public BoxMesh boxMesh;
 	public CollisionShape3D colShape;
@@ -29,6 +32,9 @@ public partial class basic_floor : Node3D
 	
 	private void load_assets()
 	{
+		TriggerAreaScene = GD.Load<PackedScene>("res://scenes/environment/trigger_area.tscn");
+		Player_Movable =  GetNode<Player>("hugo");
+		Player_Body = GetNode<HugoBody3d>("hugo/hugo_char");
 		meshInstance = GetNode<MeshInstance3D>("ground/MeshInstance3D");
 		boxMesh = meshInstance.Mesh as BoxMesh;
 		colShape = GetNode<CollisionShape3D>("ground/CollisionShape3D");
@@ -43,7 +49,6 @@ public partial class basic_floor : Node3D
 	{
 		// Get random generator
 		rand.Randomize();
-		
 		//resize and assign the new size
 		float sizeX = rand.RandfRange(20, 40);
 		float sizeZ = rand.RandfRange(20, 40);
@@ -74,6 +79,7 @@ public partial class basic_floor : Node3D
 	
 	private void SpawnOutsideTree(Vector3 pos, float heightScale = 1.0f)
 	{
+		//Spawns the procgen trees
 		Node3D tree;
 		tree = ProcGenTreeScene.Instantiate<Node3D>();
 		AddChild(tree);
@@ -102,6 +108,7 @@ public partial class basic_floor : Node3D
 	
 	private void populate_boundary()
 	{
+		// This popualates the tree boundary of sprite trees.
 		Vector3 center = meshInstance.GlobalTransform.Origin;
 		float magicNum = 0.75f;
 		Vector3 min_edge = center + aabb.Position;
@@ -110,7 +117,7 @@ public partial class basic_floor : Node3D
 		Vector3 max_per = max_edge * magicNum;
 		float spacing = 6.0f;
 		float heightScale = 1.0f;
-		int layerCount = 6;
+		int layerCount = 4;
 
 		Random rand = new Random();
 
@@ -139,9 +146,20 @@ public partial class basic_floor : Node3D
 			for (float x = x_min; x <= x_max; x += spacing)
 			{
 				float offsetZ = (float)(rand.NextDouble() - 0.5f);
+				
+				
 				if (x < (halfway - x_offset_for_center) || x > (halfway + x_offset_for_center))
 				{
 					SpawnTree(new Vector3(x, center.Y, min.Z + offsetZ), heightScale);
+				}
+				else
+				{
+					if (NeedToSpawnTriggerArea)
+					{
+						var triggerPos = new Vector3(x, center.Y, min.Z + offsetZ-1);
+						SpawnTriggerArea(triggerPos, BuildType); 
+						NeedToSpawnTriggerArea = false;
+					}
 				}
 				SpawnTree(new Vector3(x, center.Y, max.Z + offsetZ), heightScale);
 			}
@@ -198,7 +216,7 @@ public partial class basic_floor : Node3D
 			scaleX: floorSize.X
 		);
 
-		// South wall needs to be seethrough
+		// South wall 
 		SpawnWallSegment(
 			position: new Vector3(center.X, wallY, center.Z - halfZ),
 			rotationYDeg: 0f,
@@ -237,4 +255,12 @@ public partial class basic_floor : Node3D
 		contentBuilder.Build(this, center, size);
 	}
 	
+	private void SpawnTriggerArea(Vector3 position, string BuildType)
+	{
+		var triggerInstance = TriggerAreaScene.Instantiate<TriggerArea>();
+		AddChild(triggerInstance);
+		triggerInstance.GlobalPosition = position;
+		triggerInstance.UpdateTrigger(BuildType);
+		GD.Print("Trigger successfully spawned at: " + position);
+	}
 }

@@ -63,8 +63,11 @@ public partial class GameManager : Node
 	
 	public void check_game_processes(double delta)
 	{
-		if(Player_Body != null)
-			Player_Location = Player_Body.GlobalPosition;
+		if(Player_Body == null)
+		{
+			GD.Print("seting player");
+		}
+		Player_Location = Player_Body.GlobalPosition;
 		//Handle Pausing
 		handle_pause(delta);
 		
@@ -80,17 +83,24 @@ public partial class GameManager : Node
 	
 	public void LoadFloor(string buildType = "home")
 	{
+		UnloadFloor();
 		var floorScene = GD.Load<PackedScene>("res://scenes/environment/levels/basic_floor.tscn");
 		currentFloorInstance = floorScene.Instantiate<Node>();
-		
+
 		if (currentFloorInstance is basic_floor floor)
 		{
 			floor.BuildType = buildType;
 		}
 
-		// Add to Master
 		var master = GetTree().Root.GetNode<Master>("Master");
 		master.AddChild(currentFloorInstance);
+
+		Player_Body = currentFloorInstance.GetNodeOrNull<HugoBody3d>("hugo/hugo_char");
+		if (Player_Body != null)
+		{
+			Player_Location = Player_Body.GlobalPosition;
+			GD.Print("Player_Body reference updated in GameManager.");
+		}
 	}
 	
 	public void UnloadFloor()
@@ -109,18 +119,23 @@ public partial class GameManager : Node
 		GD.Print($"Game is {(IsPaused ? "Paused" : "Unpaused")}");
 
 		if (IsPaused)
+{
+	if (pausePanelInstance == null)
+	{
+		pausePanelInstance = pausePanelScene.Instantiate<Control>();
+		GetTree().Root.AddChild(pausePanelInstance);
+		ToHomeButton = pausePanelInstance.GetNodeOrNull<Button>("ToHomeButton");
+		if (CurrentFloor == "home")
 		{
-			if (pausePanelInstance == null)
-			{
-				pausePanelInstance = pausePanelScene.Instantiate<Control>();
-				GetTree().Root.AddChild(pausePanelInstance);
-				if (CurrentFloor != "home")
-				{
-					ToHomeButton = pausePanelInstance.GetNode<Button>("ToHomeButton");
-					ToHomeButton.Pressed += ToHomePressed;
-				}
-			}
+			ToHomeButton.Visible = false;
 		}
+		else
+		{
+			ToHomeButton.Visible = true;
+			ToHomeButton.Pressed += ToHomePressed;
+		}
+	}
+}
 		else
 		{
 			if (pausePanelInstance != null)

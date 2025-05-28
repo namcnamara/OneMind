@@ -31,20 +31,22 @@ public partial class HugoBody3d: CharacterBody3D
 	{
 		CallDeferred("RegisterPlayerInGameManager");
 		playerNode = GetParent() as Player;
+		LoadPlayerStateFromGameManager();
 		animatedSprite = GetNode<AnimatedSprite3D>("hugo_anim");
 		damageShader = (ShaderMaterial)animatedSprite.MaterialOverride;
 		hud = GetParent().GetNode<HudLayer>("HUDLayer");
 		updateHUD();
 		isStuck = false;
 	}
+	
+	private void LoadPlayerStateFromGameManager()
+	{
+		HEALTH = GameManager.Instance.PlayerMaxHealth;
+		GoopMass = GameManager.Instance.PlayerMaxGoop;
+	}
 
 	private void RegisterPlayerInGameManager()
 	{
-		if (GameManager.Instance == null)
-		{
-			GD.PrintErr("GameManager.Instance is null!");
-			return;
-		}
 		GameManager.Instance.Player_Body = this;
 		GD.Print("Player registered in GameManager.");
 	}
@@ -293,7 +295,7 @@ public partial class HugoBody3d: CharacterBody3D
 		// Load into base
 		Timer deathTimer = new Timer();
 		AddChild(deathTimer); 
-		deathTimer.WaitTime = 3.0f;  
+		deathTimer.WaitTime = 2.0f;  
 		deathTimer.OneShot = true;  
 		deathTimer.Start();
 		deathTimer.Timeout += OnDeathTimeout;

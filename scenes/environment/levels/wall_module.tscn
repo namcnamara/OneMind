@@ -24,6 +24,7 @@ mesh = SubResource("BoxMesh_yxa3q")
 skeleton = NodePath("../..")
 
 [node name="Shape" type="CollisionShape3D" parent="WallBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 3.52773, 0, 0, -0.154663)
 shape = SubResource("BoxShape3D_elrl3")
 
 [node name="FloorBody" type="StaticBody3D" parent="."]

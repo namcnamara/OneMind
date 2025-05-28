@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cly7edj4ui7bx"]
+[gd_scene load_steps=3 format=3 uid="uid://cly7edj4ui7bx"]
 
 [ext_resource type="Texture2D" uid="uid://c3ftohs5hkohn" path="res://Sprites/Pause.png" id="1_0ep5p"]
+[ext_resource type="Script" uid="uid://cpml2lrqh26u7" path="res://scripts/PauseToHomeButton.cs" id="2_wcpj6"]
 
 [node name="Panel" type="Panel"]
 offset_right = 40.0
@@ -21,3 +22,4 @@ offset_top = 229.0
 offset_right = 604.0
 offset_bottom = 260.0
 text = "Cull Weakness"
+script = ExtResource("2_wcpj6")

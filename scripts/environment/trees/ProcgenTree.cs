@@ -137,14 +137,12 @@ public partial class ProcGenTree : Node3D
 
 	public override void _Ready()
 	{
-		GD.Print("Growing");
 		PackedScene treeBaseScene = GD.Load<PackedScene>("res://scenes/environment/trees/TreeBase.tscn");
 		Node3D treeBaseInstance = treeBaseScene.Instantiate() as Node3D;
 
 		trunk = new TreeComponent((uint)GD.Hash(GlobalPosition), 0);
 		AddChild(trunk);
 		AddChild(treeBaseInstance);
-		GD.Print("Finished tree");
 		trunk.SetOwner(this);
 		treeBaseInstance.SetOwner(this);
 
@@ -153,6 +151,5 @@ public partial class ProcGenTree : Node3D
 			trunk.Grow();
 		}
 		trunk.Reify();
-		GD.Print("Finished tree");
 	}
 }

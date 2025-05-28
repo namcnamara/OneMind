@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c43mjdx8c0btk"]
+
+[ext_resource type="Script" uid="uid://bt5ioonqgy7g3" path="res://scripts/TriggerArea.cs" id="1_xhglo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gle5f"]
+size = Vector3(3, 30, 5)
+
+[node name="TriggerArea" type="Area3D"]
+script = ExtResource("1_xhglo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gle5f")
+debug_color = Color(0.388235, 0.282353, 0.0666667, 1)
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10812, 0)
+text = "Trigger Area"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Label3D"]
+light_color = Color(0.607843, 0, 1, 1)
+light_energy = 8.758
