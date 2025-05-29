@@ -24,7 +24,7 @@ public partial class Master : Node
 	private void OnPlayPressed()
 	{
 		GD.Print("Play");
-		if (GameManager.Instance != null)
+		if (GameManager.Instance.FloorManager != null)
 		{
 			LoadGame();
 		}
@@ -37,17 +37,17 @@ public partial class Master : Node
 	public void LoadGame()
 	{
 		GD.Print("Starting Gameplay:");
-			GameManager.Instance.LoadFloor("enemy"); 
+			GameManager.Instance.FloorManager.LoadFloor("enemy"); 
 			//Drop the title scene and load home level
 			GetNode("Title").QueueFree();
 			// Open physics process in game manager
-			GameManager.Instance.GameIsPlaying = true;
+			GameManager.Instance.FloorManager.GameIsPlaying = true;
 	}
 	
 	public void LoadTitle()
 	{
-		GameManager.Instance.UnloadFloor();
-		GameManager.Instance.GameIsPlaying = false;
+		GameManager.Instance.FloorManager.UnloadFloor();
+		GameManager.Instance.FloorManager.GameIsPlaying = false;
 		TitleScreen = GD.Load<PackedScene>("res://scenes/Title.tscn");
 		var titleInstance = TitleScreen.Instantiate<Node>();
 		animatedSprite = titleInstance.GetNode<AnimatedSprite2D>("BlinkHippo");

@@ -27,7 +27,7 @@ public partial class Movable : Node3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (GameManager.Instance.IsPaused)
+		if (GameManager.Instance.FloorManager.IsPaused)
 		{
 			isPaused = true;
 		}

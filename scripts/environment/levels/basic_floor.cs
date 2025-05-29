@@ -27,7 +27,7 @@ public partial class basic_floor : Node3D
 		populate_boundary();
 		populate_walls();
 		populate_contents(BuildType);
-		GameManager.Instance.CurrentFloor = BuildType;
+		GameManager.Instance.FloorManager.CurrentFloor = BuildType;
 	}
 	
 	private void load_assets()
@@ -118,6 +118,7 @@ public partial class basic_floor : Node3D
 		float spacing = 6.0f;
 		float heightScale = 1.0f;
 		int layerCount = 4;
+		bool NeedToSpawnTriggerArea = true;
 
 		Random rand = new Random();
 
@@ -154,7 +155,7 @@ public partial class basic_floor : Node3D
 				}
 				else
 				{
-					if (NeedToSpawnTriggerArea)
+					if (NeedToSpawnTriggerArea && layerCount -1 == i)
 					{
 						var triggerPos = new Vector3(x, center.Y, min.Z + offsetZ-1);
 						SpawnTriggerArea(triggerPos, BuildType); 

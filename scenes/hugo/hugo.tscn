@@ -1,20 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://df6vlcbd78dvn"]
+[gd_scene load_steps=6 format=3 uid="uid://df6vlcbd78dvn"]
 
 [ext_resource type="Script" uid="uid://crk6fxunhs26r" path="res://scripts/hugo/HugoBody3d.cs" id="1_0ob2s"]
 [ext_resource type="Script" uid="uid://yjq08pxe52m1" path="res://scripts/movable/player/Player.cs" id="1_10etu"]
 [ext_resource type="SpriteFrames" uid="uid://bje008fdkfg2j" path="res://sprite_frame_animations/hugo.tres" id="2_8v7tg"]
-[ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_veulp"]
 [ext_resource type="PackedScene" uid="uid://4i34htcy7p0h" path="res://scenes/hugo/hud_layer.tscn" id="4_8v7tg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mnpp"]
 radius = 0.151262
 height = 0.455709
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_8v7tg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_10etu"]
-render_priority = 0
-shader = ExtResource("3_veulp")
 
 [node name="hugo" type="Node3D"]
 script = ExtResource("1_10etu")

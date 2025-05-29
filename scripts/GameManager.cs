@@ -7,11 +7,10 @@ public partial class GameManager : Node
 {
 	//GameManager is a singleton
 	public static GameManager Instance { get; private set; }
+	// Floor manager
+	public FloorManager FloorManager { get; private set; }
 	
-	//Floor related stuff
-	public string CurrentFloor { get; set; } = "home";
-	private Node currentFloorInstance;
-	
+	//Add a player manager next
 	//Registries for enemy and friendly units
 	public Dictionary<string, Enemy> EnemiesByID { get; private set; } = new();
 	public Dictionary<Enemy, string> EnemyIDsByRef { get; private set; } = new();
@@ -29,35 +28,24 @@ public partial class GameManager : Node
 	public List<string> PlayerTransforms = new List<string>();
 	public bool IsDead {get; set;} = false;
 	
-	//Game scene contollers
-	public bool IsPaused {get; set;} = false;
-	private PackedScene pausePanelScene;
-	private Control pausePanelInstance;
-	public Button ToHomeButton {get; set;}
-	public bool GameIsPlaying = false;
-	public bool floorUnloaded = false;
-	
-	//Unlocked Home Benefits for stat and transform updates.
-	public bool lichenLounge = false;
-	public bool BubbleHut = false;
 	
 	public override void _Ready()
 	{
 		Instance = this;
 		PlayerTransforms.Add("head");
-		pausePanelScene = GD.Load<PackedScene>("res://scenes/Pause.tscn");
+		FloorManager = FloorManager = GetNode<FloorManager>("FloorManager");
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (GameIsPlaying)
+		if (FloorManager.GameIsPlaying)
 		{
 			check_game_processes(delta);
 		}
-		if (IsDead && !floorUnloaded)
+		if (IsDead && !FloorManager.floorUnloaded)
 		{
-			UnloadFloor();
-			floorUnloaded = true;
+			FloorManager.UnloadFloor();
+			FloorManager.floorUnloaded = true;
 		}
 	}
 	
@@ -68,95 +56,6 @@ public partial class GameManager : Node
 			GD.Print("seting player");
 		}
 		Player_Location = Player_Body.GlobalPosition;
-		//Handle Pausing
-		handle_pause(delta);
-		
-	}
-	
-	public void handle_pause(double delta)
-	{
-		if (Input.IsActionJustPressed("pause"))
-		{
-			TogglePause();
-		}
-	}
-	
-	public void LoadFloor(string buildType = "home")
-	{
-		UnloadFloor();
-		var floorScene = GD.Load<PackedScene>("res://scenes/environment/levels/basic_floor.tscn");
-		currentFloorInstance = floorScene.Instantiate<Node>();
-
-		if (currentFloorInstance is basic_floor floor)
-		{
-			floor.BuildType = buildType;
-		}
-
-		var master = GetTree().Root.GetNode<Master>("Master");
-		master.AddChild(currentFloorInstance);
-
-		Player_Body = currentFloorInstance.GetNodeOrNull<HugoBody3d>("hugo/hugo_char");
-		if (Player_Body != null)
-		{
-			Player_Location = Player_Body.GlobalPosition;
-			GD.Print("Player_Body reference updated in GameManager.");
-		}
-	}
-	
-	public void UnloadFloor()
-	{
-		if (currentFloorInstance != null && currentFloorInstance.IsInsideTree())
-		{
-			currentFloorInstance.QueueFree();
-			currentFloorInstance = null;
-			GD.Print("Floor unloaded.");
-		}
-	}
-	
-	private void TogglePause()
-	{
-		IsPaused = !IsPaused;
-		GD.Print($"Game is {(IsPaused ? "Paused" : "Unpaused")}");
-
-		if (IsPaused)
-{
-	if (pausePanelInstance == null)
-	{
-		pausePanelInstance = pausePanelScene.Instantiate<Control>();
-		GetTree().Root.AddChild(pausePanelInstance);
-		ToHomeButton = pausePanelInstance.GetNodeOrNull<Button>("ToHomeButton");
-		if (CurrentFloor == "home")
-		{
-			ToHomeButton.Visible = false;
-		}
-		else
-		{
-			ToHomeButton.Visible = true;
-			ToHomeButton.Pressed += ToHomePressed;
-		}
-	}
-}
-		else
-		{
-			if (pausePanelInstance != null)
-			{
-				pausePanelInstance.QueueFree();
-				pausePanelInstance = null;
-			}
-		}
-	}
-	
-	public void ToHomePressed()
-	{
-		{
-			GD.Print("Going home");
-			if (GameManager.Instance != null)
-			{
-				GD.Print("Starting Gameplay:");
-				GameManager.Instance.UnloadFloor(); 
-				GameManager.Instance.LoadFloor("home");
-			}
-		}
 	}
 	
 	public Movable GetClosestEntity(Vector3 toPosition, string type = "enemy")

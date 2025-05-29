@@ -38,9 +38,9 @@ public partial class TriggerArea : Area3D
 
 			if (GameManager.Instance != null)
 			{
-				GameManager.Instance.UnloadFloor();
-				GameManager.Instance.LoadFloor(FloorToLoad);
-				GameManager.Instance.CurrentFloor = FloorToLoad;
+				GameManager.Instance.FloorManager.UnloadFloor();
+				GameManager.Instance.FloorManager.LoadFloor(FloorToLoad);
+				GameManager.Instance.FloorManager.CurrentFloor = FloorToLoad;
 			}
 		}
 	}
