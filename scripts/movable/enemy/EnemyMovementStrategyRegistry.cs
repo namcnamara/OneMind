@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 public static class EnemyMovementStrategyRegistry 
 {
+	// This registry is generic and doesn't depend on the type of enemy
 	private static readonly Dictionary<string, EnemyMovementStrategy> Strategies = new();
 
 	public static EnemyMovementStrategy GetStrategy(string key)
@@ -19,6 +20,7 @@ public static class EnemyMovementStrategyRegistry
 		{
 			"chase" => new MovementGoopChase(),
 			"random" => new MovementGoopRandom(),
+			"sleepy" => new MovementCapSleepy(),
 			_ => new MovementGoopRandom()
 		};
 	}

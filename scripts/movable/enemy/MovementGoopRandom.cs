@@ -10,16 +10,14 @@ public class MovementGoopRandom : EnemyMovementStrategy
 	{
 		//ensure run is ready
 		base.Move(enemy, name, delta);
-		if (enemy is not GoopHead goop)
-			return;
-		var body = goop.GetRigidBody();
+		var body =enemy.GetRigidBody();
 		var Player_Location = GameManager.Instance.PlayerManager.Player_Location;
 		if (Player_Location == Vector3.Zero) return;
-		goop.CurrentDistance = goop.RigidBody.GlobalPosition.DistanceTo(Player_Location);
-		goop.CurrentDirection = choose_direction(goop, delta);
+		enemy.CurrentDistance = enemy.RigidBody.GlobalPosition.DistanceTo(Player_Location);
+		enemy.CurrentDirection = choose_direction(enemy, delta);
 	}
 	
-	private Vector3 choose_direction(GoopHead goop, double delta)
+	private Vector3 choose_direction(Enemy goop, double delta)
 	{
 		// Wander periodically in different directions indefinately
 		goop.WanderTimer -= (float)delta;  
@@ -39,7 +37,7 @@ public class MovementGoopRandom : EnemyMovementStrategy
 		return goop.CurrentDirection;
 	}
 	
-	private void random_move(GoopHead goop)
+	private void random_move(Enemy goop)
 	{
 		// Random float between -1 and 1
 		float x = (float)(goop.random.NextDouble() * 2 - 1);

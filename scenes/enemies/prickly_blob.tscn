@@ -1,8 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://c8a2isnjqi43l"]
+[gd_scene load_steps=17 format=3 uid="uid://c8a2isnjqi43l"]
 
-[ext_resource type="Script" uid="uid://n83hv4ubkkmc" path="res://scripts/enemies/PrickleBlob.cs" id="1_ypy2t"]
-[ext_resource type="Texture2D" uid="uid://y20ylk7m444" path="res://Sprites/blobSpriteSheet.png" id="2_cb4ca"]
-[ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_cb4ca"]
+[ext_resource type="Script" uid="uid://w1j5c5lym7s6" path="res://scripts/movable/enemy/PricklyBlob.cs" id="1_e3t3r"]
+[ext_resource type="Texture2D" uid="uid://y20ylk7m444" path="res://Sprites/blobSpriteSheet.png" id="2_kdeo7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cb4ca"]
 friction = 0.2
@@ -10,47 +9,47 @@ friction = 0.2
 [sub_resource type="BoxShape3D" id="BoxShape3D_cb4ca"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05as6"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ymk8"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4mnpp"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(512, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ctebd"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(576, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqmdw"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uhmka"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fjre"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oeaww"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aonjr"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_do8ha"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_htena"]
-atlas = ExtResource("2_cb4ca")
+atlas = ExtResource("2_kdeo7")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xqiim"]
@@ -79,17 +78,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ymk8")
-}],
-"loop": true,
-"name": &"attack_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_05as6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ymk8")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uhmka")
@@ -110,8 +98,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_5ymk8")
 }],
 "loop": true,
-"name": &"attack_right",
-"speed": 5.0
+"name": &"bump",
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -190,72 +178,27 @@ animations = [{
 "loop": true,
 "name": &"rest_1",
 "speed": 20.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ymk8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_05as6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aonjr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_do8ha")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aonjr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_05as6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ymk8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_05as6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aonjr")
-}],
-"loop": true,
-"name": &"rest_2",
-"speed": 5.0
 }]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_ypy2t"]
+[node name="prickly_blob" type="Node3D"]
+script = ExtResource("1_e3t3r")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cb4ca"]
-render_priority = 0
-shader = ExtResource("3_cb4ca")
-shader_parameter/radius = 0.187
-shader_parameter/opacity = 1.0
-
-[node name="prickle_blob" type="Node3D"]
-
-[node name="prickle_blob_rigid" type="RigidBody3D" parent="."]
+[node name="prickly_blob_rigid" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117395, 0)
 physics_material_override = SubResource("PhysicsMaterial_cb4ca")
 can_sleep = false
 lock_rotation = true
-script = ExtResource("1_ypy2t")
 
-[node name="p_blob_collide" type="CollisionShape3D" parent="prickle_blob_rigid"]
+[node name="prickly_blob_collide" type="CollisionShape3D" parent="prickly_blob_rigid"]
 transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 0, -0.0277252, 0)
 shape = SubResource("BoxShape3D_cb4ca")
 debug_color = Color(0.268539, 0.534764, 0.89554, 0.42)
 
-[node name="prickle_blob_anim" type="AnimatedSprite3D" parent="prickle_blob_rigid"]
+[node name="prickly_blob_anim" type="AnimatedSprite3D" parent="prickly_blob_rigid"]
 transform = Transform3D(0.999998, 0.00195912, -3.23856e-05, -0.00195916, 0.999997, -0.00143046, 2.9583e-05, 0.00143052, 0.999999, 0, 0.217935, 0)
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_xqiim")
-animation = &"rest_1"
+animation = &"bump"
 autoplay = "rest_1"
-frame_progress = 0.715498
-
-[node name="Shadow" type="MeshInstance3D" parent="prickle_blob_rigid"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.0905924)
-mesh = SubResource("PlaneMesh_ypy2t")
-surface_material_override/0 = SubResource("ShaderMaterial_cb4ca")
+frame_progress = 0.944625

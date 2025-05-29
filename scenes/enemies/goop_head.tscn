@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dh5admdydsvww"]
+[gd_scene load_steps=5 format=3 uid="uid://dh5admdydsvww"]
 
 [ext_resource type="Script" uid="uid://cd5nprltkl5fo" path="res://scripts/movable/enemy/GoopHead.cs" id="1_epext"]
 [ext_resource type="SpriteFrames" uid="uid://cdvlcmjwimiq7" path="res://sprite_frame_animations/goop_head.tres" id="2_epext"]
@@ -9,15 +9,6 @@ bounce = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rvo8x"]
 margin = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xmjw"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-albedo_color = Color(1, 1, 1, 0)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_epext"]
-material = SubResource("StandardMaterial3D_8xmjw")
 
 [node name="goop_head" type="Node3D"]
 script = ExtResource("1_epext")
@@ -32,15 +23,10 @@ lock_rotation = true
 billboard = 1
 shaded = true
 sprite_frames = ExtResource("2_epext")
-animation = &"Explode"
+animation = &"bump"
 autoplay = "idle_front_head"
 
 [node name="goop_head_collide" type="CollisionShape3D" parent="goop_head_rigid"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)
 shape = SubResource("BoxShape3D_rvo8x")
 debug_color = Color(0.431419, 0.487355, 0.916624, 0.42)
-
-[node name="Shadow" type="MeshInstance3D" parent="goop_head_rigid"]
-transform = Transform3D(0.207763, 0, 0, 0, 0.0822138, 0, 0, 0, 0.188834, 0, 0.164632, 0)
-transparency = 1.0
-mesh = SubResource("CapsuleMesh_epext")

@@ -12,7 +12,7 @@ public class MovementGoopChase : EnemyMovementStrategy
 	{
 		//ensure run is ready
 		base.Move(enemy, name, delta);
-		if (enemy is not GoopHead goop)
+		if (enemy is not Enemy goop)
 			return;
 		var body = goop.GetRigidBody();
 		var Player_Location = GameManager.Instance.PlayerManager.Player_Location;
@@ -21,7 +21,7 @@ public class MovementGoopChase : EnemyMovementStrategy
 		goop.CurrentDirection = choose_direction(goop, delta);
 	}
 
-	private Vector3 choose_direction(GoopHead goop, double delta)
+	private Vector3 choose_direction(Enemy goop, double delta)
 	{
 		bool in_chasing_distance = goop.CurrentDistance < goop.DetectionRadius;
 		if (in_chasing_distance && goop.PlayerBody.state != "head")
@@ -50,7 +50,7 @@ public class MovementGoopChase : EnemyMovementStrategy
 		return goop.CurrentDirection;
 	}
 	
-	private void random_move(GoopHead goop)
+	private void random_move(Enemy goop)
 	{
 		// Random float between -1 and 1
 		float x = (float)(goop.random.NextDouble() * 2 - 1);

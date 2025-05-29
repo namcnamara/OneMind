@@ -48,7 +48,7 @@ public partial class Master : Node
 	{
 		GameManager.Instance.FloorManager.UnloadFloor();
 		GameManager.Instance.FloorManager.GameIsPlaying = false;
-		TitleScreen = GD.Load<PackedScene>("res://scenes/Title.tscn");
+		TitleScreen = GD.Load<PackedScene>("res://scenes/controllers/Title.tscn");
 		var titleInstance = TitleScreen.Instantiate<Node>();
 		animatedSprite = titleInstance.GetNode<AnimatedSprite2D>("BlinkHippo");
 		playButton = titleInstance.GetNode<Button>("Play");

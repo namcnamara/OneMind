@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://dncql3pl13av8"]
+[gd_scene load_steps=20 format=3 uid="uid://dncql3pl13av8"]
 
 [ext_resource type="Texture2D" uid="uid://bc02cdphok230" path="res://Sprites/capWorkerSpriteSheet.png" id="1_8nnph"]
-[ext_resource type="Script" uid="uid://d0vbbgopkxgwi" path="res://scripts/enemies/red_cap.cs" id="1_rvo8x"]
-[ext_resource type="Shader" uid="uid://cln6byomnn6rv" path="res://shaders/shadow.gdshader" id="3_rvo8x"]
+[ext_resource type="Script" uid="uid://b0pp0ih3nhabp" path="res://scripts/movable/enemy/RedCap.cs" id="1_k7rwy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k7rwy"]
 friction = 0.2
@@ -195,37 +194,22 @@ animations = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_rvo8x"]
 margin = 0.0
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_nt7tv"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkbop"]
-render_priority = 0
-shader = ExtResource("3_rvo8x")
-shader_parameter/radius = 0.187
-shader_parameter/opacity = 1.0
-
 [node name="red_cap" type="Node3D"]
+script = ExtResource("1_k7rwy")
 
 [node name="red_cap_rigid" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326348, 0)
 physics_material_override = SubResource("PhysicsMaterial_k7rwy")
 can_sleep = false
 lock_rotation = true
-script = ExtResource("1_rvo8x")
 
 [node name="red_cap_anim" type="AnimatedSprite3D" parent="red_cap_rigid"]
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_6ek0e")
-animation = &"sleep_left"
-frame_progress = 0.381956
+animation = &"idle_left"
 
 [node name="red_cap_collide" type="CollisionShape3D" parent="red_cap_rigid"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)
 shape = SubResource("BoxShape3D_rvo8x")
 debug_color = Color(0.431419, 0.487355, 0.916624, 0.42)
-
-[node name="Shadow" type="MeshInstance3D" parent="red_cap_rigid"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31492, 0.120631)
-mesh = SubResource("PlaneMesh_nt7tv")
-skeleton = NodePath("../red_cap_collide")
-surface_material_override/0 = SubResource("ShaderMaterial_lkbop")

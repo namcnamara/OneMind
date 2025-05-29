@@ -17,7 +17,7 @@ config/icon="res://Sprites/icon.svg"
 
 [autoload]
 
-GameManager="*res://scenes/game_manager.tscn"
+GameManager="*res://scenes/controllers/game_manager.tscn"
 
 [dotnet]
 

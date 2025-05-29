@@ -31,6 +31,7 @@ public partial class GoopHead : Enemy
 		PlayerBody = GetTree().Root.FindChild("hugo_char", true, false) as HugoBody3d;
 		animatedSprite.AnimationFinished += OnAnimationFinished;
 		define_strategy();
+		FullName = TYPE + " " + movement + " " + action;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -60,7 +61,7 @@ public partial class GoopHead : Enemy
 		_actionStrategy = EnemyActionStrategyRegistry.GetStrategy(action);
 	}
 	
-	public RigidBody3D GetRigidBody()
+	public override RigidBody3D GetRigidBody()
 	{
 		if (RigidBody == null)
 		{

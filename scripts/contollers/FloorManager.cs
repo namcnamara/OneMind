@@ -23,7 +23,7 @@ public partial class FloorManager : Node
 	
 	public override void _Ready()
 	{
-		pausePanelScene = GD.Load<PackedScene>("res://scenes/Pause.tscn");
+		pausePanelScene = GD.Load<PackedScene>("res://scenes/controllers/Pause.tscn");
 	}
 	
 	public override void _PhysicsProcess(double delta)
