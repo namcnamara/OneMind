@@ -68,10 +68,10 @@ public partial class FloorManager : Node
 		var master = GetTree().Root.GetNode<Master>("Master");
 		master.AddChild(currentFloorInstance);
 
-		GameManager.Instance.Player_Body = currentFloorInstance.GetNodeOrNull<HugoBody3d>("hugo/hugo_char");
-		if (GameManager.Instance.Player_Body != null)
+		GameManager.Instance.PlayerManager.Player_Body = currentFloorInstance.GetNodeOrNull<HugoBody3d>("hugo/hugo_char");
+		if (GameManager.Instance.PlayerManager.Player_Body != null)
 		{
-			GameManager.Instance.Player_Location = GameManager.Instance.Player_Body.GlobalPosition;
+			GameManager.Instance.PlayerManager.Player_Location = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
 			GD.Print("Player_Body reference updated in FloorManager.");
 		}
 	}

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c43mjdx8c0btk"]
 
-[ext_resource type="Script" uid="uid://bt5ioonqgy7g3" path="res://scripts/TriggerArea.cs" id="1_xhglo"]
+[ext_resource type="Script" uid="uid://bt5ioonqgy7g3" path="res://scripts/contollers/TriggerArea.cs" id="1_xhglo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gle5f"]
 size = Vector3(3, 30, 5)

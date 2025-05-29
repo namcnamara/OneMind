@@ -15,7 +15,7 @@ public class ActionGoopExplode : EnemyActionStrategy
 		if (enemy is not GoopHead goop)
 			return;
 		var body = goop.GetRigidBody();
-		var Player_Location = GameManager.Instance.Player_Location;
+		var Player_Location = GameManager.Instance.PlayerManager.Player_Location;
 		Explode(goop);
 	}
 	private void Explode(GoopHead goop)

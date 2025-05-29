@@ -28,7 +28,7 @@ public partial class LichenLounge : RigidBody3D
 			GD.Print(player);
 			if (player == null)
 			{
-				player = GameManager.Instance.Player_Body;
+				player = GameManager.Instance.PlayerManager.Player_Body;
 			}
 			else
 			{
@@ -41,9 +41,9 @@ public partial class LichenLounge : RigidBody3D
 					animatedSprite.Play("occupied");
 					GD.Print("Occupied!");
 
-					GameManager.Instance.PlayerMaxHealth += 25;
-					GameManager.Instance.Player_Body.HEALTH = GameManager.Instance.PlayerMaxHealth;
-					GameManager.Instance.Player_Body.updateHUD();
+					GameManager.Instance.PlayerManager.PlayerMaxHealth += 25;
+					GameManager.Instance.PlayerManager.Player_Body.HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
+					GameManager.Instance.PlayerManager.Player_Body.updateHUD();
 				}
 			}
 		}

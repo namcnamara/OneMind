@@ -21,10 +21,10 @@ public partial class HudLayer : CanvasLayer
 
 	private void InitHUD()
 	{
-		if (GameManager.Instance?.Player_Body != null)
+		if (GameManager.Instance.PlayerManager.Player_Body != null)
 		{
-			UpdateHealth(GameManager.Instance.PlayerMaxHealth);
-			UpdateGloop(GameManager.Instance.PlayerMaxGoop);
+			UpdateHealth(GameManager.Instance.PlayerManager.PlayerMaxHealth);
+			UpdateGloop(GameManager.Instance.PlayerManager.PlayerMaxGoop);
 		}
 		else
 		{
@@ -34,14 +34,14 @@ public partial class HudLayer : CanvasLayer
 
 	public void UpdateHealth(int health)
 	{
-		health = Mathf.Clamp(health, 0, GameManager.Instance.PlayerMaxHealth); 
+		health = Mathf.Clamp(health, 0, GameManager.Instance.PlayerManager.PlayerMaxHealth); 
 		healthProgressBar.Value = health;
 		healthLabelText.Text = $"Health: {health}";
 	}
 
 	public void UpdateGloop(int gloop)
 	{
-		gloop = Mathf.Clamp(gloop, 0, GameManager.Instance.PlayerMaxGoop); 
+		gloop = Mathf.Clamp(gloop, 0, GameManager.Instance.PlayerManager.PlayerMaxGoop); 
 		gloopLabelText.Text = default_text + " " + gloop.ToString();
 	}
 }

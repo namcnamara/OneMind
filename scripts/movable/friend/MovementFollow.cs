@@ -14,11 +14,11 @@ public class MovementFollow : MovementStrategy
 		if (friend is not GoopMinion goop)
 			return;
 
-		if (GameManager.Instance.Player_Location == Vector3.Zero)
+		if (GameManager.Instance.PlayerManager.Player_Location == Vector3.Zero)
 			return;
 
 		// Calculate direction to player
-		Vector3 targetPos = GameManager.Instance.Player_Location;
+		Vector3 targetPos = GameManager.Instance.PlayerManager.Player_Location;
 		Vector3 currentPos = goop.GlobalPosition;
 
 		goop.CurrentDistance = currentPos.DistanceTo(targetPos);

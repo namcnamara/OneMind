@@ -68,7 +68,7 @@ public partial class Friend : Movable
 			CurrentLocation = this.GlobalPosition;
 			if (PlayerNode != null)
 			{
-				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.Player_Location);
+				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
 			}
 			UpdateMovement(delta); 
 			UpdateAction(delta);

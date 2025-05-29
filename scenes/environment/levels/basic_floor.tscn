@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://vm5dtjpwer2o"]
+[gd_scene load_steps=10 format=3 uid="uid://vm5dtjpwer2o"]
 
 [ext_resource type="Script" uid="uid://pl4foo4isbpi" path="res://scripts/environment/levels/basic_floor.cs" id="1_18xtu"]
 [ext_resource type="PackedScene" uid="uid://df6vlcbd78dvn" path="res://scenes/hugo/hugo.tscn" id="2_klls7"]
 [ext_resource type="Shader" uid="uid://chjakswmu1ksn" path="res://shaders/patches.gdshader" id="3_1gbkd"]
-[ext_resource type="PackedScene" uid="uid://dfg2wpbkuch7l" path="res://scenes/ground_patch.tscn" id="3_3bnp1"]
+[ext_resource type="PackedScene" uid="uid://bvii5nqfrnrup" path="res://scenes/environment/levels/ground_patch/ground_patch.tscn" id="3_3bnp1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_klls7"]
 
@@ -29,20 +29,11 @@ ambient_light_source = 2
 ambient_light_color = Color(0.332359, 4.45209e-07, 0.188373, 1)
 ambient_light_energy = 0.06
 
-[sub_resource type="QuadMesh" id="QuadMesh_1gbkd"]
-resource_local_to_scene = true
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_cqe0a"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tf3ek"]
-albedo_texture = SubResource("ViewportTexture_cqe0a")
-
 [node name="basic_floor" type="Node3D"]
 script = ExtResource("1_18xtu")
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.3429, -6.02222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75388, -6.02222)
 
 [node name="ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.73877, 0)
@@ -76,6 +67,4 @@ shape = SubResource("BoxShape3D_gtwy1")
 mesh = SubResource("BoxMesh_3qnk6")
 
 [node name="Patches" parent="." instance=ExtResource("3_3bnp1")]
-mesh = SubResource("QuadMesh_1gbkd")
-surface_material_override/0 = SubResource("StandardMaterial3D_tf3ek")
 script = null

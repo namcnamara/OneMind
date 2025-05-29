@@ -4,8 +4,8 @@ using System;
 public partial class HugoBody3d: CharacterBody3D
 {
 	// VARIABLES###############################################################
-	public int HEALTH = GameManager.Instance.PlayerMaxHealth;
-	public int GoopMass = GameManager.Instance.PlayerMaxGoop;
+	public int HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
+	public int GoopMass = GameManager.Instance.PlayerManager.PlayerMaxGoop;
 	public bool HEAD = false;
 	private int jumpCount = 0;
 	private int maxJumps = 2;
@@ -41,20 +41,20 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	private void LoadPlayerStateFromGameManager()
 	{
-		HEALTH = GameManager.Instance.PlayerMaxHealth;
-		GoopMass = GameManager.Instance.PlayerMaxGoop;
+		HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
+		GoopMass = GameManager.Instance.PlayerManager.PlayerMaxGoop;
 	}
 
 	private void RegisterPlayerInGameManager()
 	{
-		GameManager.Instance.Player_Body = this;
+		GameManager.Instance.PlayerManager.Player_Body = this;
 		GD.Print("Player registered in GameManager.");
 	}
 	
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (GameManager.Instance.IsDead)
+		if (GameManager.Instance.PlayerManager.IsDead)
 			return;
 		if ( playerNode.isPaused )
 			return;
@@ -235,7 +235,7 @@ public partial class HugoBody3d: CharacterBody3D
 	
 	public void handle_transform()
 	{
-		if (state == "head" && Input.IsActionJustPressed("transform_hugo") && GoopMass >= 1 && GameManager.Instance.PlayerTransforms.Contains(state))
+		if (state == "head" && Input.IsActionJustPressed("transform_hugo") && GoopMass >= 1 && GameManager.Instance.PlayerManager.PlayerTransforms.Contains(state))
 		{
 			state = "hugo";
 			HEALTH -= 10;
@@ -282,8 +282,8 @@ public partial class HugoBody3d: CharacterBody3D
 		HEALTH -= damage;
 		if (HEALTH < 0)
 			die();
-		if (HEALTH > GameManager.Instance.PlayerMaxHealth)
-			HEALTH = GameManager.Instance.PlayerMaxHealth;
+		if (HEALTH > GameManager.Instance.PlayerManager.PlayerMaxHealth)
+			HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
 		hud.UpdateHealth(HEALTH);
 	}
 	
@@ -303,7 +303,7 @@ public partial class HugoBody3d: CharacterBody3D
 
 	private void OnDeathTimeout()
 	{
-		GameManager.Instance.IsDead = true;
+		GameManager.Instance.PlayerManager.IsDead = true;
 		GD.Print("Death complete, game over.");
 	}
 }

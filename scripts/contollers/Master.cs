@@ -14,10 +14,10 @@ public partial class Master : Node
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (GameManager.Instance.IsDead)
+		if (GameManager.Instance.PlayerManager.IsDead)
 		{
 			LoadTitle();
-			GameManager.Instance.IsDead = false;
+			GameManager.Instance.PlayerManager.IsDead = false;
 		}
 	}
 
