@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class Enemy : Movable 
 {
@@ -34,6 +35,8 @@ public partial class Enemy : Movable
 	public Vector3 LastDirection { get; set; }
 	public Vector3 CurrentLocation {get; set;} = Vector3.Zero;
 	public float CurrentDistance { get; set; } = 100f; //tracks distance to player
+	public float CurrentDistanceToClosestFriend = 1000f;
+	public Friend closestFriend = null;
 	
 	//strategies
 	public string movement = "";
@@ -78,6 +81,18 @@ public partial class Enemy : Movable
 			if (PlayerNode != null)
 			{
 				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
+				if (!GameManager.Instance.EnemiesByID.Any())
+				{
+					Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
+					closestFriend = GameManager.Instance.GetClosestEntity(playerPosition, "friend") as Friend;
+					CurrentDistanceToClosestFriend = CurrentLocation.DistanceTo(closestFriend.CurrentLocation);
+				}
+				else
+				{
+					closestFriend = null;
+					CurrentDistanceToClosestFriend = 1000f;
+				}
+				
 			}
 			UpdateMovement(delta); 
 			UpdateAction(delta);
@@ -124,7 +139,7 @@ public partial class Enemy : Movable
 		if (Health < 0) Health = 0; 
 		if (healthBarInstance != null)
 		{
-			healthBarInstance.Visit(TYPE, Health, MaxHealth); 
+			healthBarInstance.Visit(FullName, Health, MaxHealth); 
 		}
 		if (Health <= 0)
 		{
@@ -146,5 +161,6 @@ public partial class Enemy : Movable
 				//Start dying
 					animatedSprite.Play("die");
 		}
+		GD.Print("Successful removal");
 	}
 }

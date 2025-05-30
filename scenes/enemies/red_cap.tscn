@@ -6,6 +6,14 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k7rwy"]
 friction = 0.2
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkbop"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu6yb"]
+atlas = ExtResource("1_8nnph")
+region = Rect2(0, 64, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvo8x"]
 atlas = ExtResource("1_8nnph")
 region = Rect2(0, 0, 64, 64)
@@ -14,17 +22,9 @@ region = Rect2(0, 0, 64, 64)
 atlas = ExtResource("1_8nnph")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lkbop"]
-atlas = ExtResource("1_8nnph")
-region = Rect2(384, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_8g28m"]
 atlas = ExtResource("1_8nnph")
 region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iu6yb"]
-atlas = ExtResource("1_8nnph")
-region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5sj3"]
 atlas = ExtResource("1_8nnph")
@@ -64,6 +64,113 @@ region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ek0e"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkbop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6yb")
+}],
+"loop": false,
+"name": &"die",
+"speed": 40.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rvo8x")
@@ -207,7 +314,7 @@ lock_rotation = true
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_6ek0e")
-animation = &"idle_left"
+animation = &"die"
 
 [node name="red_cap_collide" type="CollisionShape3D" parent="red_cap_rigid"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)

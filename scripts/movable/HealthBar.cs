@@ -16,15 +16,15 @@ public partial class HealthBar : Node3D, HealthBarVisitor
 		NameLabel = GetNode<Label3D>("BackBar/NameLabel");
 	}
 
-	public void Visit(string TYPE, int Health, int MaxHealth)
+	public void Visit(string FullName, int Health, int MaxHealth)
 	{
 		// Update fill amount based the on enemy Health / MaxHealth values
 		GD.Print("Attempt");
 		float healthPercent = Health / MaxHealth;
 		FillBar.Scale = new Vector3(healthPercent, 1, 1); 
 		Label.Text = $"{Health}  /  {MaxHealth}";
-		NameLabel.Text = TYPE;
-		GD.Print($"updated: {TYPE} ({Health}/{MaxHealth})");
+		NameLabel.Text = FullName;
+		GD.Print($"updated: {FullName} ({Health}/{MaxHealth})");
 	}
 	
 	private string buildName(Movable entity)

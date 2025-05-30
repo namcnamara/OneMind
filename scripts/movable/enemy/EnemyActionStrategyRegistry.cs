@@ -20,6 +20,7 @@ public static class EnemyActionStrategyRegistry
 			//Will always initially defaut to _ since the default name is for movement in enemies
 			"Explode" => new ActionGoopExplode(),
 			"bump" => new ActionGoopBump(),
+			"spike" => new ActionPricklyBlobSpike(),
 			_ => new ActionGoopBump()
 		};
 	}

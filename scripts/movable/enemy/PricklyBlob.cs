@@ -18,7 +18,7 @@ public partial class PricklyBlob : Enemy
 
 	public override void _Ready()
 	{
-		TYPE = "prickle";
+		TYPE = "prickly blob";
 		base._Ready();
 		// Ensure we get the RigidBody3D from the right node
 		RigidBody = GetNode<RigidBody3D>("prickly_blob_rigid");
@@ -49,7 +49,7 @@ public partial class PricklyBlob : Enemy
 		else
 			movement = "random";
 		_movementStrategy = EnemyMovementStrategyRegistry.GetStrategy(movement);
-		action = "Spike";
+		action = "spike";
 		_actionStrategy = EnemyActionStrategyRegistry.GetStrategy(action);
 	}
 	

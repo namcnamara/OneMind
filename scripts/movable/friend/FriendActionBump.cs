@@ -10,66 +10,42 @@ public class FriendActionBump : FriendActionStrategy
 	{
 		base.Act(friend, name, delta);
 
-		if (friend is not GloopMinion goop)
+		if (friend is not GloopMinion gloop)
 			return;
 
-		BumpCharge(goop, delta);
+		BumpCharge(gloop, delta);
 	}
 
-	private void BumpCharge(GloopMinion goop, double delta)
+	private void BumpCharge(GloopMinion gloop, double delta)
 	{
-		if (goop.IsBumping)
+		if (gloop.IsBumping)
 		{
-			goop.BumpTimer -= (float)delta;
-			if (goop.BumpTimer <= 0)
+			gloop.BumpTimer -= (float)delta;
+			if (gloop.BumpTimer <= 0)
 			{
-				goop.IsBumping = false;
-				goop.BumpTimer = goop.BumpCooldown;
+				gloop.IsBumping = false;
+				gloop.BumpTimer = gloop.BumpCooldown;
 			}
 			return;
 		}
-
-		// Find closest enemy
-		var enemies = GameManager.Instance.GetAllEnemies();
-		Enemy target = null;
-		float closestDistance = float.MaxValue;
-
-		foreach (var enemy in enemies)
-		{
-			if (enemy == null || enemy.IsDead)
-				continue;
-
-			float distance = goop.GlobalPosition.DistanceTo(enemy.GlobalPosition);
-			if (distance < closestDistance)
-			{
-				closestDistance = distance;
-				target = enemy;
-			}
-		}
-
-		if (target == null)
-			return;
-
-		goop.CurrentDistance = closestDistance;
-
 		// Charge toward enemy
-		if (goop.CurrentDistance < goop.BumpChargeRadius)
+		if (gloop.CurrentDistanceToClosestEnemy < gloop.BumpChargeRadius)
 		{
-			Vector3 direction = (target.GlobalPosition - goop.GlobalPosition).Normalized();
-			goop.CurrentDirection = direction * moveSpeed;
-			goop.RigidBody.ApplyCentralForce(goop.CurrentDirection);
-			goop.WanderTimer = goop.WanderCooldown;
+			Vector3 direction = (gloop.closestEnemy.GlobalPosition - gloop.GlobalPosition).Normalized();
+			gloop.CurrentDirection = direction * moveSpeed;
+			gloop.RigidBody.ApplyCentralForce(gloop.CurrentDirection);
+			gloop.WanderTimer = gloop.WanderCooldown;
 		}
 
 		// Bump Trigger
-		if (goop.CurrentDistance < goop.BumpRadius)
+		if (gloop.CurrentDistance < gloop.BumpRadius)
 		{
-			goop.IsBumping = true;
-			goop.BumpTimer = goop.BumpCooldown;
-			GD.Print($"***************Minion Bumped*************** {target.TYPE}");
-			goop.animatedSprite.Play("bump");
-			goop.TakeDamage(25);           
-			target.TakeDamage(10);         
+			gloop.IsBumping = true;
+			gloop.BumpTimer = gloop.BumpCooldown;
+			GD.Print($"***************enemy Bumped*************** {gloop.closestEnemy.FullName}");
+			gloop.animatedSprite.Play("bump");
+			gloop.TakeDamage(25);           
+			gloop.closestEnemy.TakeDamage(10);         
 		}
 	}
 }

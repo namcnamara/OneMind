@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class Friend : Movable 
 {
@@ -33,7 +34,9 @@ public partial class Friend : Movable
 	public Vector3 CurrentDirection { get; set; } = Vector3.Right;
 	public Vector3 LastDirection { get; set; }
 	public Vector3 CurrentLocation {get; set;} = Vector3.Zero;
-	public float CurrentDistance { get; set; } = 100f; //tracks distance to player
+	public float CurrentDistance { get; set; } = 100f; 
+	public float CurrentDistanceToClosestEnemy = 0;
+	public Enemy closestEnemy = null;
 	
 	//strategies
 	public string movement = "";
@@ -75,10 +78,20 @@ public partial class Friend : Movable
 		if (!isPaused)
 		{
 			CurrentLocation = this.GlobalPosition;
-			if (PlayerNode != null)
-			{
-				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
-			}
+			CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
+			if (GameManager.Instance.EnemiesByID.Any())
+				{
+					Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
+					closestEnemy = GameManager.Instance.GetClosestEntity(playerPosition, "enemy") as Enemy;
+					GD.Print(closestEnemy.FullName);
+					CurrentDistanceToClosestEnemy = CurrentLocation.DistanceTo(closestEnemy.CurrentLocation);
+				}
+				else
+				{
+					closestEnemy = null;
+					CurrentDistanceToClosestEnemy = 1000f;
+				}
+			
 			UpdateMovement(delta); 
 			UpdateAction(delta);
 		}
@@ -96,6 +109,7 @@ public partial class Friend : Movable
 
 	protected void UpdateMovement(double delta)
 	{
+		GD.Print(_movementStrategy);
 		_movementStrategy.Move(this, TYPE, delta);
 	}
 	
@@ -124,7 +138,7 @@ public partial class Friend : Movable
 		if (Health < 0) Health = 0; 
 		if (healthBarInstance != null)
 		{
-			healthBarInstance.Visit(TYPE, Health, MaxHealth); 
+			healthBarInstance.Visit(FullName, Health, MaxHealth); 
 		}
 		if (Health <= 0)
 		{

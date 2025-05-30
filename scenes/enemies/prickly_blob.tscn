@@ -8,37 +8,13 @@ friction = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cb4ca"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_05as6"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(64, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ymk8"]
 atlas = ExtResource("2_kdeo7")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4mnpp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_05as6"]
 atlas = ExtResource("2_kdeo7")
-region = Rect2(512, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ctebd"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(576, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eqmdw"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uhmka"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5fjre"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oeaww"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(448, 0, 64, 64)
+region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aonjr"]
 atlas = ExtResource("2_kdeo7")
@@ -52,55 +28,32 @@ region = Rect2(192, 0, 64, 64)
 atlas = ExtResource("2_kdeo7")
 region = Rect2(256, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhmka"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fjre"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeaww"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mnpp"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctebd"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqmdw"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(0, 64, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_xqiim"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_05as6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ymk8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4mnpp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ctebd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eqmdw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ctebd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4mnpp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ymk8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uhmka")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5fjre")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oeaww")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5fjre")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uhmka")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ymk8")
-}],
-"loop": true,
-"name": &"bump",
-"speed": 30.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ymk8")
@@ -155,7 +108,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_htena")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
@@ -178,6 +131,53 @@ animations = [{
 "loop": true,
 "name": &"rest_1",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05as6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ymk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mnpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctebd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqmdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctebd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mnpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ymk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhmka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fjre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeaww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fjre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhmka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ymk8")
+}],
+"loop": true,
+"name": &"spike",
+"speed": 30.0
 }]
 
 [node name="prickly_blob" type="Node3D"]
@@ -199,6 +199,5 @@ transform = Transform3D(0.999998, 0.00195912, -3.23856e-05, -0.00195916, 0.99999
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_xqiim")
-animation = &"bump"
+animation = &"die"
 autoplay = "rest_1"
-frame_progress = 0.944625

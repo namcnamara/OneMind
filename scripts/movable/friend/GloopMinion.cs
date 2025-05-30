@@ -38,10 +38,8 @@ public partial class GloopMinion : Friend
 	public override void define_strategy()
 	{
 		TYPE = "gloop minion";
-
 		movement = "follow";
 		_movementStrategy = FriendMovementStrategyRegistry.GetStrategy(movement);
-
 		action = "bump";
 		_actionStrategy = FriendActionStrategyRegistry.GetStrategy(action);
 		FullName = TYPE + " " + movement + " "+ action;

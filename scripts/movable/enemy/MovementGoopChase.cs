@@ -24,19 +24,26 @@ public class MovementGoopChase : EnemyMovementStrategy
 	private Vector3 choose_direction(Enemy goop, double delta)
 	{
 		bool in_chasing_distance = goop.CurrentDistance < goop.DetectionRadius;
-		if (in_chasing_distance && goop.PlayerBody.state != "head")
-		{
-			goop.CurrentDirection = 1f * (GameManager.Instance.PlayerManager.Player_Location - goop.RigidBody.GlobalPosition).Normalized();
+		if ( goop.CurrentDistance > goop.CurrentDistanceToClosestFriend){
+			if (in_chasing_distance && goop.PlayerBody.state != "head")
+			{
+				goop.CurrentDirection = 1f * (GameManager.Instance.PlayerManager.Player_Location - goop.RigidBody.GlobalPosition).Normalized();
+			}
+			else
+			{
+				// Wander periodically in different directions indefinately
+				goop.WanderTimer -= (float)delta;  
+				if (goop.WanderTimer <= 0)
+				{
+					random_move(goop);
+					goop.WanderTimer = goop.WanderCooldown; 
+				}
+			}
 		}
 		else
 		{
-			// Wander periodically in different directions indefinately
-			goop.WanderTimer -= (float)delta;  
-			if (goop.WanderTimer <= 0)
-			{
-				random_move(goop);
-				goop.WanderTimer = goop.WanderCooldown; 
-			}
+			if (goop.closestFriend != null)
+				goop.CurrentDirection = 1f * (goop.closestFriend.GlobalPosition - goop.RigidBody.GlobalPosition).Normalized();
 		}
 	
 		//Apply momementum
