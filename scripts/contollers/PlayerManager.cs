@@ -10,9 +10,10 @@ public partial class PlayerManager : Node
 	public HugoBody3d Player_Body { get; set; }
 	public Vector3 Player_Location {get; set;} = Vector3.Zero;
 	public int PlayerMaxHealth {get; set;} = 100;
-	public int PlayerMaxGoop {get; set;} = 5;
+	public int PlayerMaxGloop {get; set;} = 10;
 	public List<string> PlayerTransforms = new List<string>();
 	public bool IsDead {get; set;} = false;
+	public int GloopMinionCost {get; set;} = 5;
 	
 	public override void _Ready()
 	{

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public class ActionBump : ActionStrategy
+public class FriendActionBump : FriendActionStrategy
 {
 	private float moveSpeed = 6f;
 
@@ -10,13 +10,13 @@ public class ActionBump : ActionStrategy
 	{
 		base.Act(friend, name, delta);
 
-		if (friend is not GoopMinion goop)
+		if (friend is not GloopMinion goop)
 			return;
 
 		BumpCharge(goop, delta);
 	}
 
-	private void BumpCharge(GoopMinion goop, double delta)
+	private void BumpCharge(GloopMinion goop, double delta)
 	{
 		if (goop.IsBumping)
 		{
@@ -68,8 +68,8 @@ public class ActionBump : ActionStrategy
 			goop.BumpTimer = goop.BumpCooldown;
 			GD.Print($"***************Minion Bumped*************** {target.TYPE}");
 			goop.animatedSprite.Play("bump");
-			goop.TakeDamage(25);           // Self-damage
-			target.TakeDamage(10);         // Damage to the enemy
+			goop.TakeDamage(25);           
+			target.TakeDamage(10);         
 		}
 	}
 }

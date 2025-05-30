@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://kf8fb1fj7j0f"]
+
+[ext_resource type="Script" uid="uid://di74l3dyaw44" path="res://scripts/movable/friend/GloopMinion.cs" id="1_ic5lw"]
+[ext_resource type="SpriteFrames" uid="uid://cdvlcmjwimiq7" path="res://sprite_frame_animations/goop_head.tres" id="2_8cpdg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k7rwy"]
+friction = 0.2
+bounce = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rvo8x"]
+margin = 0.0
+
+[node name="gloop_head" type="Node3D"]
+script = ExtResource("1_ic5lw")
+
+[node name="gloop_head_rigid" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326348, 0)
+physics_material_override = SubResource("PhysicsMaterial_k7rwy")
+can_sleep = false
+lock_rotation = true
+
+[node name="gloop_head_anim" type="AnimatedSprite3D" parent="gloop_head_rigid"]
+billboard = 1
+shaded = true
+sprite_frames = ExtResource("2_8cpdg")
+animation = &"bump"
+autoplay = "idle_front_head"
+
+[node name="gloop_head_collide" type="CollisionShape3D" parent="gloop_head_rigid"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)
+shape = SubResource("BoxShape3D_rvo8x")
+debug_color = Color(0.431419, 0.487355, 0.916624, 0.42)

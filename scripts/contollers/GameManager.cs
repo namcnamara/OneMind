@@ -16,6 +16,7 @@ public partial class GameManager : Node
 	public Dictionary<string, Enemy> EnemiesByID { get; private set; } = new();
 	public Dictionary<Enemy, string> EnemyIDsByRef { get; private set; } = new();
 	public IEnumerable<Enemy> GetAllEnemies() => EnemiesByID.Values;
+	
 	public Dictionary<string, Friend> FriendsByID { get; private set; } = new();
 	public Dictionary<Friend, string> FriendIDsByRef { get; private set; } = new();
 	public IEnumerable<Friend> GetAllFriends() => FriendsByID.Values;
@@ -29,7 +30,20 @@ public partial class GameManager : Node
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		
+		if (PlayerManager.Player_Body == null)
+			return;
+
+		Vector3 playerPosition = PlayerManager.Player_Body.GlobalPosition;
+		Movable closestEnemy = GetClosestEntity(playerPosition, "enemy");
+
+		if (closestEnemy != null)
+		{
+			//GD.Print($"Closest enemy to player: {closestEnemy.TYPE} at {closestEnemy.GlobalPosition}");
+		}
+		else
+		{
+			GD.Print("No enemies present.");
+		}
 	}
 	
 	public Movable GetClosestEntity(Vector3 toPosition, string type = "enemy")
@@ -69,7 +83,7 @@ public partial class GameManager : Node
 				Friend friend = entity as Friend;
 				FriendsByID[id] = friend;
 				FriendIDsByRef[friend] = id;
-				GD.Print($"Registered{entity} at {id}");
+				GD.Print($"Registered{friend} at {id}");
 			}
 		}
 	}

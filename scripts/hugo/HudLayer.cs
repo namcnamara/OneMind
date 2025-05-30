@@ -24,7 +24,7 @@ public partial class HudLayer : CanvasLayer
 		if (GameManager.Instance.PlayerManager.Player_Body != null)
 		{
 			UpdateHealth(GameManager.Instance.PlayerManager.PlayerMaxHealth);
-			UpdateGloop(GameManager.Instance.PlayerManager.PlayerMaxGoop);
+			UpdateGloop(GameManager.Instance.PlayerManager.PlayerMaxGloop);
 		}
 		else
 		{
@@ -41,7 +41,7 @@ public partial class HudLayer : CanvasLayer
 
 	public void UpdateGloop(int gloop)
 	{
-		gloop = Mathf.Clamp(gloop, 0, GameManager.Instance.PlayerManager.PlayerMaxGoop); 
+		gloop = Mathf.Clamp(gloop, 0, GameManager.Instance.PlayerManager.PlayerMaxGloop); 
 		gloopLabelText.Text = default_text + " " + gloop.ToString();
 	}
 }

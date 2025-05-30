@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GoopMinion : Friend
+public partial class GloopMinion : Friend
 {
 	public float WanderTimer = 0f;
 	public float WanderCooldown = 1f;
@@ -19,33 +19,32 @@ public partial class GoopMinion : Friend
 
 	public override void _Ready()
 	{
-		TYPE = "goop";
+		TYPE = "Minion";
 		base._Ready();
 
 		// Set up node references
-		RigidBody = GetNode<RigidBody3D>("goop_head_rigid");
-		animatedSprite = GetNode<AnimatedSprite3D>("goop_head_rigid/goop_head_anim");
-		collider = GetNode<CollisionShape3D>("goop_head_rigid/goop_head_collide");
+		RigidBody = GetNode<RigidBody3D>("gloop_head_rigid");
+		animatedSprite = GetNode<AnimatedSprite3D>("gloop_head_rigid/gloop_head_anim");
+		collider = GetNode<CollisionShape3D>("gloop_head_rigid/gloop_head_collide");
 		collider.Shape.Margin = 0.05f;
 
 		// Set player references
 		PlayerNode = GetTree().Root.FindChild("hugo", true, false) as Player;
 		PlayerBody = GetTree().Root.FindChild("hugo_char", true, false) as HugoBody3d;
-
 		animatedSprite.AnimationFinished += OnAnimationFinished;
-
 		define_strategy();
 	}
 
 	public override void define_strategy()
 	{
-		TYPE = "goop";
+		TYPE = "gloop minion";
 
 		movement = "follow";
-		_movementStrategy = MovementStrategyRegistry.GetStrategy(movement);
+		_movementStrategy = FriendMovementStrategyRegistry.GetStrategy(movement);
 
 		action = "bump";
-		_actionStrategy = ActionStrategyRegistry.GetStrategy(action);
+		_actionStrategy = FriendActionStrategyRegistry.GetStrategy(action);
+		FullName = TYPE + " " + movement + " "+ action;
 	}
 
 	public override void _PhysicsProcess(double delta)

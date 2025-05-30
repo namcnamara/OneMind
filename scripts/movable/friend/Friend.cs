@@ -3,24 +3,29 @@ using System;
 
 public partial class Friend : Movable 
 {
-	// basic stuff
-	private static string TYPE = "enemy";
+	//Friend characteristics
+	private static string TYPE = "friend";
+	public string FullName = "friend-plain";
+	//friend basic stuff
 	public int MaxHealth = 100;
 	public int Health = 100;
 	public int Damage = 10;
 	public bool IsDead = false;
 	public bool IsDying = false;
+	public float WanderTimer = 0f;
+	public float WanderCooldown = 1f;
+	public float DetectionRadius = 20f;
 	
-	// Pointer to player
+	//reference to player
 	public Player PlayerNode { get; set; }
 	public HugoBody3d PlayerBody { get; set; }
 	
-	// nodes for friend to be filled by child class
+	//Friend scene parts
 	public AnimatedSprite3D animatedSprite;
 	public RigidBody3D RigidBody;  
 	public CollisionShape3D collider;
 	
-	//HealthBar centric items for the Friend
+	//Friend healthbar
 	public PackedScene HealthBar { get; set; }
 	public HealthBar healthBarInstance;
 	
@@ -33,19 +38,23 @@ public partial class Friend : Movable
 	//strategies
 	public string movement = "";
 	public string action = "";
-	public MovementStrategy _movementStrategy { get; set; }
-	public ActionStrategy _actionStrategy { get; set; }
-	
-	//random generation needs to be centarlized but we failed hard the first time
+	public FriendMovementStrategy _movementStrategy { get; set; }
+	public FriendActionStrategy _actionStrategy { get; set; }
 	public Random random { get; set; } = new Random();
 
 	public override void _Ready()
 	{
 		//variable defaults are updated in child class define_strategy()
 		base._Ready();
-		_movementStrategy = MovementStrategyRegistry.GetStrategy(TYPE);
-		_actionStrategy = ActionStrategyRegistry.GetStrategy(TYPE);
-		GameManager.Instance.RegisterMovable(this);
+		_movementStrategy = FriendMovementStrategyRegistry.GetStrategy(TYPE);
+		_actionStrategy = FriendActionStrategyRegistry.GetStrategy(TYPE);
+		GameManager.Instance.RegisterMovable(this, TYPE);
+	}
+	
+	public virtual RigidBody3D GetRigidBody()
+	{
+		GD.Print("Need to overwrite for this friend");
+		return null;
 	}
 	
 	//Assign strategy must be defined in the child
@@ -75,7 +84,7 @@ public partial class Friend : Movable
 		}
 		if (IsDead)
 		{
-			Die("Explode");
+			Die();
 		}
 	}
 	
@@ -102,11 +111,11 @@ public partial class Friend : Movable
 	
 	private void AddHealthBar()
 	{
-		HealthBar = GD.Load<PackedScene>("res://scenes/health_bar.tscn");
+		HealthBar = GD.Load<PackedScene>("res://scenes/controllers/health_bar.tscn");
 		healthBarInstance = (HealthBar)HealthBar.Instantiate();
 		collider.AddChild(healthBarInstance);
 		healthBarInstance.Translate(new Vector3(0, 1.5f, 0));
-		healthBarInstance.Visit(TYPE, Health, MaxHealth);
+		healthBarInstance.Visit(FullName, Health, MaxHealth); 
 	}
 	
 	public void TakeDamage(int damageAmount)
@@ -125,23 +134,17 @@ public partial class Friend : Movable
 	
 	public void OnAnimationFinished()
 	{
-		if (animatedSprite.Animation == "Explode")
+		if (animatedSprite.Animation == "die" || animatedSprite.Animation =="Explode")
 		{ 
-			GameManager.Instance.UnregisterMovable(this);
-			QueueFree();
-			GD.Print("***************Explode*****************");
-		}
-		if (animatedSprite.Animation == "die")
-		{ 
-				GameManager.Instance.UnregisterMovable(this);
+				GameManager.Instance.UnregisterMovable(this, TYPE);
 				QueueFree();
-				GD.Print("***************die*****************");
+				GD.Print(TYPE + "***************die*****************");
 		}
 		if (animatedSprite.Animation == "bump")
 		{ 
 				if (Health < 0)
-					QueueFree();
-				GD.Print("***************die from bump*****************");
+				//Start dying
+					animatedSprite.Play("die");
 		}
 	}
 }

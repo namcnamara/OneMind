@@ -5,7 +5,7 @@ public partial class HugoBody3d: CharacterBody3D
 {
 	// VARIABLES###############################################################
 	public int HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
-	public int GoopMass = GameManager.Instance.PlayerManager.PlayerMaxGoop;
+	public int GloopMass = GameManager.Instance.PlayerManager.PlayerMaxGloop;
 	public bool HEAD = false;
 	private int jumpCount = 0;
 	private int maxJumps = 2;
@@ -20,11 +20,11 @@ public partial class HugoBody3d: CharacterBody3D
 	private AnimatedSprite3D animatedSprite;
 	private HudLayer hud;
 	private Vector3 lastDirection = Vector3.Zero;
-	
 	private ShaderMaterial damageShader;
 	private float flashTimer = 0.0f;
 	private float flashDuration = 0.2f;
 	private Player playerNode;
+	private PackedScene gloopMinionScene = GD.Load<PackedScene>("res://scenes/friends/gloop_minion.tscn");
 	
 
 	public override void _Ready()
@@ -37,12 +37,13 @@ public partial class HugoBody3d: CharacterBody3D
 		hud = GetParent().GetNode<HudLayer>("HUDLayer");
 		updateHUD();
 		isStuck = false;
+		gloopMinionScene = GD.Load<PackedScene>("res://scenes/friends/gloop_minion.tscn");
 	}
 	
 	private void LoadPlayerStateFromGameManager()
 	{
 		HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
-		GoopMass = GameManager.Instance.PlayerManager.PlayerMaxGoop;
+		GloopMass = GameManager.Instance.PlayerManager.PlayerMaxGloop;
 	}
 
 	private void RegisterPlayerInGameManager()
@@ -66,7 +67,7 @@ public partial class HugoBody3d: CharacterBody3D
 		{
 			handle_shaders(delta);
 			handle_transform();
-			// Add other time-taking actions like spawning goops
+			// Add other time-taking actions like spawning gloops
 			if (isStuck)
 			{
 				transform_timer -= (float)delta;
@@ -74,6 +75,11 @@ public partial class HugoBody3d: CharacterBody3D
 					return;
 				else
 					isStuck = false;
+			}
+			
+			if (Input.IsActionJustPressed("spawn_gloop"))
+			{
+				SpawnGloopMinion();
 			}
 
 			if (IsOnFloor())
@@ -230,26 +236,26 @@ public partial class HugoBody3d: CharacterBody3D
 	public void updateHUD()
 	{
 		hud.UpdateHealth(HEALTH);
-		hud.UpdateGloop(GoopMass);
+		hud.UpdateGloop(GloopMass);
 	}
 	
 	public void handle_transform()
 	{
-		if (state == "head" && Input.IsActionJustPressed("transform_hugo") && GoopMass >= 1 && GameManager.Instance.PlayerManager.PlayerTransforms.Contains(state))
+		if (state == "head" && Input.IsActionJustPressed("transform_hugo") && GloopMass >= 1 && GameManager.Instance.PlayerManager.PlayerTransforms.Contains(state))
 		{
 			state = "hugo";
 			HEALTH -= 10;
-			GoopMass -= 1;
+			GloopMass -= 1;
 			Speed = 5.0f;
 			animatedSprite.Play("head_to_hugo");
 			transform_timer = 1.0f;
 			isStuck = true;
 		}
-		else if (state == "head" && Input.IsActionJustPressed("transform_hippo") && GoopMass >= 2)
+		else if (state == "head" && Input.IsActionJustPressed("transform_hippo") && GloopMass >= 2)
 		{
 			state = "hippo";
 			HEALTH -= 15;
-			GoopMass -= 2;
+			GloopMass -= 2;
 			Speed = 3.0f;
 			animatedSprite.Play("head_to_hippo");
 			transform_timer = 2.0f;
@@ -305,5 +311,37 @@ public partial class HugoBody3d: CharacterBody3D
 	{
 		GameManager.Instance.PlayerManager.IsDead = true;
 		GD.Print("Death complete, game over.");
+	}
+	
+	private void SpawnGloopMinion()
+	{
+		var cost = GameManager.Instance.PlayerManager.GloopMinionCost;
+		if (GloopMass < cost)
+		{
+			GD.Print("Not enough GloopMass to spawn a gloop minion.");
+			return;
+		}
+		var gloop = gloopMinionScene.Instantiate<Node3D>();
+		if (gloop == null)
+		{
+			GD.PrintErr("Gloop not loaded!");
+			return;
+		}
+
+		Vector3 forward = -GlobalTransform.Basis.Z.Normalized();
+		Vector3 spawnPosition = GameManager.Instance.PlayerManager.Player_Location + forward * 2.0f;
+		gloop.GlobalTransform = new Transform3D(Basis.Identity, spawnPosition);
+		GetTree().CurrentScene.AddChild(gloop);
+		if (gloop is Friend friend)
+		{
+			GameManager.Instance.RegisterMovable(friend, "friend");
+			GD.Print("Registered gloop minion with GameManager.");
+		}
+		else
+			GD.Print("err");
+		GloopMass -= cost;
+		GD.Print("Spawned gloop minion. Remaining GloopMass: " + GloopMass);
+
+		updateHUD();
 	}
 }

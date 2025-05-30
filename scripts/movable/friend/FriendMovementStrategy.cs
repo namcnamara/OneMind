@@ -1,4 +1,4 @@
-public partial class MovementStrategy
+public partial class FriendMovementStrategy
 {
 	public string strategy_name;
 
