@@ -81,7 +81,7 @@ public partial class Enemy : Movable
 			if (PlayerNode != null)
 			{
 				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
-				if (!GameManager.Instance.EnemiesByID.Any())
+				if (GameManager.Instance.FriendsByID.Any())
 				{
 					Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
 					closestFriend = GameManager.Instance.GetClosestEntity(playerPosition, "friend") as Friend;
@@ -162,5 +162,14 @@ public partial class Enemy : Movable
 					animatedSprite.Play("die");
 		}
 		GD.Print("Successful removal");
+	}
+	
+	public void OnBodyEntered(Node body)
+	{
+		if (body is Friend friend)
+		{
+			GD.Print("Hit a friend!");
+			friend.TakeDamage(Damage);  
+		}
 	}
 }

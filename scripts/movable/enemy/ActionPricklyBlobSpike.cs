@@ -45,7 +45,7 @@ public class ActionPricklyBlobSpike : EnemyActionStrategy
 				blob.IsSpikeing = true;
 				blob.SpikeTimer = blob.SpikeCooldown;
 				GD.Print("***************Spikein*****************" + blob.TYPE);
-				blob.animatedSprite.Play("Spike");
+				blob.animatedSprite.Play("bump");
 				blob.TakeDamage(50);
 				blob.PlayerBody.take_damage(5);
 			}

@@ -24,7 +24,8 @@ public class MovementGoopChase : EnemyMovementStrategy
 	private Vector3 choose_direction(Enemy goop, double delta)
 	{
 		bool in_chasing_distance = goop.CurrentDistance < goop.DetectionRadius;
-		if ( goop.CurrentDistance > goop.CurrentDistanceToClosestFriend){
+		if ( goop.CurrentDistance < goop.CurrentDistanceToClosestFriend){
+			//If player is closer
 			if (in_chasing_distance && goop.PlayerBody.state != "head")
 			{
 				goop.CurrentDirection = 1f * (GameManager.Instance.PlayerManager.Player_Location - goop.RigidBody.GlobalPosition).Normalized();
@@ -42,8 +43,12 @@ public class MovementGoopChase : EnemyMovementStrategy
 		}
 		else
 		{
+			// if another friend unit is closer attack that instead
 			if (goop.closestFriend != null)
+			{
+				GD.Print(goop.closestFriend.FullName);
 				goop.CurrentDirection = 1f * (goop.closestFriend.GlobalPosition - goop.RigidBody.GlobalPosition).Normalized();
+			}
 		}
 	
 		//Apply momementum

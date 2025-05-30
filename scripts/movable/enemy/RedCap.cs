@@ -23,6 +23,7 @@ public partial class RedCap : Enemy
 		base._Ready();
 		// Ensure we get the RigidBody3D from the right node
 		RigidBody = GetNode<RigidBody3D>("red_cap_rigid");
+		RigidBody.BodyEntered += OnBodyEntered;
 		animatedSprite = GetNode<AnimatedSprite3D>("red_cap_rigid/red_cap_anim");
 		collider = GetNode<CollisionShape3D>("red_cap_rigid/red_cap_collide");
 		collider.Shape.Margin = 0.05f;

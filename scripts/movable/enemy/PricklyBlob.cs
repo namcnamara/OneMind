@@ -22,6 +22,7 @@ public partial class PricklyBlob : Enemy
 		base._Ready();
 		// Ensure we get the RigidBody3D from the right node
 		RigidBody = GetNode<RigidBody3D>("prickly_blob_rigid");
+		RigidBody.BodyEntered += OnBodyEntered;
 		animatedSprite = GetNode<AnimatedSprite3D>("prickly_blob_rigid/prickly_blob_anim");
 		collider = GetNode<CollisionShape3D>("prickly_blob_rigid/prickly_blob_collide");
 		collider.Shape.Margin = 0.05f;

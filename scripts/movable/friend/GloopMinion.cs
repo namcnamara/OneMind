@@ -48,7 +48,6 @@ public partial class GloopMinion : Friend
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
-
 		Vector3 direction = CurrentDirection;
 		AnimateDirection(direction);
 	}

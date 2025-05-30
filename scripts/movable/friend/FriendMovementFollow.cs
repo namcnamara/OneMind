@@ -16,10 +16,8 @@ public class FriendMovementFollow : FriendMovementStrategy
 		base.Move(friend, name, delta);
 
 		if (friend is not GloopMinion gloop)
-		{
-			GD.Print("Error: friend is not a GloopMinion");
+			GD.Print("Error");
 			return;
-		}
 
 		wanderTimer -= (float)delta;
 		if (wanderTimer <= 0)
@@ -31,30 +29,19 @@ public class FriendMovementFollow : FriendMovementStrategy
 			);
 			wanderTimer = 1f;
 		}
-		
-		GD.Print("1 - Moving");
-		
+		GD.Print("1");
 		Vector3 targetPos = GameManager.Instance.PlayerManager.Player_Location + randomOffset;
 		Vector3 currentPos = gloop.GlobalPosition;
 		gloop.CurrentDistance = currentPos.DistanceTo(targetPos);
 		Vector3 direction = (targetPos - currentPos).Normalized();
 		gloop.CurrentDirection = direction;
-		float forceMagnitude = moveSpeed;
+		float forceMagnitude = moveSpeed; 
 
-		if (gloop.RigidBody != null)
+		gloop.RigidBody.ApplyCentralForce(direction * forceMagnitude);
+		if (gloop.RigidBody.LinearVelocity.Length() > maxSpeed)
 		{
-			gloop.RigidBody.ApplyCentralForce(direction * forceMagnitude);
-			GD.Print($"Applied force: {direction * forceMagnitude}, velocity: {gloop.RigidBody.LinearVelocity}");
-
-			if (gloop.RigidBody.LinearVelocity.Length() > maxSpeed)
-			{
-				gloop.RigidBody.LinearVelocity = gloop.RigidBody.LinearVelocity.Normalized() * maxSpeed;
-				GD.Print("2 - Velocity clamped");
-			}
-		}
-		else
-		{
-			GD.Print("Error: RigidBody is null");
+			gloop.RigidBody.LinearVelocity = gloop.RigidBody.LinearVelocity.Normalized() * maxSpeed;
+			GD.Print("2");
 		}
 	}
 }

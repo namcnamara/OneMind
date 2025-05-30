@@ -24,6 +24,7 @@ public partial class GoopHead : Enemy
 		base._Ready();
 		// Ensure we get the RigidBody3D from the right node
 		RigidBody = GetNode<RigidBody3D>("goop_head_rigid");
+		RigidBody.BodyEntered += OnBodyEntered;
 		animatedSprite = GetNode<AnimatedSprite3D>("goop_head_rigid/goop_head_anim");
 		collider = GetNode<CollisionShape3D>("goop_head_rigid/goop_head_collide");
 		collider.Shape.Margin = 0.05f;
