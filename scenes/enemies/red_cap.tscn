@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://dncql3pl13av8"]
+[gd_scene load_steps=21 format=3 uid="uid://dncql3pl13av8"]
 
 [ext_resource type="Texture2D" uid="uid://bc02cdphok230" path="res://Sprites/capWorkerSpriteSheet.png" id="1_8nnph"]
 [ext_resource type="Script" uid="uid://b0pp0ih3nhabp" path="res://scripts/movable/enemy/RedCap.cs" id="1_k7rwy"]
+[ext_resource type="PackedScene" uid="uid://dy3cvkrart1av" path="res://scenes/enemies/bubbler.tscn" id="3_rvo8x"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k7rwy"]
 friction = 0.2
@@ -320,3 +321,5 @@ animation = &"die"
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)
 shape = SubResource("BoxShape3D_rvo8x")
 debug_color = Color(0.431419, 0.487355, 0.916624, 0.42)
+
+[node name="Bubbler" parent="red_cap_rigid" instance=ExtResource("3_rvo8x")]

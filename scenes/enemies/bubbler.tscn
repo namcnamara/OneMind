@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://dy3cvkrart1av"]
+
+[sub_resource type="Gradient" id="Gradient_42f7h"]
+offsets = PackedFloat32Array(0, 0.557377, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0.404633, 0.659428, 0.292572, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ycu82"]
+gradient = SubResource("Gradient_42f7h")
+fill_from = Vector2(0.526882, 0.629032)
+fill_to = Vector2(0.516129, 0)
+
+[sub_resource type="Gradient" id="Gradient_iv5gg"]
+offsets = PackedFloat32Array(0, 0.516393, 1)
+colors = PackedColorArray(0.0222172, 0.257695, 1, 1, 0.596675, 0.353143, 0.354373, 1, 0.803922, 0.788235, 0.701961, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t0hi4"]
+gradient = SubResource("Gradient_iv5gg")
+fill_from = Vector2(0.532258, 0.0322581)
+fill_to = Vector2(0.639785, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4rcw1"]
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_ycu82")
+metallic = 1.0
+metallic_specular = 1.0
+metallic_texture = SubResource("GradientTexture2D_t0hi4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2n7mt"]
+lifetime_randomness = 0.55
+emission_shape_offset = Vector3(0, 0.3, 0)
+angle_min = 1.07288e-05
+angle_max = 215.2
+spread = 90.542
+gravity = Vector3(0, 0.3, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 8.05
+radial_accel_min = -3.45
+radial_accel_max = 4.59
+tangential_accel_min = -3.45
+tangential_accel_max = 9.2
+turbulence_enabled = true
+turbulence_noise_strength = 15.73
+turbulence_noise_scale = 2.809
+
+[sub_resource type="Gradient" id="Gradient_61egl"]
+offsets = PackedFloat32Array(0, 0.263158, 0.5, 0.692982, 1)
+colors = PackedColorArray(0.370109, 0.227364, 1, 1, 0.559787, 0.64579, 0.445619, 1, 0.921569, 0.909804, 0.423529, 1, 0.743499, 0.723117, 0.54439, 1, 0.460206, 0.426116, 0.736669, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_82rwa"]
+gradient = SubResource("Gradient_61egl")
+fill_from = Vector2(0, 0.668539)
+fill_to = Vector2(1, 0.707865)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y352u"]
+albedo_texture = SubResource("GradientTexture2D_82rwa")
+
+[sub_resource type="SphereMesh" id="SphereMesh_oele7"]
+material = SubResource("StandardMaterial3D_y352u")
+radius = 0.1
+height = 0.1
+
+[node name="Bubbler" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.212546, 0)
+material_override = SubResource("StandardMaterial3D_4rcw1")
+amount = 58
+lifetime = 4.03
+speed_scale = 2.93
+randomness = 0.31
+visibility_aabb = AABB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5)
+trail_lifetime = 0.7
+process_material = SubResource("ParticleProcessMaterial_2n7mt")
+draw_pass_1 = SubResource("SphereMesh_oele7")

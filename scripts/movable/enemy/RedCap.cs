@@ -6,17 +6,19 @@ public partial class RedCap : Enemy
 {
 	public float WanderTimer = 0f;
 	public float WanderCooldown = .5f;
-	public float DetectionRadius = 3f;
-	public float BubbleRadius = .3f;
+	public float DetectionRadius = 5f;
+	public float BubbleRadius = 4f;
 	public bool IsSleeping = false;
 	
 	// Bubbleing variables
 	public bool IsBubbling = false;
+	public int BubbleDamage = 1;
 	public float BubbleTimer = 0f;
-	public float BubbleCooldown = 1f;
+	public float BubbleCooldown = 2f;
 	public float BubbleAnim;
-	public float BubbleChargeRadius = 2f;
-
+	public float BubbleDamageRadius = 2f;
+	public Node3D bubbler;
+	
 	public override void _Ready()
 	{
 		TYPE = "red_cap";
@@ -30,6 +32,9 @@ public partial class RedCap : Enemy
 		PlayerNode = GetTree().Root.FindChild("hugo", true, false) as Player;
 		PlayerBody = GetTree().Root.FindChild("hugo_char", true, false) as HugoBody3d;
 		animatedSprite.AnimationFinished += OnAnimationFinished;
+		bubbler = GetNode<Node3D>("red_cap_rigid/Bubbler"); 
+		bubbler.Visible = false;
+		
 		define_strategy();
 		FullName = TYPE + " " + movement + " " + action;
 	}
@@ -40,6 +45,8 @@ public partial class RedCap : Enemy
 		base._PhysicsProcess(delta);
 		Vector3 direction = CurrentDirection;
 		AnimateDirection(direction);
+		if (IsBubbling)
+			bubbler.Visible = true;
 	}
 	
 	public override void define_strategy()

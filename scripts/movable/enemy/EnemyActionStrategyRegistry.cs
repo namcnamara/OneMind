@@ -21,6 +21,7 @@ public static class EnemyActionStrategyRegistry
 			"Explode" => new ActionGoopExplode(),
 			"bump" => new ActionGoopBump(),
 			"spike" => new ActionPricklyBlobSpike(),
+			"bubble" => new ActionBubble(),
 			_ => new ActionGoopBump()
 		};
 	}

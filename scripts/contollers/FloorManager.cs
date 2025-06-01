@@ -78,6 +78,7 @@ public partial class FloorManager : Node
 	
 	public void UnloadFloor()
 	{
+		GameManager.Instance.flush_registries();
 		if (currentFloorInstance != null && currentFloorInstance.IsInsideTree())
 		{
 			currentFloorInstance.QueueFree();

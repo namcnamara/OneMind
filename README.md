@@ -7,8 +7,8 @@ To run the project you need Godot 4.4 installed with C# support.
 The main scene is Master.tscn. It controls the switch between loading title and game scenes. 
   - When the button Play is pressed on the title scene, the game is started.
   - The home floor is loaded.
-      - TODO: MEMENTO to load state.
-      - TODO: transition to enemy state without manual selection (some area trigger probably)
+	  - TODO: MEMENTO to load state.
+	 
 
 Patterns used:
 Singleton:
@@ -19,10 +19,10 @@ Multiton:
 
 Bridge:
  - Movable class extends from Node, and is used to allow pause access for all objects that have movement, or can cause damage.
-     - Player extends Movable, used for player sync with the pause command.
-     - Enemy extends Movable, defines a controller script for enemy classes.
-       - Uses Builder pattern for action and movement assignment.
-       - Uses Strategy pattern for specific assignment. 
+	 - Player extends Movable, used for player sync with the pause command.
+	 - Enemy extends Movable, defines a controller script for enemy classes.
+	   - Uses Builder pattern for action and movement assignment.
+	   - Uses Strategy pattern for specific assignment. 
 
 Builders:
   - Level builders are used to create enemy/home/neutral floors.
@@ -36,7 +36,3 @@ Visitor:
 
 Decorator:
    - TODO: make leader enemy. On death, change the strategy of enemies to be idle/random. 
-
-
-
-

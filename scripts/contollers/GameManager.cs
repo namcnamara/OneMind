@@ -111,4 +111,20 @@ public partial class GameManager : Node
 			}
 		}
 	}
+	
+	public void flush_registries()
+	{
+		foreach (var friend in FriendsByID.Values)
+		{
+			friend.QueueFree();
+		}
+		foreach (var enemy in EnemiesByID.Values)
+		{
+			enemy.QueueFree();
+		}
+		FriendsByID.Clear();
+		FriendIDsByRef.Clear();	
+		EnemiesByID.Clear();
+		EnemyIDsByRef.Clear();
+	}
 }
