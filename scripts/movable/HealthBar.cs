@@ -19,12 +19,11 @@ public partial class HealthBar : Node3D, HealthBarVisitor
 	public void Visit(string FullName, int Health, int MaxHealth)
 	{
 		// Update fill amount based the on enemy Health / MaxHealth values
-		GD.Print("Attempt");
 		float healthPercent = Health / MaxHealth;
 		FillBar.Scale = new Vector3(healthPercent, 1, 1); 
 		Label.Text = $"{Health}  /  {MaxHealth}";
 		NameLabel.Text = FullName;
-		GD.Print($"updated: {FullName} ({Health}/{MaxHealth})");
+		//GD.Print($"updated: {FullName} ({Health}/{MaxHealth})");
 	}
 	
 	private string buildName(Movable entity)

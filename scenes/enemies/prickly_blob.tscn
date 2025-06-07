@@ -28,18 +28,6 @@ region = Rect2(192, 0, 64, 64)
 atlas = ExtResource("2_kdeo7")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uhmka"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5fjre"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oeaww"]
-atlas = ExtResource("2_kdeo7")
-region = Rect2(448, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_4mnpp"]
 atlas = ExtResource("2_kdeo7")
 region = Rect2(512, 0, 64, 64)
@@ -51,6 +39,18 @@ region = Rect2(576, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqmdw"]
 atlas = ExtResource("2_kdeo7")
 region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhmka"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fjre"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeaww"]
+atlas = ExtResource("2_kdeo7")
+region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xqiim"]
 animations = [{
@@ -68,25 +68,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_do8ha")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_htena")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uhmka")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5fjre")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oeaww")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4mnpp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ctebd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eqmdw")
+"texture": SubResource("AtlasTexture_aonjr")
 }],
 "loop": true,
 "name": &"default",
@@ -175,7 +157,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ymk8")
 }],
-"loop": true,
+"loop": false,
 "name": &"spike",
 "speed": 30.0
 }]
@@ -199,5 +181,5 @@ transform = Transform3D(0.999998, 0.00195912, -3.23856e-05, -0.00195916, 0.99999
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_xqiim")
-animation = &"die"
+animation = &"spike"
 autoplay = "rest_1"

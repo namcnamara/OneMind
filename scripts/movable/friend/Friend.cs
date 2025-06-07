@@ -80,17 +80,16 @@ public partial class Friend : Movable
 			CurrentLocation = this.GlobalPosition;
 			CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
 			if (GameManager.Instance.EnemiesByID.Any())
-				{
-					Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
-					closestEnemy = GameManager.Instance.GetClosestEntity(playerPosition, "enemy") as Enemy;
-					GD.Print(closestEnemy.FullName);
-					CurrentDistanceToClosestEnemy = CurrentLocation.DistanceTo(closestEnemy.CurrentLocation);
-				}
-				else
-				{
-					closestEnemy = null;
-					CurrentDistanceToClosestEnemy = 1000f;
-				}
+			{
+				Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
+				closestEnemy = GameManager.Instance.GetClosestEntity(playerPosition, "enemy") as Enemy;
+				CurrentDistanceToClosestEnemy = CurrentLocation.DistanceTo(closestEnemy.CurrentLocation);
+			}
+			else
+			{
+				closestEnemy = null;
+				CurrentDistanceToClosestEnemy = 1000f;
+			}
 			
 			UpdateMovement(delta); 
 			UpdateAction(delta);
@@ -109,14 +108,9 @@ public partial class Friend : Movable
 
 	protected void UpdateMovement(double delta)
 	{
-		GD.Print(_movementStrategy);
 		_movementStrategy.Move(this, TYPE, delta);
 	}
 	
-	protected void UpdateAnimation(double delta)
-	{
-		GD.Print("add anmation registry");
-	}
 	
 	protected void UpdateAction(double delta)
 	{

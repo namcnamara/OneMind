@@ -46,7 +46,6 @@ public class MovementGoopChase : EnemyMovementStrategy
 			// if another friend unit is closer attack that instead
 			if (goop.closestFriend != null)
 			{
-				GD.Print(goop.closestFriend.FullName);
 				goop.CurrentDirection = 1f * (goop.closestFriend.GlobalPosition - goop.RigidBody.GlobalPosition).Normalized();
 			}
 		}

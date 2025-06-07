@@ -11,7 +11,7 @@ public class ActionBubble : EnemyActionStrategy
 		var Player_Location = GameManager.Instance.PlayerManager.Player_Location;
 		Bubble(enemy, delta);
 	}
-	
+		
 	private void Bubble(Enemy enemy, double delta)
 	{	
 		if (enemy is not RedCap redCap) return;
@@ -27,11 +27,12 @@ public class ActionBubble : EnemyActionStrategy
 			if (dist <= radius)
 			{
 				ResetBubbleTimer(redCap);
-				if (dist <= d_radius)
-				{
-					GD.Print("ddddddddddd\nddddddddddddddddddddddddddddddddddddddd\ndddddddddddd");
-				}
-					playerBody.take_damage(redCap.BubbleDamage);
+				redCap.BubbleDmgTimer -= (float)delta;
+				if (redCap.BubbleDmgTimer <= 0)
+					{
+						redCap.BubbleDmgTimer = redCap.BubbleDmgCooldown;
+						playerBody.take_damage(redCap.BubbleDamage);
+					}
 			}
 		}
 
@@ -43,7 +44,10 @@ public class ActionBubble : EnemyActionStrategy
 			{
 				ResetBubbleTimer(redCap);
 				if (dist <= d_radius)
+				{
 					friend.TakeDamage(redCap.BubbleDamage);
+				}
+					
 			}
 		}
 
@@ -56,7 +60,9 @@ public class ActionBubble : EnemyActionStrategy
 			{
 				ResetBubbleTimer(redCap);
 				if (dist <= d_radius)
+				{
 					other.TakeDamage(redCap.BubbleDamage);
+				}
 			}
 		}
 		ManageBubbling(delta, redCap);

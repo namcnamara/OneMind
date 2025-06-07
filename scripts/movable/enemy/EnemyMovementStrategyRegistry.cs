@@ -21,7 +21,7 @@ public static class EnemyMovementStrategyRegistry
 			"chase" => new MovementGoopChase(),
 			"random" => new MovementGoopRandom(),
 			"sleepy" => new MovementCapSleepy(),
-			_ => new MovementGoopRandom()
+			_ => new MovementGoopChase()
 		};
 	}
 }

@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://x6nli5dr328l"]
+
+[ext_resource type="Texture2D" uid="uid://cix8prbibfd44" path="res://Sprites/headBounceSpriteSheet.png" id="1_0g0nu"]
+[ext_resource type="Script" uid="uid://dxnfnyxkj3djb" path="res://scripts/movable/item/Item.cs" id="1_r42yh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r42yh"]
+radius = 0.066603
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0288s"]
+atlas = ExtResource("1_0g0nu")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr4pg"]
+atlas = ExtResource("1_0g0nu")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grngq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0288s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mr4pg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Gloop" type="Node3D"]
+script = ExtResource("1_r42yh")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.065513, 0)
+shape = SubResource("SphereShape3D_r42yh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+skeleton = NodePath("../..")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.320098, 0)
+sprite_frames = SubResource("SpriteFrames_grngq")
+frame_progress = 0.0874374

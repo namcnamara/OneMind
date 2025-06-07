@@ -39,16 +39,14 @@ public partial class PricklyBlob : Enemy
 		base._PhysicsProcess(delta);
 		Vector3 direction = CurrentDirection;
 		AnimateDirection(direction);
+		if (IsDead)
+			Die();
 	}
 	
 	public override void define_strategy()
 	{
-		int decider = random.Next(0, 10);
 		//Update strategies for movement
-		if (decider % 2 == 0)
-			movement = "chase";
-		else
-			movement = "random";
+		movement = "chase";
 		_movementStrategy = EnemyMovementStrategyRegistry.GetStrategy(movement);
 		action = "spike";
 		_actionStrategy = EnemyActionStrategyRegistry.GetStrategy(action);

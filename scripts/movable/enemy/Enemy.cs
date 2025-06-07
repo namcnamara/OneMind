@@ -34,9 +34,12 @@ public partial class Enemy : Movable
 	public Vector3 CurrentDirection { get; set; } = Vector3.Right;
 	public Vector3 LastDirection { get; set; }
 	public Vector3 CurrentLocation {get; set;} = Vector3.Zero;
-	public float CurrentDistance { get; set; } = 100f; //tracks distance to player
+	public float CurrentDistance { get; set; } = 100f; 
 	public float CurrentDistanceToClosestFriend = 1000f;
 	public Friend closestFriend = null;
+	public Item item = null;
+	public PackedScene ItemScene { get; set; }
+	public bool NeedToDropItem = true;
 	
 	//strategies
 	public string movement = "";
@@ -49,6 +52,7 @@ public partial class Enemy : Movable
 	{
 		//variable defaults are updated in child class define_strategy()
 		base._Ready();
+		ItemScene = GD.Load<PackedScene>("res://scenes/items/gloop.tscn");
 		_movementStrategy = EnemyMovementStrategyRegistry.GetStrategy(TYPE);
 		_actionStrategy = EnemyActionStrategyRegistry.GetStrategy(TYPE);
 		GameManager.Instance.RegisterMovable(this, TYPE);
@@ -56,7 +60,7 @@ public partial class Enemy : Movable
 	
 	public virtual RigidBody3D GetRigidBody()
 	{
-		GD.Print("Need to overwrite for this enemy");
+		// Need to overwrite for this enemy
 		return null;
 	}
 	
@@ -107,6 +111,23 @@ public partial class Enemy : Movable
 	{
 		IsDying = true;
 		animatedSprite.Play(animName);
+		if (ItemScene == null)
+		GD.Print("no itemsceen");
+		if (ItemScene != null && NeedToDropItem)
+		{
+			var node = ItemScene.Instantiate();
+			var itemInstance = node as Item;
+			GD.Print("Item instamce created");
+			if (itemInstance != null)
+			{
+				GetParent().AddChild(itemInstance);
+				itemInstance.GlobalPosition = this.GlobalPosition + new Vector3(0, 1f, 0);
+				GD.Print("item added success");
+			}
+		}
+		NeedToDropItem = false;
+		GameManager.Instance.UnregisterMovable(this, TYPE);
+		QueueFree();
 	}
 
 	protected void UpdateMovement(double delta)
@@ -144,6 +165,7 @@ public partial class Enemy : Movable
 		if (Health <= 0)
 		{
 			IsDead = true;
+			Die();
 		}
 	}
 	
