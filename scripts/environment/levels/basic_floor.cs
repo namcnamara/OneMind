@@ -7,6 +7,8 @@ public partial class basic_floor : Node3D
 	public PackedScene ProcGenTreeScene;
 	public PackedScene WallScene;
 	private PackedScene TriggerAreaScene;
+	private Vector3 TriggerPosition;
+	private bool NeedToTrigger = true;
 	
 	private LevelBuilderInterface contentBuilder;
 	RandomNumberGenerator rand = new RandomNumberGenerator();
@@ -28,6 +30,15 @@ public partial class basic_floor : Node3D
 		populate_walls();
 		populate_contents(BuildType);
 		GameManager.Instance.FloorManager.CurrentFloor = BuildType;
+	}
+	
+	public override void _PhysicsProcess(double delta)
+	{
+		if (GameManager.Instance.FloorManager.currentEnemyCount <= 0 && NeedToTrigger)
+		{
+			SpawnTriggerArea(TriggerPosition, BuildType); 
+			NeedToTrigger = false;
+		}
 	}
 	
 	private void load_assets()
@@ -157,9 +168,8 @@ public partial class basic_floor : Node3D
 				{
 					if (NeedToSpawnTriggerArea && layerCount -1 == i)
 					{
-						var triggerPos = new Vector3(x, center.Y, min.Z + offsetZ-1);
-						SpawnTriggerArea(triggerPos, BuildType); 
-						NeedToSpawnTriggerArea = false;
+						var triggerPos = new Vector3(x, center.Y, min.Z + offsetZ+3);
+						TriggerPosition = triggerPos;
 					}
 				}
 				SpawnTree(new Vector3(x, center.Y, max.Z + offsetZ), heightScale);

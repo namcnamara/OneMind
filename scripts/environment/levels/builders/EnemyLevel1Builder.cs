@@ -23,6 +23,7 @@ public partial class EnemyLevel1Builder : LevelBuilderInterface
 				rand.RandfRange(floorCenter.Z - floorSize.Z / 2f, floorCenter.Z + floorSize.Z / 2f)
 			);
 			parent.AddChild(goop);
+			GameManager.Instance.FloorManager.currentEnemyCount += 1;
 			goop.GlobalPosition = pos;
 			Vector3 pos2 = new Vector3(
 				rand.RandfRange(floorCenter.X - floorSize.X / 2f, floorCenter.X + floorSize.X / 2f),
@@ -30,6 +31,7 @@ public partial class EnemyLevel1Builder : LevelBuilderInterface
 				rand.RandfRange(floorCenter.Z - floorSize.Z / 2f, floorCenter.Z + floorSize.Z / 2f)
 			);
 			parent.AddChild(pBlob);
+			GameManager.Instance.FloorManager.currentEnemyCount += 1;
 			pBlob.GlobalPosition = pos2;
 			
 		}

@@ -110,6 +110,7 @@ public partial class Enemy : Movable
 	public void Die(string animName = "die")
 	{
 		IsDying = true;
+		GameManager.Instance.FloorManager.currentEnemyCount -= 1;
 		animatedSprite.Play(animName);
 		if (ItemScene == null)
 		GD.Print("no itemsceen");

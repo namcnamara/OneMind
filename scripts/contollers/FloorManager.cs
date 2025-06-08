@@ -16,6 +16,7 @@ public partial class FloorManager : Node
 	public Button ToHomeButton {get; set;}
 	public bool GameIsPlaying = false;
 	public bool floorUnloaded = false;
+	public int currentEnemyCount = 0;
 	
 	//Unlocked Home Benefits for stat and transform updates.
 	public bool lichenLounge = false;

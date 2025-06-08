@@ -29,7 +29,9 @@ public partial class EnemyLevel2Builder : LevelBuilderInterface
 			);
 
 			parent.AddChild(pBlob);
+			GameManager.Instance.FloorManager.currentEnemyCount += 1;
 			parent.AddChild(cap);
+			GameManager.Instance.FloorManager.currentEnemyCount += 1;
 			cap.GlobalPosition = pos;
 			pBlob.GlobalPosition = pos2;
 			

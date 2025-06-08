@@ -13,6 +13,7 @@ public partial class EnemyLevel0Builder : LevelBuilderInterface
 		rand.Randomize();
 		for (int i = 0; i < 5; i++)
 		{
+			GameManager.Instance.FloorManager.currentEnemyCount += 1;
 			var goop = goopScene.Instantiate<Node3D>();
 			Vector3 pos = new Vector3(
 				rand.RandfRange(floorCenter.X - floorSize.X / 2f, floorCenter.X + floorSize.X / 2f),
