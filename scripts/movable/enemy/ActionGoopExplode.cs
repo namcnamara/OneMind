@@ -3,11 +3,6 @@ using System;
 
 public class ActionGoopExplode : EnemyActionStrategy
 {
-	private float moveSpeed = 6f;
-	private float velocityThreshold = 0.01f;
-	private float maxSpeed = 6f;
-	private float dampeningFactor = 0.9f;
-
 	public override void Act(Enemy enemy, string name, double delta)
 	{
 		//ensure run is ready

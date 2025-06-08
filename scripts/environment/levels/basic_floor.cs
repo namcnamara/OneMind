@@ -241,9 +241,17 @@ public partial class basic_floor : Node3D
 	
 	private void populate_contents(String build_type)
 	{
-		if (build_type == "enemy")
+		if (build_type == "enemy0")
 		{
-			contentBuilder = new EnemyLevelBuilder();
+			contentBuilder = new EnemyLevel0Builder();
+		}
+		else if (build_type == "enemy1")
+		{
+			contentBuilder = new EnemyLevel1Builder();
+		}
+		else if (build_type == "enemy2")
+		{
+			contentBuilder = new EnemyLevel2Builder();
 		}
 		else if (build_type == "home")
 		{

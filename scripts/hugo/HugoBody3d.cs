@@ -38,6 +38,7 @@ public partial class HugoBody3d: CharacterBody3D
 		updateHUD();
 		isStuck = false;
 		gloopMinionScene = GD.Load<PackedScene>("res://scenes/friends/gloop_minion.tscn");
+		GameManager.Instance.PlayerManager.Player_Body = this;
 	}
 	
 	private void LoadPlayerStateFromGameManager()

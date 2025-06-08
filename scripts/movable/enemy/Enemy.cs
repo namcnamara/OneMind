@@ -117,11 +117,15 @@ public partial class Enemy : Movable
 		{
 			var node = ItemScene.Instantiate();
 			var itemInstance = node as Item;
+			if (TYPE == "redCap")
+			{
+				itemInstance.TYPE = "mush";
+			}
 			GD.Print("Item instamce created");
 			if (itemInstance != null)
 			{
 				GetParent().AddChild(itemInstance);
-				itemInstance.GlobalPosition = this.GlobalPosition + new Vector3(0, 1f, 0);
+				itemInstance.GlobalPosition = this.RigidBody.GlobalPosition + new Vector3(0, 1f, 0);
 				GD.Print("item added success");
 			}
 		}

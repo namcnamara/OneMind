@@ -4,9 +4,7 @@ using System;
 public class MovementGoopChase : EnemyMovementStrategy
 {
 	private float moveSpeed = 6f;
-	private float velocityThreshold = 0.01f;
 	private float maxSpeed = 2f;
-	private float dampeningFactor = 0.9f;
 
 	public override void Move(Enemy enemy, string name, double delta)
 	{

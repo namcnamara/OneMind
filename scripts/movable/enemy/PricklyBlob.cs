@@ -41,6 +41,11 @@ public partial class PricklyBlob : Enemy
 		AnimateDirection(direction);
 		if (IsDead)
 			Die();
+		if (CurrentDistanceToClosestFriend < SpikeRadius)
+		{
+			TakeDamage(Damage);
+			closestFriend.TakeDamage(Damage);
+		}
 	}
 	
 	public override void define_strategy()

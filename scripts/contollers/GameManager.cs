@@ -30,20 +30,24 @@ public partial class GameManager : Node
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		if (FloorManager.floorUnloaded)
+			return;
+
+		if (PlayerManager == null)
+		{
+			return;
+		}
+		
 		if (PlayerManager.Player_Body == null)
+		{
+			return;
+		}
+
+		if (FloorManager.floorUnloaded)
 			return;
 
 		Vector3 playerPosition = PlayerManager.Player_Body.GlobalPosition;
 		Movable closestEnemy = GetClosestEntity(playerPosition, "enemy");
-
-		if (closestEnemy != null)
-		{
-			//GD.Print($"Closest enemy to player: {closestEnemy.TYPE} at {closestEnemy.GlobalPosition}");
-		}
-		else
-		{
-			GD.Print("No enemies present.");
-		}
 	}
 	
 	public Movable GetClosestEntity(Vector3 toPosition, string type = "enemy")
@@ -51,15 +55,16 @@ public partial class GameManager : Node
 		if (type == "enemy")
 		{
 			return EnemiesByID.Values
-			.OrderBy(e => e.GlobalPosition.DistanceTo(toPosition))
-			.FirstOrDefault();
+				.Where(e => e != null && GodotObject.IsInstanceValid(e))
+				.OrderBy(e => e.GlobalPosition.DistanceTo(toPosition))
+				.FirstOrDefault();
 		}
-		
-		else 
+		else
 		{
 			return FriendsByID.Values
-			.OrderBy(e => e.GlobalPosition.DistanceTo(toPosition))
-			.FirstOrDefault();
+				.Where(f => f != null && GodotObject.IsInstanceValid(f))
+				.OrderBy(f => f.GlobalPosition.DistanceTo(toPosition))
+				.FirstOrDefault();
 		}
 	}
 	

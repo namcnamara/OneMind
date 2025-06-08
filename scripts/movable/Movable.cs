@@ -12,6 +12,7 @@ public partial class Movable : Node3D
 	public Vector3 CurrentPosition { get; set; }
 	public Vector3 LastVelocity { get; set; }
 	public Vector3 lastPosition;
+	public bool IsDead;
 	public bool isPaused;
 	public int Health;
 	public int MaxHealth;

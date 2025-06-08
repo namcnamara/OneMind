@@ -33,7 +33,7 @@ ambient_light_energy = 0.06
 script = ExtResource("1_18xtu")
 
 [node name="hugo" parent="." instance=ExtResource("2_klls7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75388, -6.02222)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75388, 0.908427)
 
 [node name="ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.73877, 0)

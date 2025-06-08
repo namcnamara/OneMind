@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://4i34htcy7p0h"]
+[gd_scene load_steps=23 format=3 uid="uid://4i34htcy7p0h"]
 
 [ext_resource type="Script" uid="uid://da5th4f55d23w" path="res://scripts/hugo/HudLayer.cs" id="1_gtjoe"]
 [ext_resource type="Texture2D" uid="uid://bhmncdqi6b2kc" path="res://Sprites/hud_back/Hud_back_1.png" id="2_0noyy"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dd5j7hj8qk5t4" path="res://Sprites/hud_back/Hud_back_2.png" id="3_pwjgf"]
 [ext_resource type="Texture2D" uid="uid://tu8lfwwcvw2c" path="res://Sprites/healthbar/healthbar-good.png" id="4_0noyy"]
 [ext_resource type="Texture2D" uid="uid://gxmh31xc0r60" path="res://Sprites/hugoTransitionSpriteSheet.png" id="5_gtjoe"]
+[ext_resource type="Texture2D" uid="uid://c604iqkbnxf5y" path="res://Sprites/hugo/amanitaRed1.png" id="8_lyf2y"]
+[ext_resource type="Texture2D" uid="uid://cix8prbibfd44" path="res://Sprites/headBounceSpriteSheet.png" id="9_bhef6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lyf2y"]
 animations = [{
@@ -92,6 +94,41 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h57un"]
+atlas = ExtResource("8_lyf2y")
+region = Rect2(21, 48, 21, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_huts0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h57un")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtjco"]
+atlas = ExtResource("9_bhef6")
+region = Rect2(64, 48, 64, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b5gfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtjco")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
 }]
 
 [node name="HUDLayer" type="CanvasLayer"]
@@ -111,8 +148,8 @@ offset_bottom = 108.0
 scale = Vector2(0.92, 1)
 
 [node name="background" type="AnimatedSprite2D" parent="TopLeftPanel/ItemList"]
-position = Vector2(110.87, 49)
-scale = Vector2(1.08696, 1.4)
+position = Vector2(111.957, 115)
+scale = Vector2(1.08696, 2.48)
 sprite_frames = SubResource("SpriteFrames_lyf2y")
 frame_progress = 0.764707
 
@@ -145,4 +182,31 @@ text = "  GLOOPS LEFT:"
 [node name="GloopAnimation" type="AnimatedSprite2D" parent="TopLeftPanel/ItemList/HBOXGloop"]
 position = Vector2(164, -7)
 sprite_frames = SubResource("SpriteFrames_h57un")
-frame_progress = 0.86927
+
+[node name="Spacer" type="HBoxContainer" parent="TopLeftPanel/ItemList"]
+layout_mode = 2
+
+[node name="Spacer" type="Label" parent="TopLeftPanel/ItemList/Spacer"]
+layout_mode = 2
+
+[node name="HBOXMush" type="HBoxContainer" parent="TopLeftPanel/ItemList"]
+layout_mode = 2
+
+[node name="MushLabel" type="Label" parent="TopLeftPanel/ItemList/HBOXMush"]
+layout_mode = 2
+text = "Mush:"
+
+[node name="MushAnimation" type="AnimatedSprite2D" parent="TopLeftPanel/ItemList/HBOXMush"]
+position = Vector2(165.217, 15)
+sprite_frames = SubResource("SpriteFrames_huts0")
+
+[node name="HBOXGoo" type="HBoxContainer" parent="TopLeftPanel/ItemList"]
+layout_mode = 2
+
+[node name="GooLabel" type="Label" parent="TopLeftPanel/ItemList/HBOXGoo"]
+layout_mode = 2
+text = "Goo:"
+
+[node name="GooAnimation" type="AnimatedSprite2D" parent="TopLeftPanel/ItemList/HBOXGoo"]
+position = Vector2(165.217, 15)
+sprite_frames = SubResource("SpriteFrames_b5gfq")

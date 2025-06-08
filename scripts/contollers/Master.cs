@@ -37,7 +37,7 @@ public partial class Master : Node
 	public void LoadGame()
 	{
 		GD.Print("Starting Gameplay:");
-			GameManager.Instance.FloorManager.LoadFloor("enemy"); 
+			GameManager.Instance.FloorManager.LoadFloor("enemy0"); 
 			//Drop the title scene and load home level
 			GetNode("Title").QueueFree();
 			// Open physics process in game manager

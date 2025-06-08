@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://x6nli5dr328l"]
+[gd_scene load_steps=8 format=3 uid="uid://x6nli5dr328l"]
 
 [ext_resource type="Texture2D" uid="uid://cix8prbibfd44" path="res://Sprites/headBounceSpriteSheet.png" id="1_0g0nu"]
 [ext_resource type="Script" uid="uid://dxnfnyxkj3djb" path="res://scripts/movable/item/Item.cs" id="1_r42yh"]
@@ -28,6 +28,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_r42yh"]
+
 [node name="Gloop" type="Node3D"]
 script = ExtResource("1_r42yh")
 
@@ -44,3 +46,14 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.320098, 0)
 sprite_frames = SubResource("SpriteFrames_grngq")
 frame_progress = 0.0874374
+
+[node name="OmniLight3D" type="OmniLight3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165786, 0)
+light_color = Color(0.654902, 0.654902, 0.698039, 1)
+light_energy = 0.323
+light_indirect_energy = 0.354
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
+shape = SubResource("BoxShape3D_r42yh")

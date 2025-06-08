@@ -1,0 +1,37 @@
+using Godot;
+using System;
+
+// Introduces p blobs and a little more enemies.
+
+public partial class EnemyLevel1Builder : LevelBuilderInterface
+{
+	private PackedScene goopScene = GD.Load<PackedScene>("res://scenes/enemies/goop_head.tscn");
+	private PackedScene pBlobScene = GD.Load<PackedScene>("res://scenes/enemies/prickly_blob.tscn");
+	private PackedScene capScene = GD.Load<PackedScene>("res://scenes/enemies/red_cap.tscn");
+
+	public void Build(Node3D parent, Vector3 floorCenter, Vector3 floorSize)
+	{
+		var rand = new RandomNumberGenerator();
+		rand.Randomize();
+		for (int i = 0; i < 10; i++)
+		{
+			var pBlob = pBlobScene.Instantiate<Node3D>();
+			var goop = goopScene.Instantiate<Node3D>();
+			Vector3 pos = new Vector3(
+				rand.RandfRange(floorCenter.X - floorSize.X / 2f, floorCenter.X + floorSize.X / 2f),
+				floorCenter.Y,
+				rand.RandfRange(floorCenter.Z - floorSize.Z / 2f, floorCenter.Z + floorSize.Z / 2f)
+			);
+			parent.AddChild(goop);
+			goop.GlobalPosition = pos;
+			Vector3 pos2 = new Vector3(
+				rand.RandfRange(floorCenter.X - floorSize.X / 2f, floorCenter.X + floorSize.X / 2f),
+				floorCenter.Y,
+				rand.RandfRange(floorCenter.Z - floorSize.Z / 2f, floorCenter.Z + floorSize.Z / 2f)
+			);
+			parent.AddChild(pBlob);
+			pBlob.GlobalPosition = pos2;
+			
+		}
+	}
+}

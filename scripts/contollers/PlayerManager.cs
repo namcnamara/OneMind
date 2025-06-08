@@ -16,8 +16,7 @@ public partial class PlayerManager : Node
 	public int GloopMinionCost {get; set;} = 5;
 	
 	public int mush_count = 0;
-	public int wood_count = 0;
-	public int gloop_count = 0;
+	public int goo_count = 0;
 	public int berry_count = 0;
 	
 	public override void _Ready()
@@ -38,4 +37,5 @@ public partial class PlayerManager : Node
 		if (Player_Body != null)
 			Player_Location = Player_Body.GlobalPosition;
 	}
+	
 }

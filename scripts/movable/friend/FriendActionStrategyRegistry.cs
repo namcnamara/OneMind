@@ -18,8 +18,8 @@ public static class FriendActionStrategyRegistry
 		return key switch
 		{
 			//Will always initially defaut to _ since the default name is for movement in enemies
-			"bump" => new FriendActionBump(),
-			_ => new FriendActionBump()
+			"explode" => new FriendActionExplode(),
+			_ => new FriendActionExplode()
 		};
 	}
 }

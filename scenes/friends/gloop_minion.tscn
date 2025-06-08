@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://kf8fb1fj7j0f"]
+[gd_scene load_steps=6 format=3 uid="uid://kf8fb1fj7j0f"]
 
 [ext_resource type="Script" uid="uid://di74l3dyaw44" path="res://scripts/movable/friend/GloopMinion.cs" id="1_ic5lw"]
 [ext_resource type="SpriteFrames" uid="uid://cdvlcmjwimiq7" path="res://sprite_frame_animations/goop_head.tres" id="2_8cpdg"]
@@ -9,6 +9,8 @@ bounce = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rvo8x"]
 margin = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ic5lw"]
 
 [node name="gloop_head" type="Node3D"]
 script = ExtResource("1_ic5lw")
@@ -21,12 +23,17 @@ lock_rotation = true
 
 [node name="gloop_head_anim" type="AnimatedSprite3D" parent="gloop_head_rigid"]
 billboard = 1
-shaded = true
 sprite_frames = ExtResource("2_8cpdg")
-animation = &"bump"
-autoplay = "idle_front_head"
+animation = &"die"
 
 [node name="gloop_head_collide" type="CollisionShape3D" parent="gloop_head_rigid"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.171388, 0)
 shape = SubResource("BoxShape3D_rvo8x")
 debug_color = Color(0.431419, 0.487355, 0.916624, 0.42)
+
+[node name="Area3D" type="Area3D" parent="gloop_head_rigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.326348, 0)
+
+[node name="DamageShape" type="CollisionShape3D" parent="gloop_head_rigid/Area3D"]
+transform = Transform3D(0.628328, 0, 0, 0, 0.409095, 0, 0, 0, 0.586861, 0, 0.181121, 0)
+shape = SubResource("BoxShape3D_ic5lw")

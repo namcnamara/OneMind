@@ -37,6 +37,9 @@ public partial class Friend : Movable
 	public float CurrentDistance { get; set; } = 100f; 
 	public float CurrentDistanceToClosestEnemy = 0;
 	public Enemy closestEnemy = null;
+	public Item item = null;
+	public PackedScene ItemScene { get; set; }
+	public bool NeedToDropItem = true;
 	
 	//strategies
 	public string movement = "";
@@ -47,17 +50,15 @@ public partial class Friend : Movable
 
 	public override void _Ready()
 	{
-		//variable defaults are updated in child class define_strategy()
 		base._Ready();
+		// Set player reference early via GameManager (recommended)
+		PlayerNode = GameManager.Instance.PlayerManager.Player_Movable;
+		PlayerBody = GameManager.Instance.PlayerManager.Player_Body;
+
 		_movementStrategy = FriendMovementStrategyRegistry.GetStrategy(TYPE);
 		_actionStrategy = FriendActionStrategyRegistry.GetStrategy(TYPE);
 		GameManager.Instance.RegisterMovable(this, TYPE);
-	}
-	
-	public virtual RigidBody3D GetRigidBody()
-	{
-		GD.Print("Need to overwrite for this friend");
-		return null;
+		ItemScene = GD.Load<PackedScene>("res://scenes/items/gloop.tscn");
 	}
 	
 	//Assign strategy must be defined in the child
@@ -68,7 +69,6 @@ public partial class Friend : Movable
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (IsDying) return;
 		base._PhysicsProcess(delta);
 		if (Health < 0)
 		{
@@ -78,19 +78,23 @@ public partial class Friend : Movable
 		if (!isPaused)
 		{
 			CurrentLocation = this.GlobalPosition;
-			CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
-			if (GameManager.Instance.EnemiesByID.Any())
+			if (PlayerNode != null)
 			{
-				Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
-				closestEnemy = GameManager.Instance.GetClosestEntity(playerPosition, "enemy") as Enemy;
-				CurrentDistanceToClosestEnemy = CurrentLocation.DistanceTo(closestEnemy.CurrentLocation);
+				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
+				if (GameManager.Instance.EnemiesByID.Any())
+				{
+					Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
+					closestEnemy = GameManager.Instance.GetClosestEntity(playerPosition, "enemy") as Enemy;
+					CurrentDistanceToClosestEnemy = CurrentLocation.DistanceTo(closestEnemy.CurrentLocation);
+				}
+				else
+				{
+					closestEnemy = null;
+					CurrentDistanceToClosestEnemy = 1000f;
+				}
+				
 			}
-			else
-			{
-				closestEnemy = null;
-				CurrentDistanceToClosestEnemy = 1000f;
-			}
-			
+			if (IsDying) return;
 			UpdateMovement(delta); 
 			UpdateAction(delta);
 		}
@@ -104,6 +108,25 @@ public partial class Friend : Movable
 	{
 		IsDying = true;
 		animatedSprite.Play(animName);
+		if (ItemScene == null)
+		GD.Print("no itemsceen");
+		if (ItemScene != null && NeedToDropItem)
+		{
+			var node = ItemScene.Instantiate();
+			
+			var itemInstance = node as Item;
+			itemInstance.TYPE = "goo";
+			GD.Print("Item instamce created");
+			if (itemInstance != null)
+			{
+				GetParent().AddChild(itemInstance);
+				itemInstance.GlobalPosition = this.RigidBody.GlobalPosition + new Vector3(0, 1f, 0);
+				GD.Print("item added success");
+			}
+		}
+		NeedToDropItem = false;
+		GameManager.Instance.UnregisterMovable(this, TYPE);
+		QueueFree();
 	}
 
 	protected void UpdateMovement(double delta)
@@ -142,7 +165,7 @@ public partial class Friend : Movable
 	
 	public void OnAnimationFinished()
 	{
-		if (animatedSprite.Animation == "die" || animatedSprite.Animation =="Explode")
+		if (animatedSprite.Animation == "die" || animatedSprite.Animation =="explode")
 		{ 
 				GameManager.Instance.UnregisterMovable(this, TYPE);
 				QueueFree();

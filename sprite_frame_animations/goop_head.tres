@@ -2,6 +2,34 @@
 
 [ext_resource type="Texture2D" uid="uid://bgwurcpgn1r5" path="res://Sprites/HugoSpriteAtlas1.0.png" id="1_hkhsn"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnm7g"]
+atlas = ExtResource("1_hkhsn")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vrpv"]
+atlas = ExtResource("1_hkhsn")
+region = Rect2(128, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wetuj"]
+atlas = ExtResource("1_hkhsn")
+region = Rect2(192, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cev8x"]
+atlas = ExtResource("1_hkhsn")
+region = Rect2(320, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08xje"]
+atlas = ExtResource("1_hkhsn")
+region = Rect2(256, 384, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k64v0"]
+atlas = ExtResource("1_hkhsn")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prjls"]
+atlas = ExtResource("1_hkhsn")
+region = Rect2(384, 384, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hkhsn"]
 atlas = ExtResource("1_hkhsn")
 region = Rect2(0, 457, 64, 61)
@@ -41,34 +69,6 @@ region = Rect2(64, 518, 64, 61)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rh76m"]
 atlas = ExtResource("1_hkhsn")
 region = Rect2(128, 518, 64, 61)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pnm7g"]
-atlas = ExtResource("1_hkhsn")
-region = Rect2(64, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7vrpv"]
-atlas = ExtResource("1_hkhsn")
-region = Rect2(128, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wetuj"]
-atlas = ExtResource("1_hkhsn")
-region = Rect2(192, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cev8x"]
-atlas = ExtResource("1_hkhsn")
-region = Rect2(320, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_08xje"]
-atlas = ExtResource("1_hkhsn")
-region = Rect2(256, 384, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k64v0"]
-atlas = ExtResource("1_hkhsn")
-region = Rect2(384, 320, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_prjls"]
-atlas = ExtResource("1_hkhsn")
-region = Rect2(384, 384, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5fda"]
 atlas = ExtResource("1_hkhsn")
@@ -164,41 +164,6 @@ region = Rect2(448, 256, 64, 64)
 
 [resource]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hkhsn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gghik")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pnvmy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sqbn4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h16fq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v1kpo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_srspa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pwtyj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ug7jf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rh76m")
-}],
-"loop": false,
-"name": &"Explode",
-"speed": 8.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pnm7g")
@@ -487,6 +452,41 @@ animations = [{
 "loop": false,
 "name": &"die",
 "speed": 55.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkhsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gghik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnvmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqbn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h16fq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1kpo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srspa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwtyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug7jf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rh76m")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,

@@ -3,11 +3,9 @@ using System;
 
 public class MovementCapSleepy : EnemyMovementStrategy
 {
-	private float moveSpeed = 6f;
-	private float velocityThreshold = 0.01f;
-	private float maxSpeed = 4f;
-	private float dampeningFactor = 4f;
-
+	public float moveSpeed = 3f;
+	public float maxSpeed = 5f;
+	
 	public override void Move(Enemy enemy, string name, double delta)
 	{
 		//ensure run is ready

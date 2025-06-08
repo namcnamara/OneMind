@@ -1,7 +1,9 @@
 using Godot;
 using System;
 
-public partial class EnemyLevelBuilder : LevelBuilderInterface
+// show all enemies
+
+public partial class EnemyLevel2Builder : LevelBuilderInterface
 {
 	private PackedScene goopScene = GD.Load<PackedScene>("res://scenes/enemies/goop_head.tscn");
 	private PackedScene pBlobScene = GD.Load<PackedScene>("res://scenes/enemies/prickly_blob.tscn");

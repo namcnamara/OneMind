@@ -33,6 +33,11 @@ public partial class Item : Movable
 		RigidBody = GetNode<RigidBody3D>("RigidBody3D");
 		animatedSprite = RigidBody.GetNode<AnimatedSprite3D>("AnimatedSprite3D");
 		playerBody = GameManager.Instance.PlayerManager.Player_Body;
+		var damageArea = GetNodeOrNull<Area3D>("RigidBody3D/Area3D");
+		if (damageArea != null)
+		{
+			damageArea.BodyEntered += OnDamageAreaBodyEntered;
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -44,25 +49,44 @@ public partial class Item : Movable
 		Vector3 direction = (playerBody.GlobalPosition - GlobalPosition).Normalized();
 		float distance = GlobalPosition.DistanceTo(playerBody.GlobalPosition);
 		float speed = 3.0f;
-		RigidBody.ApplyCentralForce((speed / distance) * direction);		
-		if (distance < 0.4f)
-		{
-			OnCollected();
-		}
+		RigidBody.ApplyCentralForce(speed * direction);		
 	}
 
-	private void OnCollected()
-	{
-		if (TYPE == "gloop")
-			GameManager.Instance.PlayerManager.gloop_count += 1;
-		else
-			GameManager.Instance.PlayerManager.gloop_count += 1;
-		QueueFree();
-	}
 
 	public RigidBody3D GetRigidBody()
 	{
 		return RigidBody;
 	}
+	
+	private void OnDamageAreaBodyEntered(Node3D body)
+{
+	// Check if this is the player body
+	if (body is HugoBody3d player)
+	{
+		GD.Print("Player entered item area.");
+
+		if (TYPE == "goo")
+		{
+			GameManager.Instance.PlayerManager.goo_count += 1;
+			GD.Print("Goo collected. Total: " + GameManager.Instance.PlayerManager.goo_count);
+		}
+		else if (TYPE == "mush")
+		{
+			GameManager.Instance.PlayerManager.mush_count += 1;
+			GD.Print("Mush collected. Total: " + GameManager.Instance.PlayerManager.mush_count);
+		}
+		else if (TYPE == "berry")
+		{
+			GameManager.Instance.PlayerManager.berry_count += 1;
+			GD.Print("Berry collected. Total: " + GameManager.Instance.PlayerManager.berry_count);
+		}
+		else
+		{
+			GameManager.Instance.PlayerManager.goo_count += 1;
+			GD.Print("catchGoo collected. Total: " + GameManager.Instance.PlayerManager.goo_count);
+		}
+		QueueFree(); 
+	}
+}
 	
 }
