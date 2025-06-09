@@ -66,3 +66,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573566, 0)
 sprite_frames = SubResource("SpriteFrames_4ffgj")
 animation = &"occupied"
 frame_progress = 0.776627
+
+[node name="Label3D" type="Label3D" parent="LichenLoungeRigid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74024, 0)
+pixel_size = 0.01
+text = "That looks cozy. We should investigate."

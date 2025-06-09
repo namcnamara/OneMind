@@ -85,7 +85,7 @@ public partial class Enemy : Movable
 			if (PlayerNode != null)
 			{
 				CurrentDistance = CurrentLocation.DistanceTo(GameManager.Instance.PlayerManager.Player_Location);
-				if (GameManager.Instance.FriendsByID.Any())
+				if (closestFriend != null)
 				{
 					Vector3 playerPosition = GameManager.Instance.PlayerManager.Player_Body.GlobalPosition;
 					closestFriend = GameManager.Instance.GetClosestEntity(playerPosition, "friend") as Friend;

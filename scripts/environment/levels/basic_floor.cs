@@ -7,13 +7,13 @@ public partial class basic_floor : Node3D
 	public PackedScene ProcGenTreeScene;
 	public PackedScene WallScene;
 	private PackedScene TriggerAreaScene;
-	private Vector3 TriggerPosition;
-	private bool NeedToTrigger = true;
+	public Vector3 TriggerPosition;
+	public bool NeedToTrigger = false;
 	
 	private LevelBuilderInterface contentBuilder;
 	RandomNumberGenerator rand = new RandomNumberGenerator();
-	private Player Player_Movable { get; set;}
-	private HugoBody3d Player_Body { get; set; }
+	public Player Player_Movable { get; set;}
+	public HugoBody3d Player_Body { get; set; }
 	public MeshInstance3D meshInstance;
 	public BoxMesh boxMesh;
 	public CollisionShape3D colShape;
@@ -28,14 +28,21 @@ public partial class basic_floor : Node3D
 		size_floor();
 		populate_boundary();
 		populate_walls();
+		UpdatePlayerReference();
 		populate_contents(BuildType);
 		GameManager.Instance.FloorManager.CurrentFloor = BuildType;
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (GameManager.Instance.FloorManager.currentEnemyCount <= 0 && NeedToTrigger)
+		if(GameManager.Instance.FloorManager.CurrentFloor == "home" && NeedToTrigger)
 		{
+			SpawnTriggerArea(TriggerPosition, BuildType); 
+			NeedToTrigger = false;
+		}
+		else if (GameManager.Instance.FloorManager.EnemiesDefeated && NeedToTrigger)
+		{
+			GD.Print("spawning area");
 			SpawnTriggerArea(TriggerPosition, BuildType); 
 			NeedToTrigger = false;
 		}
@@ -54,6 +61,14 @@ public partial class basic_floor : Node3D
 		ProcGenTreeScene = GD.Load<PackedScene>("res://scenes/environment/trees/ProcGenTree.tscn");
 		WallScene = GD.Load<PackedScene>("res://scenes/environment/levels/wall_module.tscn");
 		aabb = boxMesh.GetAabb();
+		UpdatePlayerReference();
+	}
+	
+	public void UpdatePlayerReference()
+	{
+		Player_Movable = GetNodeOrNull<Player>("hugo");
+		Player_Body = GetNodeOrNull<HugoBody3d>("hugo/hugo_char");
+		GD.Print("basic_floor: Player references updated.");
 	}
 	
 	private void size_floor()
@@ -129,7 +144,6 @@ public partial class basic_floor : Node3D
 		float spacing = 6.0f;
 		float heightScale = 1.0f;
 		int layerCount = 4;
-		bool NeedToSpawnTriggerArea = true;
 
 		Random rand = new Random();
 
@@ -154,6 +168,7 @@ public partial class basic_floor : Node3D
 			float x_max = max.X;
 			float x_offset_for_center = 1.3f;
 			float halfway = (x_min + x_max) / 2;
+			bool NeedToTriggerSpawnArea = true;
 
 			for (float x = x_min; x <= x_max; x += spacing)
 			{
@@ -166,10 +181,11 @@ public partial class basic_floor : Node3D
 				}
 				else
 				{
-					if (NeedToSpawnTriggerArea && layerCount -1 == i)
+					if (NeedToTriggerSpawnArea && layerCount -1 == i)
 					{
 						var triggerPos = new Vector3(x, center.Y, min.Z + offsetZ+3);
 						TriggerPosition = triggerPos;
+						NeedToTriggerSpawnArea = false;
 					}
 				}
 				SpawnTree(new Vector3(x, center.Y, max.Z + offsetZ), heightScale);
@@ -276,6 +292,14 @@ public partial class basic_floor : Node3D
 	
 	private void SpawnTriggerArea(Vector3 position, string BuildType)
 	{
+		if (BuildType == "home")
+		{
+			// If it a home level being spawned, then an enemy level was beaten; update progress.
+			GameManager.Instance.ProgressManager.beat_level();
+		}
+		//Update progress manager
+	
+		
 		var triggerInstance = TriggerAreaScene.Instantiate<TriggerArea>();
 		AddChild(triggerInstance);
 		triggerInstance.GlobalPosition = position;

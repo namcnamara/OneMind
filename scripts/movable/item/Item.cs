@@ -41,16 +41,19 @@ public partial class Item : Movable
 	}
 
 	public override void _PhysicsProcess(double delta)
-	{
-		spawnTimer -= (float)delta;
-		if (spawnTimer > 0) return;
-		base._PhysicsProcess(delta);
+{
+	spawnTimer -= (float)delta;
+	if (spawnTimer > 0) return;
+	base._PhysicsProcess(delta);
 
-		Vector3 direction = (playerBody.GlobalPosition - GlobalPosition).Normalized();
-		float distance = GlobalPosition.DistanceTo(playerBody.GlobalPosition);
-		float speed = 3.0f;
-		RigidBody.ApplyCentralForce(speed * direction);		
-	}
+	if (playerBody == null || !GodotObject.IsInstanceValid(playerBody))
+		return; 
+
+	Vector3 direction = (playerBody.GlobalPosition - GlobalPosition).Normalized();
+	float distance = GlobalPosition.DistanceTo(playerBody.GlobalPosition);
+	float speed = 3.0f;
+	RigidBody.ApplyCentralForce(speed * direction);        
+}
 
 
 	public RigidBody3D GetRigidBody()

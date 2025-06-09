@@ -11,41 +11,55 @@ public partial class LichenLounge : RigidBody3D
 	private bool isOccupied = false;
 	public float OccupyDistance = 1f;
 	public HugoBody3d player;
+	public Label3D text_label { get;  set; }
+	private string text = "Smells like people.\n(+25 total health.) ";
+	
 	
 	public override void _Ready()
 	{
 		animatedSprite = GetNode<AnimatedSprite3D>("LichenLoungeAnim");
 		collisionShape = GetNode<CollisionShape3D>("LichenLoungeCollide");
+		text_label = GetNode<Label3D>("Label3D");
 		animatedSprite.Play("idle");
 	}
 
 	public override void _PhysicsProcess(double delta)
+{
+	if (isOccupied)
 	{
-		if (isOccupied)
-			animatedSprite.Play("occupied");
+		text_label.Text = text;
+		animatedSprite.Play("occupied");
+	}
+	else
+	{
+		if (player == null)
+		{
+			player = GameManager.Instance.PlayerManager.Player_Body;
+		}
 		else
 		{
-			GD.Print(player);
-			if (player == null)
+			float distance = GlobalPosition.DistanceTo(player.GlobalPosition);
+			if (distance <= OccupyDistance)
 			{
-				player = GameManager.Instance.PlayerManager.Player_Body;
-			}
-			else
-			{
-				
-				float distance = GlobalPosition.DistanceTo(player.GlobalPosition);
-				GD.Print(distance);
-				if (distance <= OccupyDistance)
-				{
-					isOccupied = true;
-					animatedSprite.Play("occupied");
-					GD.Print("Occupied!");
+				isOccupied = true;
+				animatedSprite.Play("occupied");
+				GD.Print("Occupied!");
 
-					GameManager.Instance.PlayerManager.PlayerMaxHealth += 25;
-					GameManager.Instance.PlayerManager.Player_Body.HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
-					GameManager.Instance.PlayerManager.Player_Body.updateHUD();
+				GameManager.Instance.PlayerManager.PlayerMaxHealth += 25;
+				GameManager.Instance.PlayerManager.Player_Body.HEALTH = GameManager.Instance.PlayerManager.PlayerMaxHealth;
+				GameManager.Instance.PlayerManager.Player_Body.updateHUD();
+
+				Node BasicFloor = GetParent()?.GetParent();
+				if (BasicFloor is basic_floor floor)
+				{
+					floor.NeedToTrigger = true;
+				}
+				else
+				{
+					
 				}
 			}
 		}
 	}
+}
 }

@@ -93,4 +93,19 @@ public partial class RedCap : Enemy
 			}
 		}
 	}
+	
+	public void TakeDamage(int damageAmount)
+	{
+		Health -= (int)((10 + damageAmount) / 10) ;
+		if (Health < 0) Health = 0; 
+		if (healthBarInstance != null)
+		{
+			healthBarInstance.Visit(FullName, Health, MaxHealth); 
+		}
+		if (Health <= 0)
+		{
+			IsDead = true;
+			Die();
+		}
+	}
 }

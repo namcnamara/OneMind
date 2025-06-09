@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://qpvf8dgvshke"]
+[gd_scene load_steps=5 format=3 uid="uid://qpvf8dgvshke"]
 
 [ext_resource type="Script" uid="uid://d6iy73mcpbsj" path="res://scripts/contollers/GameManager.cs" id="1_hwd4i"]
 [ext_resource type="Script" uid="uid://c6v1ech70htv6" path="res://scripts/contollers/FloorManager.cs" id="2_glms7"]
 [ext_resource type="Script" uid="uid://55qee16d40s8" path="res://scripts/contollers/PlayerManager.cs" id="3_udu3i"]
+[ext_resource type="Script" uid="uid://bij24yxbtkvge" path="res://scripts/contollers/ProgressManager.cs" id="4_d72ax"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_hwd4i")
@@ -12,3 +13,6 @@ script = ExtResource("2_glms7")
 
 [node name="PlayerManager" type="Node" parent="."]
 script = ExtResource("3_udu3i")
+
+[node name="ProgressManager" type="Node" parent="."]
+script = ExtResource("4_d72ax")

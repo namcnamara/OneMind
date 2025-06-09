@@ -3,8 +3,6 @@ using System;
 
 public partial class HomeLevelBuilder : LevelBuilderInterface
 {
-	public bool hasBubbleHut = true;
-	public bool hasLichenLounge = true;
 	private PackedScene BubbleHutScene = GD.Load<PackedScene>("res://scenes/environment/buildings/BubbleHut.tscn");
 	private PackedScene LichenLoungeScene = GD.Load<PackedScene>("res://scenes/environment/buildings/LichenLounge.tscn");
 	public RandomNumberGenerator rand = new RandomNumberGenerator();
@@ -14,7 +12,7 @@ public partial class HomeLevelBuilder : LevelBuilderInterface
 	{
 		rand.Randomize();
 		//Build 
-		if (hasBubbleHut)
+		if (GameManager.Instance.FloorManager.BubbleHut)
 		{
 			// Adds 5 gloop (handled in building
 			var resource = BubbleHutScene.Instantiate<Node3D>();
@@ -22,7 +20,7 @@ public partial class HomeLevelBuilder : LevelBuilderInterface
 			spawn_resource(resource, parent, pos);
 		}
 		
-		if (hasLichenLounge)
+		if (GameManager.Instance.FloorManager.LichenLounge)
 		{
 			// Adds 25 health
 			var resource = LichenLoungeScene.Instantiate<Node3D>();
@@ -34,7 +32,7 @@ public partial class HomeLevelBuilder : LevelBuilderInterface
 	
 	public void spawn_resource(Node3D resource, Node3D parent, Vector3 pos)
 	{
-		resource.GlobalPosition = pos;
 		parent.AddChild(resource);
+		resource.GlobalPosition = pos;
 	}
 }

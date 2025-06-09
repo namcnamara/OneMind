@@ -11,6 +11,8 @@ public partial class GameManager : Node
 	public FloorManager FloorManager { get; private set; }
 	// Player manager
 	public PlayerManager PlayerManager { get; private set; }
+	//tracks progress
+	public ProgressManager ProgressManager { get; private set; }
 	
 	//Registries for enemy and friendly units
 	public Dictionary<string, Enemy> EnemiesByID { get; private set; } = new();
@@ -26,6 +28,8 @@ public partial class GameManager : Node
 		Instance = this;
 		FloorManager = FloorManager = GetNode<FloorManager>("FloorManager");
 		PlayerManager = GetNode<PlayerManager>("PlayerManager");
+		PlayerManager = GetNode<PlayerManager>("PlayerManager");
+		ProgressManager = GetNode<ProgressManager>("ProgressManager");
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -121,7 +125,15 @@ public partial class GameManager : Node
 	{
 		foreach (var friend in FriendsByID.Values)
 		{
-			friend.QueueFree();
+			try
+			{
+				friend.QueueFree();
+			}
+			catch (Exception e)
+			{
+				GD.PrintErr($"Error freeing friend: {e.Message}");
+			}
+			
 		}
 		foreach (var enemy in EnemiesByID.Values)
 		{

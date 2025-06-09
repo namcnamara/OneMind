@@ -11,7 +11,8 @@ public partial class EnemyLevel0Builder : LevelBuilderInterface
 	{
 		var rand = new RandomNumberGenerator();
 		rand.Randomize();
-		for (int i = 0; i < 5; i++)
+		int max_enemies = 10;
+		for (int i = 0; i < max_enemies; i++)
 		{
 			GameManager.Instance.FloorManager.currentEnemyCount += 1;
 			var goop = goopScene.Instantiate<Node3D>();
@@ -22,7 +23,9 @@ public partial class EnemyLevel0Builder : LevelBuilderInterface
 			);
 			parent.AddChild(goop);
 			goop.GlobalPosition = pos;
-			
 		}
+		GameManager.Instance.FloorManager.maxEnemyCount = max_enemies;
+		GameManager.Instance.FloorManager.EnemiesDefeated = false;
+		
 	}
 }

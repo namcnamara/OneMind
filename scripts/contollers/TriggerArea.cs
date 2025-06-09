@@ -21,7 +21,8 @@ public partial class TriggerArea : Area3D
 		if (buildType == "home")
 		{
 			label.Text = "Spread Out";
-			FloorToLoad = "enemy";
+			FloorToLoad= GameManager.Instance.ProgressManager.get_progress();
+			GD.Print("The trigger will load ", FloorToLoad);
 		}
 		else
 		{

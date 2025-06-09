@@ -6,6 +6,7 @@
 [node name="Panel" type="Panel"]
 offset_right = 40.0
 offset_bottom = 40.0
+size_flags_vertical = 3
 
 [node name="Pause" type="TextureRect" parent="."]
 layout_mode = 0
