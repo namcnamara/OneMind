@@ -52,7 +52,7 @@ public partial class LichenLounge : RigidBody3D
 				Node BasicFloor = GetParent()?.GetParent();
 				if (BasicFloor is basic_floor floor)
 				{
-					floor.NeedToTrigger = true;
+					GameManager.Instance.FloorManager.NeedToTrigger = true;
 				}
 				else
 				{

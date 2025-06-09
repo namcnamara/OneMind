@@ -8,7 +8,6 @@ public partial class basic_floor : Node3D
 	public PackedScene WallScene;
 	private PackedScene TriggerAreaScene;
 	public Vector3 TriggerPosition;
-	public bool NeedToTrigger = false;
 	
 	private LevelBuilderInterface contentBuilder;
 	RandomNumberGenerator rand = new RandomNumberGenerator();
@@ -21,6 +20,7 @@ public partial class basic_floor : Node3D
 	public Aabb aabb;
 	public Vector3 FloorSize;
 	public String BuildType {get; set;} = "home";
+	public bool hasTriggered = false;
 	
 	public override void _Ready()
 	{	
@@ -35,16 +35,21 @@ public partial class basic_floor : Node3D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if(GameManager.Instance.FloorManager.CurrentFloor == "home" && NeedToTrigger)
+		//Process only handles trigger actions
+		if (hasTriggered)
+			return;
+		
+		if(GameManager.Instance.FloorManager.CurrentFloor == "home" && GameManager.Instance.FloorManager.NeedToTrigger)
 		{
 			SpawnTriggerArea(TriggerPosition, BuildType); 
-			NeedToTrigger = false;
+			GameManager.Instance.FloorManager.NeedToTrigger = false;
+			hasTriggered = true;
 		}
-		else if (GameManager.Instance.FloorManager.EnemiesDefeated && NeedToTrigger)
+		else if (GameManager.Instance.FloorManager.CurrentFloor != "home" && GameManager.Instance.FloorManager.EnemiesDefeated)
 		{
-			GD.Print("spawning area");
 			SpawnTriggerArea(TriggerPosition, BuildType); 
-			NeedToTrigger = false;
+			GameManager.Instance.FloorManager.NeedToTrigger = false;
+			hasTriggered = true;
 		}
 	}
 	

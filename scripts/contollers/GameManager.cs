@@ -23,6 +23,7 @@ public partial class GameManager : Node
 	public Dictionary<Friend, string> FriendIDsByRef { get; private set; } = new();
 	public IEnumerable<Friend> GetAllFriends() => FriendsByID.Values;
 	
+	
 	public override void _Ready()
 	{
 		Instance = this;

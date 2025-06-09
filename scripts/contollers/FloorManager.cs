@@ -9,6 +9,7 @@ public partial class FloorManager : Node
 	private Node currentFloorInstance;
 	public bool PlayerIsDead {get; set;} = false;
 	public Vector3 PlayerStart;
+	public bool NeedToTrigger = false;
 	
 	//Game scene contollers
 	public bool IsPaused {get; set;} = false;
